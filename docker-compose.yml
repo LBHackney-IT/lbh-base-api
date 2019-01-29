@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  app:
+    build: .
+    command: rails s
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    links:
+      - db
+    environment:
+      PGHOST: db
+  db:
+    image: postgres:10.6
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
