@@ -1,0 +1,98 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@3.0.0
+  aws-cli: circleci/aws-cli@0.1.9
+
+jobs:
+  deploy-to-staging:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-access-key-id: AWS_ID_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          aws-region: AWS_REGION
+      - run:
+          name: Install jq
+          command: |
+            sudo apt update
+            sudo apt install jq
+      - run:
+          name: Install ecs deploy
+          command: |
+            curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
+            sudo chmod +x /usr/bin/ecs-deploy
+      - run:
+          name: Premote target image
+          command: |
+            ecs-deploy \
+            --timeout 104400 \
+            --region $AWS_REGION \
+            --cluster $CLUSTER_NAME \
+            --service-name transactions-api-staging \
+            --image "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1" \
+            --timeout 104400 \
+            --use-latest-task-def
+          no_output_timeout: 30m
+
+  deploy-to-production:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-access-key-id: AWS_ID_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          aws-region: AWS_REGION
+      - run:
+          name: Install jq
+          command: |
+            sudo apt update
+            sudo apt install jq
+      - run:
+          name: Install ecs deploy
+          command: |
+            curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
+            sudo chmod +x /usr/bin/ecs-deploy
+      - run:
+          name: Premote target image
+          command: |
+            ecs-deploy \
+            --timeout 104400 \
+            --region $AWS_REGION \
+            --cluster $CLUSTER_NAME \
+            --service-name transactions-api-production \
+            --image "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1" \
+            --timeout 104400 \
+            --use-latest-task-def
+          no_output_timeout: 30m
+
+workflows:
+  build-and-deploy:
+      jobs:
+      - aws-ecr/build_and_push_image:
+          name: build_and_push_image
+          account-url: AWS_ECR_HOST
+          repo: $AWS_ECR_PATH
+          aws-access-key-id: AWS_ID_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          filters:
+            branches:
+              only: master
+
+      - deploy-to-staging:
+          requires:
+            - build_and_push_image
+
+      - permit-production-release:
+          type: approval
+          requires:
+            - deploy-to-staging
+
+      - deploy-to-production:
+          requires:
+            - permit-production-release
