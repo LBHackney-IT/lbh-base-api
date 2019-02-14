@@ -55,6 +55,7 @@ Ankh.NoLoad
 
 */obj/
 */out/
+*/bin/
 .idea
 *.DotSettings.user
 tmp/
