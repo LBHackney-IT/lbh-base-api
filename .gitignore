@@ -21,4 +21,11 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+<<<<<<< HEAD
 .idea/*
+=======
+*/obj/
+.idea
+
+*.DotSettings.user
+>>>>>>> bf90caed67b0c1344a0b59e849eacdd38678f785
