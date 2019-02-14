@@ -63,6 +63,7 @@ workflows:
       jobs:
       - aws-ecr/build_and_push_image:
           name: build_and_push_image
+          dockerfile: ./transactions-api/Dockerfile
           path: ./transactions-api
           account-url: AWS_ECR_HOST
           repo: $AWS_ECR_PATH
