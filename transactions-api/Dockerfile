@@ -8,6 +8,7 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . ./
+
 RUN dotnet publish -c Release -o out
 
 EXPOSE ${PORT:-3000}
