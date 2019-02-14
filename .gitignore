@@ -54,6 +54,7 @@ Ankh.NoLoad
 /config/master.key
 
 */obj/
+*/out/
 .idea
 *.DotSettings.user
 tmp/

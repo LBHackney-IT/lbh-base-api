@@ -1,0 +1,39 @@
+version: '3.2'
+
+services:
+  transactions-api:
+    image: transactions-api
+    build:
+      context: transactions-api/
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    links:
+      - stub-dev-db
+    volumes:
+      - './transactions-api:/app'
+      - 'obj:/app/obj'
+      - 'bin:/app/bin'
+      
+  stub-dev-db:
+    image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator-loaded
+    ports:
+      - 1433:1433
+  
+#  transactions-api-test:
+#    image: transactions-api-test
+#    build:
+#      context: .
+#      dockerfile: ./transactions-test/Dockerfile
+#    ports:
+#      - 3000:3000
+#    links:
+#      - stub-test-db
+  stub-test-db:
+    image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator
+    ports:
+      - 1433:1433
+
+volumes:
+  obj:
+  bin:
