@@ -1,0 +1,14 @@
+/Users/spreston/Projects/transactions-api/transactions-api/bin/Debug/netcoreapp2.1/transactions-api.deps.json
+/Users/spreston/Projects/transactions-api/transactions-api/bin/Debug/netcoreapp2.1/transactions-api.runtimeconfig.json
+/Users/spreston/Projects/transactions-api/transactions-api/bin/Debug/netcoreapp2.1/transactions-api.runtimeconfig.dev.json
+/Users/spreston/Projects/transactions-api/transactions-api/bin/Debug/netcoreapp2.1/transactions-api.dll
+/Users/spreston/Projects/transactions-api/transactions-api/bin/Debug/netcoreapp2.1/transactions-api.pdb
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.csprojResolveAssemblyReference.cache
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.csproj.CoreCompileInputs.cache
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.RazorAssemblyInfo.cache
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.RazorAssemblyInfo.cs
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.AssemblyInfoInputs.cache
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.AssemblyInfo.cs
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.RazorTargetAssemblyInfo.cache
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.dll
+/Users/spreston/Projects/transactions-api/transactions-api/obj/Debug/netcoreapp2.1/transactions-api.pdb
