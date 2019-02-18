@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Prime.UnitTests.Services
+namespace UnitTests.Services
 {
     [TestFixture]
     public class FakeTests
