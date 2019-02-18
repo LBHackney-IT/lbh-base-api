@@ -49,7 +49,7 @@ jobs:
       - run:
           name: build
           command: docker-compose build transactions-api-test
-      - test:
+      - run:
           name: Run tests
           command: docker-compose run transactions-api-test
 
