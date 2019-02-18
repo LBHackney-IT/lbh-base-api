@@ -91,6 +91,7 @@ workflows:
 
       - deploy-to-staging:
           requires:
+            - check
             - build_and_push_image
 
       - permit-production-release:
