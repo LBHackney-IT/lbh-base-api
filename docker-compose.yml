@@ -21,13 +21,11 @@ services:
     ports:
       - 1433:1433
 
-#  transactions-api-test:
-#    image: transactions-api-test
-#    build:
-#      context: .
-#      dockerfile: ./transactions-test/Dockerfile
-#    ports:
-#      - 3000:3000
+  transactions-api-test:
+    image: transactions-api-test
+    build:
+      context: .
+      dockerfile: transactions-api.Tests/Dockerfile
 #    links:
 #      - stub-test-db
   stub-test-db:
