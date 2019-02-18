@@ -42,6 +42,17 @@ commands:
           no_output_timeout: 30m
 
 jobs:
+  check:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - run:
+          name: build
+          command: docker-compose build transactions-api-test
+      - test:
+          name: Run tests
+          command: docker-compose run transactions-api-test
+
   deploy-to-staging:
     docker:
       - image: circleci/python:3.7
@@ -61,6 +72,7 @@ jobs:
 workflows:
   build-and-deploy:
       jobs:
+      - check
       - aws-ecr/build_and_push_image:
           name: build_and_push_image
           dockerfile: ./transactions-api/Dockerfile
