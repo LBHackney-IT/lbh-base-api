@@ -12,14 +12,15 @@ services:
       - stub-dev-db
     volumes:
       - './transactions-api:/app'
+      - 'out:/app/out'
       - 'obj:/app/obj'
       - 'bin:/app/bin'
-      
+
   stub-dev-db:
     image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator-loaded
     ports:
       - 1433:1433
-  
+
 #  transactions-api-test:
 #    image: transactions-api-test
 #    build:
@@ -37,3 +38,4 @@ services:
 volumes:
   obj:
   bin:
+  out:
