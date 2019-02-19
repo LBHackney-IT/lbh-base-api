@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace transactions_api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            Debug.WriteLine("Logging test.");
             return new string[] { "value1", "value2" };
         }
 
@@ -21,7 +23,8 @@ namespace transactions_api.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
+            //return "value";
         }
 
         // POST api/values

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <StartAction>Project</StartAction>
+    <EnvironmentVariables>
+      <Variable name="ASPNETCORE_ENVIRONMENT" value="Development" xmlns="" />
+      <Variable name="CORECLR_ENABLE_PROFILING" value="1" xmlns="" />
+      <Variable name="CORECLR_PROFILER" value="{36032161-FFC0-4B61-B559-F6C5D41BAE5A}" xmlns="" />
+      <Variable name="CORECLR_NEWRELIC_HOME" value="bin/debug/netcoreapp2.1/newrelic" xmlns="" />
+      <Variable name="CORECLR_PROFILER_PATH" value="bin/debug/netcoreapp2.1/newrelic/libNewRelicProfiler.so" xmlns="" />
+      <Variable name="NEW_RELIC_APP_NAME" value="transactions-api" xmlns="" />
+      <Variable name="NEW_RELIC_LICENSE_KEY" value="c5d2f95067df0ce712c675d25242e277f5b6e25f" xmlns="" />
+    </EnvironmentVariables>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+</Project>

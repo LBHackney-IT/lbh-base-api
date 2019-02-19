@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "8d19439ef22c432fe18f0eac697c8789fe30c00a"
+    "signature": "09c64ff99592014ec86643bcf20b1ba2aeb859f4"
   },
   "compilationOptions": {
     "defines": [
@@ -25,7 +25,8 @@
       "transactions-api/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.1.0",
-          "Microsoft.NETCore.App": "2.1.0"
+          "Microsoft.NETCore.App": "2.1.0",
+          "NewRelic.Agent": "8.13.798"
         },
         "runtime": {
           "transactions-api.dll": {}
@@ -205,6 +206,7 @@
           "Microsoft.NETCore.Platforms": "2.1.0"
         }
       },
+      "NewRelic.Agent/8.13.798": {},
       "Microsoft.AspNet.WebApi.Client/5.2.4": {
         "dependencies": {
           "Newtonsoft.Json": "11.0.2",
@@ -3204,6 +3206,13 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "NewRelic.Agent/8.13.798": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Nn7eFL96B9NwMCOucwnnijJzwUsztb8QAU2gh1smDqAv6G0vkXRN9usDrLslZ8eeKXYItyYmBgexlIN950z0LQ==",
+      "path": "newrelic.agent/8.13.798",
+      "hashPath": "newrelic.agent.8.13.798.nupkg.sha512"
     },
     "Microsoft.AspNet.WebApi.Client/5.2.4": {
       "type": "package",

@@ -2616,6 +2616,179 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "NewRelic.Agent/8.13.798": {
+        "type": "package",
+        "contentFiles": {
+          "contentFiles/any/netstandard2.0/newrelic/License.txt": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/License.txt"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/NewRelic.Agent.Core.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/NewRelic.Agent.Core.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/NewRelic.Agent.Core.pdb": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/NewRelic.Agent.Core.pdb"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/NewRelic.Agent.Extensions.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/NewRelic.Agent.Extensions.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/NewRelic.Api.Agent.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/NewRelic.Api.Agent.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/NewRelic.Profiler.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/NewRelic.Profiler.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/README.md": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/README.md"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.AspNetCore.Instrumentation.xml": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/NewRelic.Providers.Wrapper.AspNetCore.Instrumentation.xml"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.Instrumentation.xml": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.Instrumentation.xml"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.Misc.Instrumentation.xml": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/NewRelic.Providers.Wrapper.Misc.Instrumentation.xml"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.Instrumentation.xml": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.Instrumentation.xml"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.Sql.Instrumentation.xml": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/NewRelic.Providers.Wrapper.Sql.Instrumentation.xml"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.Instrumentation.xml": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.Instrumentation.xml"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/extension.xsd": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/extension.xsd"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Core.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Core.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Parsing.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Parsing.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Storage.AsyncLocal.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Storage.AsyncLocal.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.AspNetCore.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.AspNetCore.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.CustomInstrumentation.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.CustomInstrumentation.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.CustomInstrumentationAsync.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.CustomInstrumentationAsync.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.HttpClient.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.HttpClient.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.MongoDb26.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.MongoDb26.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.Sql.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.Sql.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.SqlAsync.dll": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.SqlAsync.dll"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/libNewRelicProfiler.so": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/libNewRelicProfiler.so"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/logs/placeholder": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/logs/placeholder"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/newrelic.config": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/newrelic.config"
+          },
+          "contentFiles/any/netstandard2.0/newrelic/newrelic.xsd": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": true,
+            "outputPath": "newrelic/newrelic.xsd"
+          }
+        }
+      },
       "Newtonsoft.Json/11.0.2": {
         "type": "package",
         "compile": {
@@ -6891,6 +7064,182 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "NewRelic.Agent/8.13.798": {
+      "sha512": "Nn7eFL96B9NwMCOucwnnijJzwUsztb8QAU2gh1smDqAv6G0vkXRN9usDrLslZ8eeKXYItyYmBgexlIN950z0LQ==",
+      "type": "package",
+      "path": "newrelic.agent/8.13.798",
+      "files": [
+        ".signature.p7s",
+        "content/newrelic/NewRelic.Agent.Core.dll",
+        "content/newrelic/NewRelic.Agent.Extensions.dll",
+        "content/newrelic/NewRelic.Profiler.dll",
+        "content/newrelic/extensions/JetBrains.Annotations.dll",
+        "content/newrelic/extensions/NewRelic.Core.dll",
+        "content/newrelic/extensions/NewRelic.Parsing.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Storage.CallContext.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Storage.HttpContext.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Storage.OperationContext.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Asp35.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Asp35.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.AspNetCore.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.CastleMonoRail2.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.CastleMonoRail2.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Couchbase.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Couchbase.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.CustomInstrumentation.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.CustomInstrumentationAsync.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.HttpWebRequest.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.HttpWebRequest.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Misc.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Msmq.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Msmq.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Mvc3.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Mvc3.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.NServiceBus.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.NServiceBus.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.OpenRasta.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.OpenRasta.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Owin.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Owin.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.RabbitMq.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.RabbitMq.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.RestSharp.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.RestSharp.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.ScriptHandlerFactory.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.ScriptHandlerFactory.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.ServiceStackRedis.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.ServiceStackRedis.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Sql.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Sql.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.StackExchangeRedis.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.StackExchangeRedis.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Wcf3.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.Wcf3.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi1.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi1.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi2.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi2.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebOptimization.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebOptimization.dll",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebServices.Instrumentation.xml",
+        "content/newrelic/extensions/NewRelic.Providers.Wrapper.WebServices.dll",
+        "content/newrelic/extensions/extension.xsd",
+        "content/newrelic/extensions/net46/NewRelic.Providers.Storage.AsyncLocal.dll",
+        "content/newrelic/extensions/netstandard2.0/NewRelic.Core.dll",
+        "content/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.AspNetCore.dll",
+        "content/newrelic/logs/placeholder",
+        "content/newrelic/newrelic.config",
+        "content/newrelic/newrelic.xsd",
+        "contentFiles/any/net45/newrelic/NewRelic.Agent.Core.dll",
+        "contentFiles/any/net45/newrelic/NewRelic.Agent.Extensions.dll",
+        "contentFiles/any/net45/newrelic/NewRelic.Profiler.dll",
+        "contentFiles/any/net45/newrelic/extensions/JetBrains.Annotations.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Core.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Parsing.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Storage.CallContext.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Storage.HttpContext.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Storage.OperationContext.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Asp35.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Asp35.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.AspNetCore.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.CastleMonoRail2.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.CastleMonoRail2.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Couchbase.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Couchbase.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.CustomInstrumentation.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.CustomInstrumentationAsync.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.HttpWebRequest.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.HttpWebRequest.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Misc.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Msmq.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Msmq.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Mvc3.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Mvc3.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.NServiceBus.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.NServiceBus.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.OpenRasta.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.OpenRasta.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Owin.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Owin.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.RabbitMq.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.RabbitMq.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.RestSharp.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.RestSharp.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.ScriptHandlerFactory.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.ScriptHandlerFactory.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.ServiceStackRedis.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.ServiceStackRedis.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Sql.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Sql.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.StackExchangeRedis.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.StackExchangeRedis.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Wcf3.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.Wcf3.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi1.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi1.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi2.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebApi2.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebOptimization.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebOptimization.dll",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebServices.Instrumentation.xml",
+        "contentFiles/any/net45/newrelic/extensions/NewRelic.Providers.Wrapper.WebServices.dll",
+        "contentFiles/any/net45/newrelic/extensions/extension.xsd",
+        "contentFiles/any/net45/newrelic/extensions/net46/NewRelic.Providers.Storage.AsyncLocal.dll",
+        "contentFiles/any/net45/newrelic/extensions/netstandard2.0/NewRelic.Core.dll",
+        "contentFiles/any/net45/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.AspNetCore.dll",
+        "contentFiles/any/net45/newrelic/logs/placeholder",
+        "contentFiles/any/net45/newrelic/newrelic.config",
+        "contentFiles/any/net45/newrelic/newrelic.xsd",
+        "contentFiles/any/netstandard2.0/newrelic/License.txt",
+        "contentFiles/any/netstandard2.0/newrelic/NewRelic.Agent.Core.dll",
+        "contentFiles/any/netstandard2.0/newrelic/NewRelic.Agent.Core.pdb",
+        "contentFiles/any/netstandard2.0/newrelic/NewRelic.Agent.Extensions.dll",
+        "contentFiles/any/netstandard2.0/newrelic/NewRelic.Api.Agent.dll",
+        "contentFiles/any/netstandard2.0/newrelic/NewRelic.Profiler.dll",
+        "contentFiles/any/netstandard2.0/newrelic/README.md",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.AspNetCore.Instrumentation.xml",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.HttpClient.Instrumentation.xml",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.Misc.Instrumentation.xml",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.MongoDb26.Instrumentation.xml",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.Sql.Instrumentation.xml",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/NewRelic.Providers.Wrapper.SqlAsync.Instrumentation.xml",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/extension.xsd",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Core.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Parsing.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Storage.AsyncLocal.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.AspNetCore.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.CustomInstrumentation.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.CustomInstrumentationAsync.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.HttpClient.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.MongoDb26.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.Sql.dll",
+        "contentFiles/any/netstandard2.0/newrelic/extensions/netstandard2.0/NewRelic.Providers.Wrapper.SqlAsync.dll",
+        "contentFiles/any/netstandard2.0/newrelic/libNewRelicProfiler.so",
+        "contentFiles/any/netstandard2.0/newrelic/logs/placeholder",
+        "contentFiles/any/netstandard2.0/newrelic/newrelic.config",
+        "contentFiles/any/netstandard2.0/newrelic/newrelic.xsd",
+        "newrelic.agent.8.13.798.nupkg.sha512",
+        "newrelic.agent.nuspec",
+        "tools/NewRelicHelper.psm1",
+        "tools/install.ps1"
       ]
     },
     "Newtonsoft.Json/11.0.2": {
@@ -11502,7 +11851,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.AspNetCore.App >= 2.1.0",
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "NewRelic.Agent >= 8.13.798"
     ]
   },
   "packageFolders": {
@@ -11554,6 +11904,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "2.1.0"
+          },
+          "NewRelic.Agent": {
+            "target": "Package",
+            "version": "8.13.798"
           }
         },
         "imports": [
