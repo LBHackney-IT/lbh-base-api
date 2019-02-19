@@ -6,7 +6,7 @@ using NUnit.Framework;
 using transactions_api.UseCase.V1;
 using Moq;
 
-namespace  UnitTests.V1.UseCase
+namespace UnitTests.V1.UseCase
 {
     [TestFixture]
     public class DbHealthCheckUseCaseTests

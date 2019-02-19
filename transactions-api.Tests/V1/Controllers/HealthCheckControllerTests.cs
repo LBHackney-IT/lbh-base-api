@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using transactions_api.Controllers.V1;
 
-namespace transactions_api.Controllers.V1
+namespace UnitTests.V1.Controllers
 {
 
     [TestFixture]
