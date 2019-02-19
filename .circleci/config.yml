@@ -93,12 +93,21 @@ workflows:
           requires:
             - check
             - build_and_push_image
+          filters:
+            branches:
+              only: master
 
       - permit-production-release:
           type: approval
           requires:
             - deploy-to-staging
+          filters:
+            branches:
+              only: master
 
       - deploy-to-production:
           requires:
             - permit-production-release
+          filters:
+            branches:
+              only: master
