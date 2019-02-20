@@ -36,7 +36,7 @@ namespace UnitTests.V1.UseCase
         }
 
         [Test]
-        public async Task ReturnsResponseWithStatus()
+        public void ReturnsResponseWithStatus()
         {
             var response = _classUnderTest.Execute();
 

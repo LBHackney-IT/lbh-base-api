@@ -17,4 +17,3 @@ shell:
 .PHONY: test
 test:
 	docker-compose build transactions-api-test && docker-compose run transactions-api-test
-
