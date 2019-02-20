@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using transactions_api.Controllers.V1;
+using transactions_api.UseCase.V1;
 
 namespace UnitTests.V1.Controllers
 {
@@ -27,6 +28,12 @@ namespace UnitTests.V1.Controllers
             Assert.AreEqual(response.StatusCode, 200);
             Assert.AreEqual(new Dictionary<string, object> {{"success", true}}, response.Value);
 
+        }
+
+        [Test]
+        public void ThrowErrorThrows()
+        {
+            Assert.Throws<TestOpsErrorException>(_classUnderTest.ThrowError);
         }
     }
 }
