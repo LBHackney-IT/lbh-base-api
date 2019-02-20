@@ -14,11 +14,9 @@ RUN dotnet publish -c Release -o out
 ENV CORECLR_ENABLE_PROFILING=1 \
 CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \
 CORECLR_NEWRELIC_HOME=./out/newrelic \
-CORECLR_PROFILER_PATH=./out/newrelic/libNewRelicProfiler.so \
+CORECLR_PROFILER_PATH=./out/newrelic/NewRelic.Profiler.dll \
 NEW_RELIC_LICENSE_KEY="${NEW_RELIC_LICENSE_KEY}" \
 NEW_RELIC_APP_NAME="${NEW_RELIC_APP_NAME}"
-
-COPY newrelic ./out/newrelic
 
 EXPOSE ${PORT:-3000}
 
