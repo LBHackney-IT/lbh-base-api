@@ -10,6 +10,7 @@ namespace transactions_api.Controllers.V1
         {
             ConfigureJsonSerializer();
         }
+
         public static void ConfigureJsonSerializer()
         {
             JsonConvert.DefaultSettings = () =>
