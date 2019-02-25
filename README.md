@@ -1,6 +1,6 @@
 # LBH Transactions API
 
-TODO
+This API brings all the transaction records for citizens from Universal Housing backoffice.  It does all the required calculations with regards to the transactions and allows any Front-end to use them straightaway.  The calculation logic being centralized makes the future change control on the API easier making sure changes are applied to all the Front-end applications from one place.
 
 ## Stack
 
