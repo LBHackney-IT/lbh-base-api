@@ -15,13 +15,13 @@ namespace UnitTests.V1.Gateways
         [SetUp]
         public void Setup()
         {
-            _classUnderTest = new TransactionsGateway(new UHContext());
+            _classUnderTest = new TransactionsGateway(new UhContext());
         }
 
         [Test]
         public void ListOfTransactionsImplementsBoundaryInterface()
         {
-            Assert.True(_classUnderTest is ITransactionsGateway);
+            Assert.NotNull(_classUnderTest is ITransactionsGateway);
         }
 
         [Test]

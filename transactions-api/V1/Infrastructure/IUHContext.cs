@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using transactions_api.V1.Domain;
 
-namespace UnitTests.V1.Gateways
+namespace UnitTests.V1.Infrastructure
 {
     public interface IUHContext
     {
