@@ -2,6 +2,7 @@
 using Bogus;
 using NUnit.Framework;
 using transactions_api.V1.Domain;
+using UnitTests.V1.Infrastructure;
 
 namespace UnitTests.V1.Gateways
 {
@@ -14,7 +15,7 @@ namespace UnitTests.V1.Gateways
         [SetUp]
         public void Setup()
         {
-            _classUnderTest = new TransactionsGateway();
+            _classUnderTest = new TransactionsGateway(new UHContext());
         }
 
         [Test]
