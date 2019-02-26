@@ -9,6 +9,7 @@ using NUnit.Framework;
 using transactions_api.Controllers.V1;
 using transactions_api.V1.Boundary;
 using transactions_api.V1.Domain;
+using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Controllers
 {
@@ -34,13 +35,13 @@ namespace UnitTests.V1.Controllers
         [Test]
         public void ReturnsCorrectRandomResponseWithStatus()
         {
-            var transaction = CreateTransaction();
+            var transaction = TransactionHelper.CreateTransaction();
             var request = ListTransactionsRequest();
             var datetime = faker.Date.Past();
 
             _mockListTransacionsUsecase.Setup(s =>
                     s.Execute(It.IsAny<ListTransactionsRequest>()))
-                .Returns(new ListTransactionsResponse(new [] { transaction }, request, datetime));
+                .Returns(new ListTransactionsResponse(new List<Transaction>{ transaction }, request, datetime));
 
             var response = _classUnderTest.GetTransactions(request);
             var json = JsonConvert.SerializeObject(response.Value);
@@ -63,18 +64,6 @@ namespace UnitTests.V1.Controllers
                     }
                 }
             }), json);
-        }
-
-        private static Transaction CreateTransaction()
-        {
-            var faker = new Faker();
-            var transaction = new Transaction
-            {
-                Date = faker.Date.Past(),
-                Code = faker.Random.Word(),
-                Balence = faker.Finance.Amount(),
-            };
-            return transaction;
         }
 
         private static ListTransactionsRequest ListTransactionsRequest()
@@ -104,7 +93,7 @@ namespace UnitTests.V1.Controllers
             var generatedAt = new DateTime(2019, 02, 22, 09, 52, 23, 23);
             _mockListTransacionsUsecase.Setup(s =>
                     s.Execute(It.IsAny<ListTransactionsRequest>()))
-                .Returns(new ListTransactionsResponse(new [] { transaction }, request, generatedAt));
+                .Returns(new ListTransactionsResponse(new List<Transaction>{ transaction }, request, generatedAt));
 
             var response = _classUnderTest.GetTransactions(request);
             var json = JsonConvert.SerializeObject(response.Value);

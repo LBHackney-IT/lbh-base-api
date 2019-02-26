@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using NUnit.Framework;
@@ -34,7 +35,8 @@ namespace UnitTests.V1.UseCase
             var propertyRef = new Faker().Random.Hash();
             var request = new ListTransactionsRequest {PropertyRef = propertyRef};
 
-            Transaction[] response = {new Transaction()};
+            List<Transaction> response = new List<Transaction> {new Transaction()};
+
             _transactionsGateway.Setup(foo => foo.GetTransactionsByPropertyRef(propertyRef)).Returns(response);
 
             var results = _classUnderTest.Execute(request);
@@ -66,7 +68,7 @@ namespace UnitTests.V1.UseCase
 
             var request = new ListTransactionsRequest {PropertyRef = propertyRef};
 
-            Transaction[] response = {new Transaction(), new Transaction()};
+            List<Transaction> response = new List<Transaction>{ new Transaction(), new Transaction()};
 
             _transactionsGateway.Setup(foo => foo.GetTransactionsByPropertyRef(propertyRef)).Returns(response);
 

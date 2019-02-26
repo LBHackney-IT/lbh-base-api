@@ -5,6 +5,6 @@ namespace UnitTests.V1.Infrastructure
 {
     public interface IUHContext
     {
-        DbSet<Transaction> UTransactions { get; set; }
+        DbSet<UhTransaction> UTransactions { get; set; }
     }
 }

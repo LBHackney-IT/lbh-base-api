@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using transactions_api.V1.Domain;
 
 namespace transactions_api.V1.Boundary
@@ -7,9 +8,9 @@ namespace transactions_api.V1.Boundary
     {
         public readonly ListTransactionsRequest Request;
         public readonly DateTime GeneratedAt;
-        public readonly Transaction[] Transactions;
+        public readonly List<Transaction> Transactions;
 
-        public ListTransactionsResponse(Transaction[] transactions, ListTransactionsRequest request, DateTime generatedAt)
+        public ListTransactionsResponse(List<Transaction> transactions, ListTransactionsRequest request, DateTime generatedAt)
         {
             Request = request;
             GeneratedAt = generatedAt;

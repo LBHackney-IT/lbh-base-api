@@ -4,6 +4,17 @@ namespace transactions_api.V1.Domain
 {
     public class Transaction
     {
+
+        public static Transaction fromUHTransaction(UhTransaction transaction)
+        {
+            return new Transaction
+            {
+                Balence = transaction.Balence,
+                Code = transaction.Code,
+                Date = transaction.Date
+            };
+        }
+
         public Decimal Balence { get; set; }
         public string Code { get; set; }
         public DateTime Date { get; set; }
@@ -13,7 +24,9 @@ namespace transactions_api.V1.Domain
             Transaction transaction = obj as Transaction;
             if (transaction != null)
             {
-                return Balence == transaction.Balence && string.Equals(Code, transaction.Code) && Date.Equals(transaction.Date);
+                return Balence == transaction.Balence &&
+                       string.Equals(Code, transaction.Code) &&
+                       Date.Equals(transaction.Date);
             }
             return false;
         }

@@ -2,6 +2,7 @@ using System;
 using Bogus;
 using NUnit.Framework;
 using transactions_api.V1.Domain;
+using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Domain
 {
@@ -36,22 +37,13 @@ namespace UnitTests.V1.Domain
         [Test]
         public void TransactionsCanBeCompared()
         {
-            DateTime date = new DateTime(2019, 02, 21);
-            string words = _faker.Random.Words();
-            decimal balance = _faker.Finance.Amount();
-
-            Transaction transactionA = new Transaction
-            {
-                Date = date,
-                Code = words,
-                Balence = balance
-            };
+            Transaction transactionA = TransactionHelper.CreateTransaction();
 
             Transaction transactionB = new Transaction
             {
-                Date = date,
-                Code = words,
-                Balence = balance
+                Date = transactionA.Date,
+                Code = transactionA.Code,
+                Balence = transactionA.Balence
             };
 
             Assert.True(transactionA.Equals(transactionB));
@@ -59,6 +51,19 @@ namespace UnitTests.V1.Domain
 
             Assert.AreNotSame(transactionA, transactionB);
             Assert.AreEqual(transactionA, transactionB);
+        }
+
+        [Test]
+        public void CanBeCreatedFromUhTransactions()
+        {
+            var uhTransaction = new UhTransaction();
+
+            var transaction = Transaction.fromUHTransaction(uhTransaction);
+
+            Assert.AreEqual(uhTransaction.Balence,transaction.Balence);
+            Assert.AreEqual(uhTransaction.Code,transaction.Code);
+            Assert.AreEqual(uhTransaction.Date,transaction.Date);
+
         }
     }
 }

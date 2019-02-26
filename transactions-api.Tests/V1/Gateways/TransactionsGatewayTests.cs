@@ -1,13 +1,13 @@
-
+using System.Linq;
 using Bogus;
 using NUnit.Framework;
 using transactions_api.V1.Domain;
-using UnitTests.V1.Infrastructure;
+using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Gateways
 {
     [TestFixture]
-    public class TransactionsGatewayTests
+    public class TransactionsGatewayTests : DbTest
     {
         private readonly Faker _faker = new Faker();
         private TransactionsGateway _classUnderTest;
@@ -15,7 +15,7 @@ namespace UnitTests.V1.Gateways
         [SetUp]
         public void Setup()
         {
-            _classUnderTest = new TransactionsGateway(new UhContext());
+            _classUnderTest = new TransactionsGateway(_uhContext);
         }
 
         [Test]
@@ -25,15 +25,27 @@ namespace UnitTests.V1.Gateways
         }
 
         [Test]
+        public void GetTransactionsByPropertyRef_ReturnsEmptyArray()
+        {
+            var responce = _classUnderTest.GetTransactionsByPropertyRef("random");
+
+            Assert.AreEqual(0, responce.Count);
+            Assert.AreEqual(null, responce.FirstOrDefault());
+        }
+
+        [Test]
         public void GetTransactionsByPropertyRef_ReturnsCorrectResponse()
         {
-            var propRef = _faker.Random.Hash();
+            Transaction transaction = TransactionHelper.CreateTransaction();
 
-            Transaction[] expectedResponse = {new Transaction()};
+            UhTransaction dbTrans = UhTransactionHelper.CreateUhTransactionFrom(transaction);
 
-            var responce = _classUnderTest.GetTransactionsByPropertyRef(propRef);
+            _uhContext.UTransactions.Add(dbTrans);
+            _uhContext.SaveChanges();
 
-            Assert.AreEqual(expectedResponse, responce);
+            var responce = _classUnderTest.GetTransactionsByPropertyRef(dbTrans.PropRef);
+
+            Assert.AreEqual(transaction, responce.FirstOrDefault());
         }
     }
 }
