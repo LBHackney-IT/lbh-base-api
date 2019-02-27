@@ -14,7 +14,9 @@ namespace UnitTests
         {
             DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
 
-            string TEST_UH_URL = Environment.GetEnvironmentVariable("TEST_UH_URL");
+            string TEST_UH_URL = Environment.GetEnvironmentVariable("TEST_UH_URL") ??
+                                 @"Server=localhost;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';";
+
             builder.UseSqlServer(TEST_UH_URL);
 
             _uhContext = new UhContext(builder.Options);
