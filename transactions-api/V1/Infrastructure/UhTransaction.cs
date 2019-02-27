@@ -11,7 +11,7 @@ namespace transactions_api.V1.Domain
         {
             return new UhTransaction
             {
-                Balence = transaction.Balence,
+                Balance = transaction.Balance,
                 Code = transaction.Code,
                 Date = transaction.Date
             };
@@ -21,7 +21,7 @@ namespace transactions_api.V1.Domain
         public String PropRef { get; set; }
 
         [Column("full_value")]
-        public Decimal Balence { get; set; }
+        public Decimal Balance { get; set; }
 
         [Column("trans_type")]
         public string Code { get; set; }
@@ -66,7 +66,7 @@ namespace transactions_api.V1.Domain
             {
                 return false;
             }
-            return Balence == other.Balence &&
+            return Balance == other.Balance &&
                    string.Equals(PropRef, other.PropRef) &&
                    string.Equals(Code, other.Code) &&
                    Date.Equals(other.Date) &&
@@ -86,7 +86,7 @@ namespace transactions_api.V1.Domain
         {
             unchecked
             {
-                var hashCode = Balence.GetHashCode();
+                var hashCode = Balance.GetHashCode();
                 hashCode = (hashCode * 397) ^ (PropRef != null ? PropRef.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Code != null ? Code.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Date.GetHashCode();

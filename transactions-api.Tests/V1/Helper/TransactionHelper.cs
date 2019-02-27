@@ -12,7 +12,7 @@ namespace UnitTests.V1.Helper
             {
                 Date = faker.Date.Past(),
                 Code = faker.Random.String(length: 3),
-                Balence = faker.Finance.Amount(),
+                Balance = faker.Finance.Amount(),
             };
             return transaction;
         }

@@ -16,7 +16,7 @@ namespace UnitTests.V1.Infrastructure
             Transaction transaction = TransactionHelper.CreateTransaction();
             var result = UhTransaction.fromTransaction(transaction);
 
-            Assert.AreEqual(transaction.Balence, result.Balence);
+            Assert.AreEqual(transaction.Balance, result.Balance);
             Assert.AreEqual(transaction.Code, result.Code);
             Assert.AreEqual(transaction.Date, result.Date);
         }

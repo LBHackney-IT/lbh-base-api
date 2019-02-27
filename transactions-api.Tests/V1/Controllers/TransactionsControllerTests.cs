@@ -57,7 +57,7 @@ namespace UnitTests.V1.Controllers
                 { "generatedAt", datetime},
                 { "transactions", new [] { new Dictionary<string, object>
                         {
-                            {"balence", transaction.Balence},
+                            {"balance", transaction.Balance},
                             {"code", transaction.Code},
                             {"date", transaction.Date}
                         }
@@ -82,7 +82,7 @@ namespace UnitTests.V1.Controllers
             var transaction = new Transaction
             {
                 Code = "Field",
-                Balence = 508.64m,
+                Balance = 508.64m,
                 Date = new DateTime(2019, 02, 22, 09, 52, 23, 22)
             };
             var request = new ListTransactionsRequest
@@ -112,7 +112,7 @@ namespace UnitTests.V1.Controllers
   ""generatedAt"": ""2019-02-22T09:52:23.023Z"",
   ""transactions"": [
     {
-      ""balence"": 508.64,
+      ""balance"": 508.64,
       ""code"": ""Field"",
       ""date"": ""2019-02-22T09:52:23.022Z""
     }

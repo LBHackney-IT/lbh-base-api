@@ -9,13 +9,13 @@ namespace transactions_api.V1.Domain
         {
             return new Transaction
             {
-                Balence = transaction.Balence,
+                Balance = transaction.Balance,
                 Code = transaction.Code,
                 Date = transaction.Date
             };
         }
 
-        public Decimal Balence { get; set; }
+        public Decimal Balance { get; set; }
         public string Code { get; set; }
         public DateTime Date { get; set; }
 
@@ -24,7 +24,7 @@ namespace transactions_api.V1.Domain
             Transaction transaction = obj as Transaction;
             if (transaction != null)
             {
-                return Balence == transaction.Balence &&
+                return Balance == transaction.Balance &&
                        string.Equals(Code, transaction.Code) &&
                        Date.Equals(transaction.Date);
             }
@@ -35,7 +35,7 @@ namespace transactions_api.V1.Domain
         {
             unchecked
             {
-                var hashCode = Balence.GetHashCode();
+                var hashCode = Balance.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Code != null ? Code.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Date.GetHashCode();
                 return hashCode;

@@ -15,7 +15,7 @@ namespace UnitTests.V1.Domain
         public void TransactionsHaveABalance()
         {
             Transaction transaction = new Transaction();
-            Assert.Zero(transaction.Balence);
+            Assert.Zero(transaction.Balance);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace UnitTests.V1.Domain
             {
                 Date = transactionA.Date,
                 Code = transactionA.Code,
-                Balence = transactionA.Balence
+                Balance = transactionA.Balance
             };
 
             Assert.True(transactionA.Equals(transactionB));
@@ -60,7 +60,7 @@ namespace UnitTests.V1.Domain
 
             var transaction = Transaction.fromUHTransaction(uhTransaction);
 
-            Assert.AreEqual(uhTransaction.Balence,transaction.Balence);
+            Assert.AreEqual(uhTransaction.Balance,transaction.Balance);
             Assert.AreEqual(uhTransaction.Code,transaction.Code);
             Assert.AreEqual(uhTransaction.Date,transaction.Date);
 
