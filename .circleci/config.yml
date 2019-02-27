@@ -53,7 +53,7 @@ jobs:
           command: docker-compose build transactions-api-test
       - run:
           name: Run tests
-          command: docker-compose run transactions-api-test
+          command: docker-compose up transactions-api-test
 
   deploy-to-staging:
     docker:

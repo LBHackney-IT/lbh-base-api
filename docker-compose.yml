@@ -11,8 +11,7 @@ services:
     links:
       - stub-dev-db
     environment:
-      - UH_URL="Server=stub-dev-db;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';"
-
+      - UH_URL=Server=stub-dev-db;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';
   stub-dev-db:
     image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator-loaded
     ports:
@@ -23,14 +22,11 @@ services:
     build:
       context: .
       dockerfile: transactions-api.Tests/Dockerfile
-#    links:
-#      - stub-test-db
+    environment:
+      - TEST_UH_URL=Server=stub-test-db;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';
+    links:
+      - stub-test-db
   stub-test-db:
     image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator
     ports:
       - 1433:1433
-
-volumes:
-  obj:
-  bin:
-  out:
