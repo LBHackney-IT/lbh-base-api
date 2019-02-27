@@ -2,6 +2,7 @@ using System;
 using Bogus;
 using NUnit.Framework;
 using transactions_api.V1.Domain;
+using transactions_api.V1.Factory;
 using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Domain
@@ -9,8 +10,6 @@ namespace UnitTests.V1.Domain
     [TestFixture]
     public class TransactionTests
     {
-        Faker _faker = new Faker();
-
         [Test]
         public void TransactionsHaveABalance()
         {
@@ -51,19 +50,6 @@ namespace UnitTests.V1.Domain
 
             Assert.AreNotSame(transactionA, transactionB);
             Assert.AreEqual(transactionA, transactionB);
-        }
-
-        [Test]
-        public void CanBeCreatedFromUhTransactions()
-        {
-            var uhTransaction = new UhTransaction();
-
-            var transaction = Transaction.fromUHTransaction(uhTransaction);
-
-            Assert.AreEqual(uhTransaction.Balance,transaction.Balance);
-            Assert.AreEqual(uhTransaction.Code,transaction.Code);
-            Assert.AreEqual(uhTransaction.Date,transaction.Date);
-
         }
     }
 }

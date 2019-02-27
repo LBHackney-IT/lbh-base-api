@@ -4,17 +4,6 @@ namespace transactions_api.V1.Domain
 {
     public class Transaction
     {
-
-        public static Transaction fromUHTransaction(UhTransaction transaction)
-        {
-            return new Transaction
-            {
-                Balance = transaction.Balance,
-                Code = transaction.Code,
-                Date = transaction.Date
-            };
-        }
-
         public Decimal Balance { get; set; }
         public string Code { get; set; }
         public DateTime Date { get; set; }
