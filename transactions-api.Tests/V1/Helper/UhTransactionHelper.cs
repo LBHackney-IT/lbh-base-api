@@ -13,7 +13,7 @@ namespace UnitTests.V1.Helper
         public static UhTransaction CreateUhTransactionFrom(Transaction transaction)
         {
             Faker _faker = new Faker();
-            UhTransaction uhTransaction = UhTransaction.fromTransaction(transaction);
+            UhTransaction uhTransaction = CopyTransactionFields(transaction);
             uhTransaction.Id = _faker.Random.Int();
             uhTransaction.PropRef = _faker.Random.AlphaNumeric(length: 12);
             uhTransaction.transno = _faker.Random.Int();
@@ -26,6 +26,16 @@ namespace UnitTests.V1.Helper
             uhTransaction.line_segno = _faker.Random.Decimal();
 
             return uhTransaction;
+        }
+
+        private static UhTransaction CopyTransactionFields(Transaction transaction)
+        {
+            return new UhTransaction
+            {
+                Balance = transaction.Balance,
+                Code = transaction.Code,
+                Date = transaction.Date
+            };
         }
     }
 }

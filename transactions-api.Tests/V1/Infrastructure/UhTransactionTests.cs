@@ -11,14 +11,29 @@ namespace UnitTests.V1.Infrastructure
     public class UhTransactionTests
     {
         [Test]
-        public void canCreateFromATransactionDomain()
+        public void canBeEqual()
         {
-            Transaction transaction = TransactionHelper.CreateTransaction();
-            var result = UhTransaction.fromTransaction(transaction);
+            UhTransaction a = UhTransactionHelper.CreateUhTransaction();
+            UhTransaction b = new UhTransaction
+            {
+                PropRef = a.PropRef,
+                Balance = a.Balance,
+                Code = a.Code,
+                Date = a.Date,
+                Id = a.Id,
+                batchno = a.batchno,
+                transno = a.transno,
+                line_no = a.line_no,
+                adjustment = a.adjustment,
+                apportion = a.apportion,
+                prop_deb = a.prop_deb,
+                none_rent = a.none_rent,
+                receipted = a.receipted,
+                line_segno = a.line_segno
+            };
 
-            Assert.AreEqual(transaction.Balance, result.Balance);
-            Assert.AreEqual(transaction.Code, result.Code);
-            Assert.AreEqual(transaction.Date, result.Date);
+            Assert.AreEqual(a.GetHashCode(), b.GetHashCode());
+            Assert.AreEqual(a, b);
         }
 
     }
