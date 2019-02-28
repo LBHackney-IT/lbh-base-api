@@ -61,6 +61,14 @@ jobs:
           name: Run tests
           command: docker-compose up transactions-api-test
 
+  deploy-to-development:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - deploy-env:
+          service-name: 'transactions-api-development'
+          image-name: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
+
   deploy-to-staging:
     docker:
       - image: circleci/python:3.7
@@ -95,10 +103,25 @@ workflows:
             branches:
               only: master
 
-      - deploy-to-staging:
+      - deploy-to-development:
           requires:
             - check
             - build_and_push_image
+          filters:
+            branches:
+              only: master
+
+      - permit-staging-release:
+          type: approval
+          requires:
+            - deploy-to-development
+          filters:
+            branches:
+              only: master
+
+      - deploy-to-staging:
+          requires:
+            - permit-staging-release
           filters:
             branches:
               only: master
