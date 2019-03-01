@@ -9,22 +9,23 @@ Transactions API brings all the transaction records for citizens from Universal 
 
 ## Dependencies
 
-- Universal Housing
+- Universal Housing Simulator
 
 ## Contributing
 
 ### Setup
 
 1. Install [Docker][docker-download].
-2. Clone this repository.
-3. Open it in your IDE.
+2. Install [AWS CLI][AWS-CLI].
+3. Clone this repository.
+4. Open it in your IDE.
 
 ### Development
 
 To serve the application, run it using your IDE of choice, we use Visual Studio CE and JetBrains Rider on Mac. 
 
 The application can also be served locally using docker:
-1. Intall [AWS CLI][AWS-CLI] and set it up with your AWS security credentials.
+1.  Add you security credentials to AWS CLI.
 ```sh
 $ aws configure
 ```
@@ -34,7 +35,7 @@ $ aws ecr get-login --no-include-email
 ```
 3. Build and serve the application. It will be available in the port 3000.
 ```sh
-$ docker-compose run transactions-api dotnet build && docker-compose up transactions-api
+$ make build && make serve
 ```
 
 ### Release process
@@ -58,7 +59,7 @@ Our staging and production environments are hosted by AWS. We would deploy to pr
 
 To run tests:
 ```sh
-$ docker-compose build transactions-api-test && docker-compose run transactions-api-test
+$ make test
 ```
 
 ## Contacts
