@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\transactions-api\transactions-api.csproj" />
+    <ProjectReference Include="..\base-api\base-api.csproj" />
   </ItemGroup>
 
 </Project>
