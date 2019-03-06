@@ -1,6 +1,6 @@
 using System;
 
-namespace transactions_api.V1.Boundary
+namespace base_api.V1.Boundary
 {
     public class HealthCheckResponse
     {

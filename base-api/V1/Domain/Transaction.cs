@@ -1,6 +1,6 @@
 using System;
 
-namespace transactions_api.V1.Domain
+namespace base_api.V1.Domain
 {
     public class Transaction
     {

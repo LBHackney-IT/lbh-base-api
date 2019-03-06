@@ -1,11 +1,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using transactions_api.V1.Domain;
-using transactions_api.V1.Factory;
-using UnitTests.V1.Infrastructure;
+using base_api.V1.Domain;
+using base_api.V1.Factory;
+using base_api.V1.Infrastructure;
 
-namespace UnitTests.V1.Gateways
+namespace base_api.V1.Gateways
 {
     public class TransactionsGateway : ITransactionsGateway
     {

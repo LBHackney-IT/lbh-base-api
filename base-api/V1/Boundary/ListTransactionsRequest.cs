@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace transactions_api.V1.Boundary
+namespace base_api.V1.Boundary
 {
     public class ListTransactionsRequest
     {

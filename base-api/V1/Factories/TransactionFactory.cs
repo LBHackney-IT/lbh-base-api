@@ -1,6 +1,6 @@
-using transactions_api.V1.Domain;
+using base_api.V1.Domain;
 
-namespace transactions_api.V1.Factory
+namespace base_api.V1.Factory
 {
     public class TransactionFactory : AbstractTransactionFactory
     {

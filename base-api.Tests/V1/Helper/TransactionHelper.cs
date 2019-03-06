@@ -1,5 +1,5 @@
 using Bogus;
-using transactions_api.V1.Domain;
+using base_api.V1.Domain;
 
 namespace UnitTests.V1.Helper
 {

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace transactions_api.V1.Domain
+namespace base_api.V1.Domain
 {
     [Table("rtrans")]
     public class UhTransaction

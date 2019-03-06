@@ -1,10 +1,10 @@
 version: '3.2'
 
 services:
-  transactions-api:
-    image: transactions-api
+  base-api:
+    image: base-api
     build:
-      context: transactions-api/
+      context: base-api/
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
@@ -17,11 +17,11 @@ services:
     ports:
       - 1433:1433
 
-  transactions-api-test:
-    image: transactions-api-test
+  base-api-test:
+    image: base-api-test
     build:
       context: .
-      dockerfile: transactions-api.Tests/Dockerfile
+      dockerfile: base-api.Tests/Dockerfile
     environment:
       - TEST_UH_URL=Server=stub-test-db;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';
     links:

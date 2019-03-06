@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using transactions_api.Controllers.V1;
-using transactions_api.V1.Boundary;
-using transactions_api.V1.Domain;
+using base_api.Controllers.V1;
+using base_api.V1.Boundary;
+using base_api.V1.Domain;
 using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Controllers

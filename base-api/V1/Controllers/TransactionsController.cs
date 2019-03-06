@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using transactions_api.V1.Boundary;
+using base_api.V1.Boundary;
 
-namespace transactions_api.Controllers.V1
+namespace base_api.Controllers.V1
 {
     [Route("api/v1/transactions")]
     [ApiController]

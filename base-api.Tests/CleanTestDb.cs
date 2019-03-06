@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using UnitTests.V1.Infrastructure;
+using base_api.V1.Infrastructure;
 
 namespace UnitTests
 {

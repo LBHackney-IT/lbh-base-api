@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using transactions_api.UseCase.V1;
-using transactions_api.V1.Boundary;
-using UnitTests.V1.Gateways;
-using UnitTests.V1.Infrastructure;
+using base_api.UseCase.V1;
+using base_api.V1.Boundary;
+using base_api.V1.Gateways;
+using base_api.V1.Infrastructure;
 
-namespace transactions_api
+namespace base_api
 {
     public class Startup
     {

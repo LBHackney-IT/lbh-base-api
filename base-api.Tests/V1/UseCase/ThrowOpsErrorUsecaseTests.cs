@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using transactions_api.UseCase.V1;
+using base_api.UseCase.V1;
 
 namespace UnitTests.V1.UseCase
 {

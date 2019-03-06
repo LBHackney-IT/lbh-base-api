@@ -1,8 +1,9 @@
 using System.Linq;
 using Bogus;
 using NUnit.Framework;
-using transactions_api.V1.Domain;
+using base_api.V1.Domain;
 using UnitTests.V1.Helper;
+using base_api.V1.Gateways;
 
 namespace UnitTests.V1.Gateways
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace transactions_api
+namespace base_api
 {
     public class Program
     {

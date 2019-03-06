@@ -20,4 +20,4 @@ NEW_RELIC_APP_NAME="${NEW_RELIC_APP_NAME}"
 
 EXPOSE ${PORT:-3000}
 
-CMD ASPNETCORE_URLS=http://+:${PORT:-3000} dotnet ./out/transactions-api.dll
+CMD ASPNETCORE_URLS=http://+:${PORT:-3000} dotnet ./out/base-api.dll

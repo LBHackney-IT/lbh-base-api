@@ -1,6 +1,6 @@
 using System.Linq;
 using NUnit.Framework;
-using transactions_api.V1.Domain;
+using base_api.V1.Domain;
 using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Infrastructure

@@ -1,8 +1,8 @@
 using System;
 using Bogus;
 using NUnit.Framework;
-using transactions_api.V1.Domain;
-using transactions_api.V1.Factory;
+using base_api.V1.Domain;
+using base_api.V1.Factory;
 using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Domain

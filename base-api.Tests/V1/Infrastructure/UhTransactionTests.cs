@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using NUnit.Framework;
-using transactions_api.V1.Domain;
+using base_api.V1.Domain;
 using UnitTests.V1.Helper;
 
 namespace UnitTests.V1.Infrastructure

@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using NUnit.Framework;
-using transactions_api.UseCase.V1;
-using transactions_api.V1.Boundary;
-using transactions_api.V1.Domain;
+using base_api.UseCase.V1;
+using base_api.V1.Boundary;
+using base_api.V1.Domain;
 using Moq;
-using UnitTests.V1.Gateways;
+using base_api.V1.Gateways;
 
 namespace UnitTests.V1.UseCase
 {

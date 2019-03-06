@@ -1,8 +1,8 @@
 using System;
-using transactions_api.V1.Boundary;
-using UnitTests.V1.Gateways;
+using base_api.V1.Boundary;
+using base_api.V1.Gateways;
 
-namespace transactions_api.UseCase.V1
+namespace base_api.UseCase.V1
 {
     public class ListTransactionsUsecase : IListTransactions
     {

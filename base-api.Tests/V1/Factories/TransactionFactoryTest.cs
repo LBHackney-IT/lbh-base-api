@@ -1,6 +1,6 @@
 using NUnit.Framework;
-using transactions_api.V1.Domain;
-using transactions_api.V1.Factory;
+using base_api.V1.Domain;
+using base_api.V1.Factory;
 
 namespace UnitTests.V1.Factories
 {
