@@ -48,10 +48,10 @@ jobs:
       - setup_remote_docker
       - run:
           name: build
-          command: docker-compose build transactions-api-test
+          command: docker-compose build base-api-test
       - run:
           name: Run tests
-          command: docker-compose up transactions-api-test
+          command: docker-compose up base-api-test
 
   deploy-to-development:
     docker:
@@ -59,7 +59,7 @@ jobs:
     steps:
       - deploy-env:
           cluster-name: "$DEVELOPMENT_CLUSTER"
-          service-name: 'transactions-api-development'
+          service-name: 'base-api-development'
           image-tag: "$CIRCLE_SHA1"
 
   deploy-to-staging:
@@ -68,7 +68,7 @@ jobs:
     steps:
       - deploy-env:
           cluster-name: "$STAGING_CLUSTER"
-          service-name: 'transactions-api-staging'
+          service-name: 'base-api-staging'
           image-tag: "$CIRCLE_SHA1"
 
   deploy-to-production:
