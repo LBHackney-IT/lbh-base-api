@@ -6,39 +6,31 @@ orbs:
 
 commands:
   deploy-env:
-    description: "Sets up aws cli and ecs-deploy to update a service with a target docker image"
+    description: "Sets ecs-deploy to update a service with a target docker image"
     parameters:
+      cluster-name:
+        type: string
       service-name:
         type: string
-      image-name:
+      image-tag:
         type: string
     steps:
-      - aws-cli/install
-      - aws-cli/configure:
-          aws-access-key-id: AWS_ID_KEY
-          aws-secret-access-key: AWS_SECRET_KEY
-          aws-region: AWS_REGION
-      - run:
-          name: Install jq
-          command: |
-            sudo apt update
-            sudo apt install jq
       - run:
           name: Install ecs deploy
           command: |
-              curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
-              sudo chmod +x /usr/bin/ecs-deploy
+            sudo pip install ecs-deploy
       - run:
           name: Premote target image
           command: |
-            ecs-deploy \
-            --timeout 104400 \
+            ecs deploy \
+            --no-deregister \
+            --access-key-id $AWS_ID_KEY \
+            --secret-access-key $AWS_SECRET_KEY \
+            --timeout 1800 \
             --region $AWS_REGION \
-            --cluster $CLUSTER_NAME \
-            --service-name << parameters.service-name >> \
-            --image << parameters.image-name >> \
-            --timeout 104400 \
-            --use-latest-task-def
+            << parameters.cluster-name >> \
+            << parameters.service-name >> \
+            -t << parameters.image-tag >>
           no_output_timeout: 30m
 
 jobs:
@@ -56,34 +48,37 @@ jobs:
       - setup_remote_docker
       - run:
           name: build
-          command: docker-compose build transactions-api-test
+          command: docker-compose build base-api-test
       - run:
           name: Run tests
-          command: docker-compose up transactions-api-test
+          command: docker-compose up base-api-test
 
   deploy-to-development:
     docker:
       - image: circleci/python:3.7
     steps:
       - deploy-env:
-          service-name: 'transactions-api-development'
-          image-name: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
+          cluster-name: "$DEVELOPMENT_CLUSTER"
+          service-name: 'base-api-development'
+          image-tag: "$CIRCLE_SHA1"
 
   deploy-to-staging:
     docker:
       - image: circleci/python:3.7
     steps:
       - deploy-env:
-          service-name: 'transactions-api-staging'
-          image-name: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
+          cluster-name: "$STAGING_CLUSTER"
+          service-name: 'base-api-staging'
+          image-tag: "$CIRCLE_SHA1"
 
   deploy-to-production:
     docker:
       - image: circleci/python:3.7
     steps:
       - deploy-env:
-          service-name: 'transactions-api-production'
-          image-name: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
+          cluster-name: "$PRODUCTION_CLUSTER"
+          service-name: 'base-api-production'
+          image-tag: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
 
 workflows:
   build-and-deploy:
@@ -91,8 +86,8 @@ workflows:
       - check
       - aws-ecr/build_and_push_image:
           name: build_and_push_image
-          dockerfile: ./transactions-api/Dockerfile
-          path: ./transactions-api
+          dockerfile: ./base-api/Dockerfile
+          path: ./base-api
           account-url: AWS_ECR_HOST
           repo: $AWS_ECR_PATH
           aws-access-key-id: AWS_ID_KEY
