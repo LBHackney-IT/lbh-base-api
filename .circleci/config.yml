@@ -77,7 +77,7 @@ jobs:
     steps:
       - deploy-env:
           cluster-name: "$PRODUCTION_CLUSTER"
-          service-name: 'transactions-api-production'
+          service-name: 'base-api-production'
           image-tag: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
 
 workflows:
@@ -86,8 +86,8 @@ workflows:
       - check
       - aws-ecr/build_and_push_image:
           name: build_and_push_image
-          dockerfile: ./transactions-api/Dockerfile
-          path: ./transactions-api
+          dockerfile: ./base-api/Dockerfile
+          path: ./base-api
           account-url: AWS_ECR_HOST
           repo: $AWS_ECR_PATH
           aws-access-key-id: AWS_ID_KEY
