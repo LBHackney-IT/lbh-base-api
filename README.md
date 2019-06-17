@@ -1,6 +1,6 @@
-# LBH Transactions API
+# LBH Base API
 
-Transactions API brings all the transaction records for citizens from Universal Housing backoffice.
+Base API is a boilerplate code for being reused for new APIs for LBH
 
 ## Stack
 
@@ -66,7 +66,6 @@ $ make test
 
 ### Active Maintainers
 
-- **Cormac Brady**, Developer at [Made Tech][made-tech] (cormac@madetech.com)
 - **Selwyn Preston**, Lead Developer at London Borough of Hackney (selwyn.preston@hackney.gov.uk)
 - **Mirela Georgieva**, Developer at London Borough of Hackney (mirela.georgieva@hackney.gov.uk)
 - **Miguel Saitz**, Junior Developer at London Borough of Hackney (miguel.saitz@hackney.gov.uk)
@@ -74,6 +73,8 @@ $ make test
 ### Other Contacts
 
 - **Rashmi Shetty**, Development Manager at London Borough of Hackney (rashmi.shetty@hackney.gov.uk)
+- **Cormac Brady**, Developer at [Made Tech][made-tech] (cormac@madetech.com)
+
 
 [docker-download]: https://www.docker.com/products/docker-desktop
 [universal-housing-simulator]: https://github.com/LBHackney-IT/lbh-universal-housing-simulator
