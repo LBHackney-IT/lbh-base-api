@@ -51,7 +51,7 @@ jobs:
           command: docker-compose build base-api-test
       - run:
           name: Run tests
-          command: docker-compose up base-api-test
+          command: docker-compose run base-api-test
 
   deploy-to-development:
     docker:
