@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -13,7 +13,6 @@ namespace base_api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseSentry(Environment.GetEnvironmentVariable("SENTRY_URL"))
                 .UseStartup<Startup>();
     }
 }
