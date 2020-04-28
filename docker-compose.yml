@@ -22,11 +22,13 @@ services:
     build:
       context: .
       dockerfile: base-api.Tests/Dockerfile
-    environment:
-      - TEST_UH_URL=Server=stub-test-db;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';
     links:
       - stub-test-db
   stub-test-db:
-    image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=postgres;POSTGRES_PASSWORD=mypassword;POSTGRES_DB=entitycore;
     ports:
-      - 1433:1433
+      - 5432:5432
+    
+    

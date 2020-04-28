@@ -14,12 +14,25 @@ namespace UnitTests
         {
             DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
 
-            string TEST_UH_URL = Environment.GetEnvironmentVariable("TEST_UH_URL") ??
-                                 @"Server=localhost;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';";
+            // To run database tests locally (eg. via Visual Studio) the TEST_DB_URL environment variable will need to be populated with
+            // @"Host=localhost;Database=entitycore;Username=postgres;Password=mypassword";
+            string TEST_DB_URL = @"Host=stub-test-db;Database=entitycore;Username=postgres;Password=mypassword";
+            // Note: The Host name needs to be the name of the stub database docker-compose service, in order to run tests via Docker
 
-            builder.UseSqlServer(TEST_UH_URL);
+            // Delete as appropriate
+            // If using SQL:
+            // builder.UseSqlServer(TEST_DB_URL);
 
+            // If using Postgres:
+            builder.UseNpgsql(TEST_DB_URL);
+
+            // Do not delete this line:
             _uhContext = new UhContext(builder.Options);
+
+            // If using Postgres:
+            _uhContext.Database.EnsureCreated(); 
+
+            // Do not delete this line:
             _uhContext.Database.BeginTransaction();
         }
 
