@@ -4,6 +4,12 @@ param(
     [String]$apiName
 )
 
+if ($apiName -match '-') {
+    Write-Host "`nModifying Input to avoid C# namespaces naming error ('-' not allowed)."
+    Write-Host $("Changing input from '{0}' to '{1}'.`n" -f $apiName, $apiName.replace('-', '_'))
+    $apiName = $apiName.replace('-', '_')
+}
+
 Write-Host "`nScanning files...`n"
 
 Get-ChildItem -File -Recurse -exclude *.ps1 | % {
