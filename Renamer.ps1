@@ -12,7 +12,7 @@ if ($apiName -match '-') {
 
 Write-Host "`nScanning files...`n"
 
-Get-ChildItem -File -Recurse -exclude *.ps1 | % {
+Get-ChildItem -Path $PSScriptRoot -File -Recurse -exclude *.ps1 | % {
     $contents = (Get-Content $_.PSPath)
     $fileName = $_.Name
 
@@ -30,7 +30,7 @@ Get-ChildItem -File -Recurse -exclude *.ps1 | % {
 
 Write-Host "`nScanning directories...`n"
 
-Get-ChildItem -Directory -Recurse |
+Get-ChildItem -Path $PSScriptRoot -Directory -Recurse |
 Sort-Object -Descending FullName |
 Where-Object { $_.Name -match 'base-api' } | % {
     Write-Host $("Editing directory: '{0}'." -f $_.FullName)
