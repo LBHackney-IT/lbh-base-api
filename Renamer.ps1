@@ -40,3 +40,14 @@ Where-Object { $_.Name -match 'base-api' } | % {
 }
 
 Write-Host "Renaming done.`n`n"
+
+Write-Host $("Do you want to delete Renamer script file?`nTarget filepath: '$PSCommandPath'.")
+
+do { $myInput = (Read-Host 'Delete Script? (Y/N)').ToLower() } while ($myInput -notin @('y', 'n'))
+if ($myInput -eq 'y') {
+    Remove-Item -Force $PSCommandPath
+    Write-Host "Script file was deleted."
+}
+else {
+    Write-Host "Keeping the script file."
+}
