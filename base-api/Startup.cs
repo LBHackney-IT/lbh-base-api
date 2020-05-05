@@ -99,6 +99,7 @@ namespace base_api
 
         private static void ConfigureDbContext(IServiceCollection services)
         {
+            //TODO: Rename Context and connection string to match Database
             var connectionString = Environment.GetEnvironmentVariable("UH_URL");
 
             DbContextOptionsBuilder builder = new DbContextOptionsBuilder()

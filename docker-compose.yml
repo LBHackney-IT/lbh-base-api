@@ -8,14 +8,9 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
-    links:
-      - stub-dev-db
     environment:
-      - UH_URL=Server=stub-dev-db;Database=uhsimulator;User Id='sa';Password='Rooty-Tooty';
-  stub-dev-db:
-    image: 775052747630.dkr.ecr.eu-west-2.amazonaws.com/hackney/universal-housing-simulator-loaded
-    ports:
-      - 1433:1433
+      - UH_URL=my-local-db-connection-string;
+#TODO: Add a development database
 
   base-api-test:
     image: base-api-test
@@ -30,5 +25,5 @@ services:
       - database.env
     ports:
       - 5432:5432
-    
-    
+
+

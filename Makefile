@@ -4,11 +4,11 @@ setup:
 
 .PHONY: build
 build:
-	docker-compose run base-api dotnet build
+	docker-compose build base-api
 
 .PHONY: serve
 serve:
-	docker-compose up base-api
+	docker-compose build base-api && docker-compose up base-api
 
 .PHONY: shell
 shell:
