@@ -245,14 +245,14 @@ workflows:
               - build-and-test
           filters:
              branches:
-               only: add-new-pipeline-config
+               only: development
       - terraform-init-and-apply-to-development:
           context: api-assume-role-development-context
           requires:
               - assume-role-development
           filters:
              branches:
-               only: add-new-pipeline-config
+               only: development
       - build_and_push_image_development:
           context: api-assume-role-development-context
           requires:
@@ -260,14 +260,14 @@ workflows:
             - terraform-init-and-apply-to-development
           filters:
             branches:
-              only: add-new-pipeline-config
+              only: development
       - deploy-to-development:
           context: api-assume-role-development-context
           requires:
             - build_and_push_image_development
           filters:
             branches:
-              only: add-new-pipeline-config
+              only: development
   check-and-deploy-staging-and-production:
       jobs:
       - build-and-test:
@@ -288,14 +288,14 @@ workflows:
             branches:
               only: master
       - build_and_push_image_staging:
-          context: mat-assume-role-context
+          context: api-assume-role-staging-context
           requires:
             - build-and-test
           filters:
             branches:
               only: master
       - deploy-to-staging:
-          context: mat-assume-role-context
+          context: api-assume-role-staging-context
           requires:
             - build_and_push_image_staging
           filters:
@@ -326,14 +326,14 @@ workflows:
             branches:
               only: master
       - build_and_push_image_production:
-          context: mat-assume-role-context
+          context: api-assume-role-production-context
           requires:
             - permit-production-release
           filters:
             branches:
               only: master
       - deploy-to-production:
-          context: mat-assume-role-context
+          context: api-assume-role-production-context
           requires:
             - build_and_push_image_production
           filters:
