@@ -169,7 +169,7 @@ jobs:
           command: docker-compose build base-api-test
       - run:
          name: Run tests
-         command: docker-compose run base-api-test
+         command: docker-compose build base-api-test && docker-compose up base-api-test
   deploy-to-development:
     executor: docker-python
     steps:
