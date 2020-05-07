@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace base_api
 {
@@ -36,7 +38,7 @@ namespace base_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(o => o.EnableEndpointRouting = false);
             services.AddApiVersioning(o =>
             {
                 o.DefaultApiVersion = new ApiVersion(1, 0);
@@ -48,24 +50,36 @@ namespace base_api
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Token",
-                    new ApiKeyScheme
+                    new OpenApiSecurityScheme
                     {
-                        In = "header",
+                        In = ParameterLocation.Header,
                         Description = "Your Hackney API Key",
                         Name = "X-Api-Key",
-                        Type = "apiKey"
+                        Type = SecuritySchemeType.ApiKey
                     });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {"Token", Enumerable.Empty<string>()}
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Token" }
+                        }, 
+                        new List<string>()
+                    }
                 });
 
                 //Looks at the APIVersionAttribute [ApiVersion("x")] on controllers and decides whether or not
                 //to include it in that version of the swagger document
                 //Controllers must have this [ApiVersion("x")] to be included in swagger documentation!!
                 c.DocInclusionPredicate((docName, apiDesc) =>
-                {
-                    var versions = apiDesc.ControllerAttributes()
+                {   
+                    MethodInfo methodInfo;
+                    var success = apiDesc.TryGetMethodInfo(out methodInfo);
+
+                    if (!success) return false;
+
+                    var versions = methodInfo.CustomAttributes
                         .OfType<ApiVersionAttribute>()
                         .SelectMany(attr => attr.Versions).ToList();
 
@@ -77,7 +91,7 @@ namespace base_api
                 foreach (var apiVersion in _apiVersions)
                 {
                     var version = $"v{apiVersion.ApiVersion.ToString()}";
-                    c.SwaggerDoc(version, new Info
+                    c.SwaggerDoc(version, new OpenApiInfo
                     {
                         Title = $"{ApiName}-api {version}",
                         Version = version,
@@ -121,7 +135,7 @@ namespace base_api
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
