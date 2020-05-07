@@ -79,10 +79,30 @@ Our staging and production environments are hosted by AWS. We would deploy to pr
 
 ## Testing
 
-To run tests:
+### Run the tests
 ```sh
 $ make test
 ```
+### Agreed Testing Approach
+- Use nUnit and Moq
+- Always follow a TDD approach
+- Tests should be independent of each other
+- Gateway tests should interact with a real test instance of the database
+- Test coverage should never go down
+- All use cases should be covered by E2E tests
+- Optimise when test run speed starts to hinder development
+- Unit tests and E2E tests should run in CI
+- Test database schemas should match up with production database schema
+- Have integration tests which test from the PostgreSQL database to API Gateway
+
+## Data Migrations
+### A good data migration
+- Record failure logs
+- Automated
+- Reliable
+- As close to real time as possible
+- Observable monitoring in place
+- Should not affect any existing databases
 
 ## Contacts
 
