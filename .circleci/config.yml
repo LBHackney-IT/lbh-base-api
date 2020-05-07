@@ -268,74 +268,74 @@ workflows:
           filters:
             branches:
               only: development
-  check-and-deploy-staging-and-production:
-      jobs:
-      - build-and-test:
-          filters:
-            branches:
-              only: master
-      - assume-role-staging:
-          context: api-assume-role-staging-context
-          requires:
-              - build-and-test
-          filters:
-             branches:
-               only: master
-      - terraform-init-and-apply-to-staging:
-          requires:
-            - assume-role-staging
-          filters:
-            branches:
-              only: master
-      - build_and_push_image_staging:
-          context: api-assume-role-staging-context
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: master
-      - deploy-to-staging:
-          context: api-assume-role-staging-context
-          requires:
-            - build_and_push_image_staging
-          filters:
-            branches:
-              only: master
-      - permit-production-terraform-release:
-          type: approval
-          requires:
-            - deploy-to-staging
-      - assume-role-production:
-          context: api-assume-role-production-context
-          requires:
-              - permit-production-terraform-release
-          filters:
-             branches:
-               only: master
-      - terraform-init-and-apply-to-production:
-          requires:
-            - assume-role-production
-          filters:
-            branches:
-              only: master
-      - permit-production-release:
-          type: approval
-          requires:
-            - deploy-to-staging
-          filters:
-            branches:
-              only: master
-      - build_and_push_image_production:
-          context: api-assume-role-production-context
-          requires:
-            - permit-production-release
-          filters:
-            branches:
-              only: master
-      - deploy-to-production:
-          context: api-assume-role-production-context
-          requires:
-            - build_and_push_image_production
-          filters:
-            branches:
-              only: master
+  # check-and-deploy-staging-and-production:
+  #     jobs:
+  #     - build-and-test:
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - assume-role-staging:
+  #         context: api-assume-role-staging-context
+  #         requires:
+  #             - build-and-test
+  #         filters:
+  #            branches:
+  #              only: master
+  #     - terraform-init-and-apply-to-staging:
+  #         requires:
+  #           - assume-role-staging
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - build_and_push_image_staging:
+  #         context: api-assume-role-staging-context
+  #         requires:
+  #           - build-and-test
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - deploy-to-staging:
+  #         context: api-assume-role-staging-context
+  #         requires:
+  #           - build_and_push_image_staging
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - permit-production-terraform-release:
+  #         type: approval
+  #         requires:
+  #           - deploy-to-staging
+  #     - assume-role-production:
+  #         context: api-assume-role-production-context
+  #         requires:
+  #             - permit-production-terraform-release
+  #         filters:
+  #            branches:
+  #              only: master
+  #     - terraform-init-and-apply-to-production:
+  #         requires:
+  #           - assume-role-production
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - permit-production-release:
+  #         type: approval
+  #         requires:
+  #           - deploy-to-staging
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - build_and_push_image_production:
+  #         context: api-assume-role-production-context
+  #         requires:
+  #           - permit-production-release
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - deploy-to-production:
+  #         context: api-assume-role-production-context
+  #         requires:
+  #           - build_and_push_image_production
+  #         filters:
+  #           branches:
+  #             only: master
