@@ -84,7 +84,7 @@ Our staging and production environments are hosted by AWS. We would deploy to pr
 $ make test
 ```
 ### Agreed Testing Approach
-- Use nUnit and Moq
+- Use nUnit, FluentAssertions and Moq
 - Always follow a TDD approach
 - Tests should be independent of each other
 - Gateway tests should interact with a real test instance of the database
