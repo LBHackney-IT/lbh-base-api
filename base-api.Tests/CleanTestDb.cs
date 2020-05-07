@@ -22,7 +22,7 @@ namespace UnitTests
 
             // Delete as appropriate
             // If using SQL:
-            builder.UseSqlServer(TEST_DB_URL);
+            // builder.UseSqlServer(TEST_DB_URL);
 
             // If using Postgres:
             builder.UseNpgsql(TEST_DB_URL);
@@ -31,7 +31,7 @@ namespace UnitTests
             _uhContext = new UhContext(builder.Options);
 
             // If using Postgres:
-            _uhContext.Database.EnsureCreated(); 
+            _uhContext.Database.EnsureCreated();
 
             // Do not delete this line:
             _uhContext.Database.BeginTransaction();

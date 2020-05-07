@@ -3,8 +3,36 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@3.0.0
   aws-cli: circleci/aws-cli@0.1.9
+  aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
 
+executors:
+  docker-python:
+      docker:
+        - image: circleci/python:3.7
+  docker-terraform:
+     docker:
+       -  image: "hashicorp/terraform:light"
 commands:
+  terraform-init-then-apply:
+    description: "Initializes and applies terraform configuration"
+    parameters:
+      aws-account:
+        type: string
+      aws-role-name:
+        type: string
+    steps:
+       - run:
+          command: |
+              cd ./terraform/
+              terraform get -update=true
+              terraform init
+          name: get and init
+       - run:
+          name: apply
+          command: |
+            cd ./terraform/
+            terraform apply -auto-approve
+
   deploy-env:
     description: "Sets ecs-deploy to update a service with a target docker image"
     parameters:
@@ -14,7 +42,16 @@ commands:
         type: string
       image-tag:
         type: string
+      aws-account:
+        type: string
+      aws-role-name:
+        type: string
     steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: <<parameters.aws-account>>
+          profile_name: default
+          role: <<parameters.aws-role-name>>
       - run:
           name: Install ecs deploy
           command: |
@@ -24,103 +61,263 @@ commands:
           command: |
             ecs deploy \
             --no-deregister \
-            --access-key-id $AWS_ACCESS_KEY_ID \
-            --secret-access-key $AWS_SECRET_ACCESS_KEY \
+            --profile default \
             --timeout 1800 \
-            --region $AWS_REGION \
             << parameters.cluster-name >> \
             << parameters.service-name >> \
             -t << parameters.image-tag >>
           no_output_timeout: 30m
-
-jobs:
-  check:
-    docker:
-      - image: circleci/python:3.7
+  build_and_push_image:
+    parameters:
+      account-url:
+        default: AWS_ECR_ACCOUNT_URL
+        type: env_var_name
+      region:
+        default: AWS_REGION
+        type: env_var_name
+      dockerfile:
+        default: Dockerfile
+        type: string
+      path:
+        default: .
+        type: string
+      repo:
+        type: string
+      tag:
+        default: latest
+        type: string
+      aws-account:
+        type: string
+      aws-role-name:
+        type: string
     steps:
       - checkout
-      - aws-cli/install
-      - aws-cli/configure:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          aws-region: AWS_REGION
-      - aws-ecr/ecr-login
+      - aws_assume_role/assume_role:
+          account: <<parameters.aws-account>>
+          profile_name: default
+          role: <<parameters.aws-role-name>>
+      - run:
+          name: authorize docker to access aws ecr
+          command: |
+            # aws ecr get-login returns a login command w/ a temp token
+            LOGIN_COMMAND=$(aws ecr get-login --no-include-email --region \
+            $<<parameters.region>> --profile default) # default default default default default default default
+            # save it to an env var & use that env var to login
+            $LOGIN_COMMAND
+      - aws-ecr/build-image:
+          account-url: <<parameters.account-url>>
+          dockerfile: <<parameters.dockerfile>>
+          path: <<parameters.path>>
+          repo: <<parameters.repo>>
+          tag: <<parameters.tag>>
+      - aws-ecr/push-image:
+          account-url: <<parameters.account-url>>
+          repo: <<parameters.repo>>
+          tag: <<parameters.tag>>
+
+jobs:
+  terraform-init-and-apply-to-development:
+    executor: docker-terraform
+    steps:
+      - checkout
+      - terraform-init-then-apply:
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_DEVELOPMENT
+  terraform-init-and-apply-to-staging:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-apply:
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_STAGING
+  terraform-init-and-apply-to-production:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-apply:
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_PRODUCTION
+  assume-role-development:
+     executor: docker-python
+     steps:
+       - checkout
+       - aws_assume_role/assume_role:
+             account: $AWS_ACCOUNT_DEVELOPMENT
+             profile_name: default
+             role: 'LBH_Circle_CI_Deployment_Role'
+  assume-role-staging:
+     executor: docker-python
+     steps:
+       - checkout
+       - aws_assume_role/assume_role:
+             account: $AWS_ACCOUNT_STAGING
+             profile_name: default
+             role: 'LBH_Circle_CI_Deployment_Role'
+  assume-role-production:
+     executor: docker-python
+     steps:
+       - checkout
+       - aws_assume_role/assume_role:
+             account: $AWS_ACCOUNT_PRODUCTION
+             profile_name: default
+             role: 'LBH_Circle_CI_Deployment_Role'
+  build-and-test:
+    executor: docker-python
+    steps:
+      - checkout
       - setup_remote_docker
       - run:
           name: build
           command: docker-compose build base-api-test
       - run:
-          name: Run tests
-          command: docker-compose run base-api-test
-
+         name: Run tests
+         command: docker-compose run base-api-test
   deploy-to-development:
-    docker:
-      - image: circleci/python:3.7
+    executor: docker-python
     steps:
       - deploy-env:
-          cluster-name: "$DEVELOPMENT_CLUSTER"
-          service-name: 'base-api-development'
+          cluster-name: $AWS_CLUSTER_DEV
+          service-name: $AWS_SERVICE_DEV
           image-tag: "$CIRCLE_SHA1"
-
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_DEVELOPMENT
   deploy-to-staging:
     docker:
       - image: circleci/python:3.7
     steps:
       - deploy-env:
-          cluster-name: "$STAGING_CLUSTER"
-          service-name: 'base-api-staging'
+          cluster-name: $AWS_CLUSTER_STAGING
+          service-name: $AWS_SERVICE_STAGING
           image-tag: "$CIRCLE_SHA1"
-
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_STAGING
   deploy-to-production:
-    docker:
-      - image: circleci/python:3.7
+    executor: docker-python
     steps:
       - deploy-env:
-          cluster-name: "$PRODUCTION_CLUSTER"
-          service-name: 'base-api-production'
-          image-tag: "$AWS_ECR_HOST/$AWS_ECR_PATH:$CIRCLE_SHA1"
-
-workflows:
-  build-and-deploy:
-      jobs:
-      - check
-      - aws-ecr/build_and_push_image:
-          name: build_and_push_image
+          cluster-name: $AWS_CLUSTER_PROD
+          service-name: $AWS_SERVICE_PROD
+          image-tag: "$CIRCLE_SHA1"
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_PRODUCTION
+  build_and_push_image_development:
+    executor: aws-ecr/default
+    steps:
+      - build_and_push_image:
           dockerfile: ./base-api/Dockerfile
           path: ./base-api
-          account-url: AWS_ECR_HOST
-          repo: $AWS_ECR_PATH
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          account-url: AWS_ECR_HOST_DEVELOPMENT
+          repo: $AWS_ECR_PATH_DEV
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only: master
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_DEVELOPMENT
+  build_and_push_image_staging:
+    executor: aws-ecr/default
+    steps:
+      - build_and_push_image:
+          dockerfile: ./base-api/Dockerfile
+          path: $PROJECT_PATH
+          account-url: AWS_ECR_HOST_STAGING
+          repo: $AWS_ECR_PATH_STAGING
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_STAGING
+  build_and_push_image_production:
+    executor: aws-ecr/default
+    steps:
+      - build_and_push_image:
+          dockerfile: ./base-api/Dockerfile
+          path: $PROJECT_PATH
+          account-url: AWS_ECR_HOST_PRODUCTION
+          repo: $AWS_ECR_PATH_PRODUCTION
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+          aws-account: $AWS_ACCOUNT_PRODUCTION
 
-      - deploy-to-development:
+workflows:
+  check-and-deploy:
+      jobs:
+      - build-and-test
+      - assume-role-development:
+          context: api-assume-role-development-context
           requires:
-            - check
-            - build_and_push_image
+              - build-and-test
+          filters:
+             branches:
+               only: development
+      - terraform-init-and-apply-to-development:
+          context: api-assume-role-development-context
+          requires:
+              - assume-role-development
+          filters:
+             branches:
+               only: development
+      - build_and_push_image_development:
+          context: api-assume-role-development-context
+          requires:
+            - build-and-test
+            - terraform-init-and-apply-to-development
+          filters:
+            branches:
+              only: development
+      - deploy-to-development:
+          context: api-assume-role-development-context
+          requires:
+            - build_and_push_image_development
+          filters:
+            branches:
+              only: development
+  check-and-deploy-staging-and-production:
+      jobs:
+      - build-and-test:
           filters:
             branches:
               only: master
-
-      - permit-staging-release:
+      - assume-role-staging:
+          context: api-assume-role-staging-context
+          requires:
+              - build-and-test
+          filters:
+             branches:
+               only: master
+      - terraform-init-and-apply-to-staging:
+          requires:
+            - assume-role-staging
+          filters:
+            branches:
+              only: master
+      - build_and_push_image_staging:
+          context: api-assume-role-staging-context
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
+      - deploy-to-staging:
+          context: api-assume-role-staging-context
+          requires:
+            - build_and_push_image_staging
+          filters:
+            branches:
+              only: master
+      - permit-production-terraform-release:
           type: approval
           requires:
-            - deploy-to-development
-          filters:
-            branches:
-              only: master
-
-      - deploy-to-staging:
+            - deploy-to-staging
+      - assume-role-production:
+          context: api-assume-role-production-context
           requires:
-            - permit-staging-release
+              - permit-production-terraform-release
+          filters:
+             branches:
+               only: master
+      - terraform-init-and-apply-to-production:
+          requires:
+            - assume-role-production
           filters:
             branches:
               only: master
-
       - permit-production-release:
           type: approval
           requires:
@@ -128,10 +325,17 @@ workflows:
           filters:
             branches:
               only: master
-
-      - deploy-to-production:
+      - build_and_push_image_production:
+          context: api-assume-role-production-context
           requires:
             - permit-production-release
+          filters:
+            branches:
+              only: master
+      - deploy-to-production:
+          context: api-assume-role-production-context
+          requires:
+            - build_and_push_image_production
           filters:
             branches:
               only: master
