@@ -23,5 +23,3 @@ lint:
 	-dotnet tool install -g dotnet-format
 	dotnet tool update -g dotnet-format
 	dotnet format
-
-

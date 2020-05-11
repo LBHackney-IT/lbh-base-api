@@ -12,6 +12,9 @@ executors:
   docker-terraform:
      docker:
        -  image: "hashicorp/terraform:light"
+  docker-dotnet:
+     docker:
+       - image: mcr.microsoft.com/dotnet/core/sdk:3.1
 commands:
   terraform-init-then-apply:
     description: "Initializes and applies terraform configuration"
@@ -159,6 +162,18 @@ jobs:
              account: $AWS_ACCOUNT_PRODUCTION
              profile_name: default
              role: 'LBH_Circle_CI_Deployment_Role'
+  check-code-formatting:
+    executor: docker-dotnet
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dotnet format
+          command: dotnet tool install dotnet-format --tool-path ./dotnet-format-local/
+      - run:
+          name: Run formatter check
+          command: ./dotnet-format-local/dotnet-format --dry-run --check
+
   build-and-test:
     executor: docker-python
     steps:
@@ -238,6 +253,7 @@ jobs:
 workflows:
   check-and-deploy:
       jobs:
+      - check-code-formatting
       - build-and-test
       - assume-role-development:
           context: api-assume-role-development-context
