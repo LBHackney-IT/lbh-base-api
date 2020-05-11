@@ -4,6 +4,10 @@ orbs:
   aws-ecr: circleci/aws-ecr@3.0.0
   aws-cli: circleci/aws-cli@0.1.9
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+  # windows: circleci/windows@2.4.0
+  # Added windows orb to try creating a windows environment to run the ReSharper CLT.
+  # e.g set the job executor as windows/default.
+  # Errors with "Error response from daemon: pull access denied for windows-server-2019-vs2019, repository does not exist or may require 'docker login': denied: requested access to the resource is denied"
 
 executors:
   docker-python:
@@ -173,6 +177,22 @@ jobs:
       - run:
           name: Run formatter check
           command: ./dotnet-format-local/dotnet-format --dry-run --check
+  run-static-code-analysis:
+    executor: docker-dotnet
+    # executor: windows/default
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install ReSharper Command Line Tools
+          command: dotnet add /root/project/base-api package JetBrains.ReSharper.CommandLineTools --version 2020.1.2
+          # Adding the command line tools as a package install (not available as a tool yet).
+          # Lengthy installation but adds the package successfully.
+      - run:
+          name: Run Code inspection
+          command: inspectcode.sh base-api.sln
+          # Found documentation that mentions that the linux equivalent to run the code inspection command: inspectcode.sh
+          #  Errors with: /bin/bash: inspectcode.sh: command not found
 
   build-and-test:
     executor: docker-python
@@ -254,6 +274,7 @@ workflows:
   check-and-deploy:
       jobs:
       - check-code-formatting
+      - run-static-code-analysis
       - build-and-test
       - assume-role-development:
           context: api-assume-role-development-context
