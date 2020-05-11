@@ -12,18 +12,18 @@ namespace UnitTests.V1.Helper
 
         public static UhTransaction CreateUhTransactionFrom(Transaction transaction)
         {
-            Faker _faker = new Faker();
-            UhTransaction uhTransaction = CopyTransactionFields(transaction);
-            uhTransaction.Id = _faker.Random.Int();
-            uhTransaction.PropRef = _faker.Random.AlphaNumeric(length: 12);
-            uhTransaction.transno = _faker.Random.Int();
-            uhTransaction.line_no = _faker.Random.Int();
-            uhTransaction.adjustment = _faker.Random.Bool();
-            uhTransaction.apportion = _faker.Random.Bool();
-            uhTransaction.prop_deb = _faker.Random.Bool();
-            uhTransaction.none_rent = _faker.Random.Bool();
-            uhTransaction.receipted = _faker.Random.Bool();
-            uhTransaction.line_segno = _faker.Random.Decimal();
+            var faker = new Faker();
+            var uhTransaction = CopyTransactionFields(transaction);
+            uhTransaction.Id = faker.Random.Int();
+            uhTransaction.PropRef = faker.Random.AlphaNumeric(length: 12);
+            uhTransaction.transno = faker.Random.Int();
+            uhTransaction.line_no = faker.Random.Int();
+            uhTransaction.adjustment = faker.Random.Bool();
+            uhTransaction.apportion = faker.Random.Bool();
+            uhTransaction.prop_deb = faker.Random.Bool();
+            uhTransaction.none_rent = faker.Random.Bool();
+            uhTransaction.receipted = faker.Random.Bool();
+            uhTransaction.line_segno = faker.Random.Decimal();
 
             return uhTransaction;
         }

@@ -17,7 +17,7 @@ namespace base_api.UseCase.V1
         {
             var results = _transactionsGateway.GetTransactionsByPropertyRef(listTransactionsRequest.PropertyRef);
 
-           return new ListTransactionsResponse(results, listTransactionsRequest, DateTime.Now);
+            return new ListTransactionsResponse(results, listTransactionsRequest, DateTime.Now);
         }
     }
 }

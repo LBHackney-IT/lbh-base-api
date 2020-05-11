@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace base_api.Controllers.V1
 {
-    public class BaseController  : Controller
+    public class BaseController : Controller
     {
         public BaseController()
         {

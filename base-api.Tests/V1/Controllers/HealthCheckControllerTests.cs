@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using base_api.Controllers.V1;
@@ -26,7 +26,7 @@ namespace UnitTests.V1.Controllers
 
             Assert.NotNull(response);
             Assert.AreEqual(response.StatusCode, 200);
-            Assert.AreEqual(new Dictionary<string, object> {{"success", true}}, response.Value);
+            Assert.AreEqual(new Dictionary<string, object> { { "success", true } }, response.Value);
 
         }
 

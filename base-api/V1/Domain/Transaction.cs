@@ -4,13 +4,13 @@ namespace base_api.V1.Domain
 {
     public class Transaction
     {
-        public Decimal Balance { get; set; }
+        public decimal Balance { get; set; }
         public string Code { get; set; }
         public DateTime Date { get; set; }
 
         public override bool Equals(object obj)
         {
-            Transaction transaction = obj as Transaction;
+            var transaction = obj as Transaction;
             if (transaction != null)
             {
                 return Balance == transaction.Balance &&
@@ -31,4 +31,4 @@ namespace base_api.V1.Domain
             }
         }
     }
- }
+}

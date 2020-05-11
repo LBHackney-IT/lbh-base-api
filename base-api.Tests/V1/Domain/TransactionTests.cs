@@ -13,22 +13,22 @@ namespace UnitTests.V1.Domain
         [Test]
         public void TransactionsHaveABalance()
         {
-            Transaction transaction = new Transaction();
+            var transaction = new Transaction();
             Assert.Zero(transaction.Balance);
         }
 
         [Test]
         public void TransactionsHaveACode()
         {
-            Transaction transaction = new Transaction();
+            var transaction = new Transaction();
             Assert.IsNull(transaction.Code);
         }
 
         [Test]
         public void TransactionsHaveADateTime()
         {
-            Transaction transaction = new Transaction();
-            DateTime date = new DateTime(2019, 02, 21);
+            var transaction = new Transaction();
+            var date = new DateTime(2019, 02, 21);
             transaction.Date = date;
             Assert.AreEqual(date, transaction.Date);
         }
@@ -36,9 +36,9 @@ namespace UnitTests.V1.Domain
         [Test]
         public void TransactionsCanBeCompared()
         {
-            Transaction transactionA = TransactionHelper.CreateTransaction();
+            var transactionA = TransactionHelper.CreateTransaction();
 
-            Transaction transactionB = new Transaction
+            var transactionB = new Transaction
             {
                 Date = transactionA.Date,
                 Code = transactionA.Code,
@@ -46,7 +46,7 @@ namespace UnitTests.V1.Domain
             };
 
             Assert.True(transactionA.Equals(transactionB));
-            Assert.AreEqual(transactionA.GetHashCode(),transactionB.GetHashCode());
+            Assert.AreEqual(transactionA.GetHashCode(), transactionB.GetHashCode());
 
             Assert.AreNotSame(transactionA, transactionB);
             Assert.AreEqual(transactionA, transactionB);

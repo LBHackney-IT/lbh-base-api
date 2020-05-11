@@ -37,9 +37,9 @@ namespace UnitTests.V1.Gateways
         [Test]
         public void GetTransactionsByPropertyRef_ReturnsCorrectResponse()
         {
-            Transaction transaction = TransactionHelper.CreateTransaction();
+            var transaction = TransactionHelper.CreateTransaction();
 
-            UhTransaction dbTrans = UhTransactionHelper.CreateUhTransactionFrom(transaction);
+            var dbTrans = UhTransactionHelper.CreateUhTransactionFrom(transaction);
 
             _uhContext.UTransactions.Add(dbTrans);
             _uhContext.SaveChanges();
