@@ -17,3 +17,11 @@ shell:
 .PHONY: test
 test:
 	docker-compose build base-api-test && docker-compose up base-api-test
+
+.PHONY: lint
+lint:
+	-dotnet tool install -g dotnet-format
+	dotnet tool update -g dotnet-format
+	dotnet format
+
+
