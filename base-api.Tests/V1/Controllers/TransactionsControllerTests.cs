@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Bogus;
 using Microsoft.Extensions.Logging;
@@ -21,7 +21,7 @@ namespace UnitTests.V1.Controllers
 
         private Mock<IListTransactions> _mockListTransacionsUsecase;
 
-        private Faker faker = new Faker();
+        private readonly Faker _faker = new Faker();
 
         [SetUp]
         public void SetUp()
@@ -37,11 +37,11 @@ namespace UnitTests.V1.Controllers
         {
             var transaction = TransactionHelper.CreateTransaction();
             var request = ListTransactionsRequest();
-            var datetime = faker.Date.Past();
+            var datetime = _faker.Date.Past();
 
             _mockListTransacionsUsecase.Setup(s =>
                     s.Execute(It.IsAny<ListTransactionsRequest>()))
-                .Returns(new ListTransactionsResponse(new List<Transaction>{ transaction }, request, datetime));
+                .Returns(new ListTransactionsResponse(new List<Transaction> { transaction }, request, datetime));
 
             var response = _classUnderTest.GetTransactions(request);
             var json = JsonConvert.SerializeObject(response.Value);
@@ -93,7 +93,7 @@ namespace UnitTests.V1.Controllers
             var generatedAt = new DateTime(2019, 02, 22, 09, 52, 23, 23);
             _mockListTransacionsUsecase.Setup(s =>
                     s.Execute(It.IsAny<ListTransactionsRequest>()))
-                .Returns(new ListTransactionsResponse(new List<Transaction>{ transaction }, request, generatedAt));
+                .Returns(new ListTransactionsResponse(new List<Transaction> { transaction }, request, generatedAt));
 
             var response = _classUnderTest.GetTransactions(request);
             var json = JsonConvert.SerializeObject(response.Value);

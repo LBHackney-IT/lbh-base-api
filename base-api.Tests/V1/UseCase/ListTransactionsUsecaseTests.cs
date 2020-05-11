@@ -33,9 +33,9 @@ namespace UnitTests.V1.UseCase
         public void CanGetListOfTransactionsByPropertyReference()
         {
             var propertyRef = new Faker().Random.Hash();
-            var request = new ListTransactionsRequest {PropertyRef = propertyRef};
+            var request = new ListTransactionsRequest { PropertyRef = propertyRef };
 
-            List<Transaction> response = new List<Transaction> {new Transaction()};
+            List<Transaction> response = new List<Transaction> { new Transaction() };
 
             _transactionsGateway.Setup(foo => foo.GetTransactionsByPropertyRef(propertyRef)).Returns(response);
 
@@ -54,7 +54,7 @@ namespace UnitTests.V1.UseCase
         {
             var propertyRef = new Faker().Random.Hash();
 
-            var request = new ListTransactionsRequest {PropertyRef = propertyRef};
+            var request = new ListTransactionsRequest { PropertyRef = propertyRef };
 
             _classUnderTest.Execute(request);
 
@@ -66,9 +66,9 @@ namespace UnitTests.V1.UseCase
         {
             var propertyRef = new Faker().Random.Hash();
 
-            var request = new ListTransactionsRequest {PropertyRef = propertyRef};
+            var request = new ListTransactionsRequest { PropertyRef = propertyRef };
 
-            List<Transaction> response = new List<Transaction>{ new Transaction(), new Transaction()};
+            List<Transaction> response = new List<Transaction> { new Transaction(), new Transaction() };
 
             _transactionsGateway.Setup(foo => foo.GetTransactionsByPropertyRef(propertyRef)).Returns(response);
 

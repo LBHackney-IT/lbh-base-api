@@ -57,14 +57,14 @@ namespace base_api
                         Name = "X-Api-Key",
                         Type = SecuritySchemeType.ApiKey
                     });
-                
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
                         {
                             Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Token" }
-                        }, 
+                        },
                         new List<string>()
                     }
                 });
@@ -73,7 +73,7 @@ namespace base_api
                 //to include it in that version of the swagger document
                 //Controllers must have this [ApiVersion("x")] to be included in swagger documentation!!
                 c.DocInclusionPredicate((docName, apiDesc) =>
-                {   
+                {
                     MethodInfo methodInfo;
                     var success = apiDesc.TryGetMethodInfo(out methodInfo);
 

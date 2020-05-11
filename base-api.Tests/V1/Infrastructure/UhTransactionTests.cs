@@ -37,4 +37,4 @@ namespace UnitTests.V1.Infrastructure
         }
 
     }
- }
+}

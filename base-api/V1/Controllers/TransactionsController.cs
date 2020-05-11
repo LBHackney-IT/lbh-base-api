@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using base_api.V1.Boundary;
 
@@ -23,7 +23,7 @@ namespace base_api.Controllers.V1
         {
             _logger.LogInformation("Transactions requested for PropertyRef: " + request.PropertyRef);
             var usecaseResponce = _listTransactions.Execute(request);
-            return new JsonResult(usecaseResponce) {StatusCode = 200};
+            return new JsonResult(usecaseResponce) { StatusCode = 200 };
         }
     }
 }
