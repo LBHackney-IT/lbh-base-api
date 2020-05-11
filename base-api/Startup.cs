@@ -41,10 +41,18 @@ namespace base_api
             services.AddApiVersioning(o =>
             {
                 o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.ReportApiVersions = true;
                 o.AssumeDefaultVersionWhenUnspecified = true; // assume that the caller wants the default version if they don't specify
                 o.ApiVersionReader = new UrlSegmentApiVersionReader(); // read the version number from the url segment header)
             });
             
+            services.AddVersionedApiExplorer(o =>
+            {
+                o.GroupNameFormat = "'v'VVV";
+                o.SubstituteApiVersionInUrl = true;
+            });
+
+
             services.AddCors(option =>
             {
                 option.AddPolicy("AllowAny", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -118,7 +126,7 @@ namespace base_api
 
         private static void ConfigureDbContext(IServiceCollection services)
         {
-            //TODO: Rename Context and connection string to match Database
+            // TODO: Rename Context and connection string to match Database
             var connectionString = Environment.GetEnvironmentVariable("UH_URL");
 
             DbContextOptionsBuilder builder = new DbContextOptionsBuilder()

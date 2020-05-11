@@ -4,6 +4,7 @@ using base_api.UseCase.V1;
 
 namespace base_api.Controllers.V1
 {
+    [ApiVersion("1.0")]
     [Route("api/v1/healthcheck")]
     [ApiController]
     [Produces("application/json")]

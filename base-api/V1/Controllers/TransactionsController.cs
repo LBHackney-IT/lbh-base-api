@@ -4,6 +4,7 @@ using base_api.V1.Boundary;
 
 namespace base_api.Controllers.V1
 {
+    [ApiVersion("1.0")]
     [Route("api/v1/transactions")]
     [ApiController]
     [Produces("application/json")]
