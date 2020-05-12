@@ -106,28 +106,27 @@ namespace base_api
                     c.IncludeXmlComments(xmlPath);
             });
             ConfigureDbContext(services);
-            RegisterGateWays(services);
+            RegisterGateways(services);
             RegisterUseCases(services);
         }
 
         private static void ConfigureDbContext(IServiceCollection services)
         {
-            //TODO: Rename Context and connection string to match Database
-            var connectionString = Environment.GetEnvironmentVariable("UH_URL");
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
-            var builder = new DbContextOptionsBuilder().UseSqlServer(connectionString);
+            var builder = new DbContextOptionsBuilder().UseNpgsql(connectionString);
 
-            services.AddSingleton<IUHContext>(s => new UhContext(builder.Options));
+            services.AddSingleton<IDatabaseContext>(s => new DatabaseContext(builder.Options));
         }
 
-        private static void RegisterGateWays(IServiceCollection services)
+        private static void RegisterGateways(IServiceCollection services)
         {
-            services.AddSingleton<ITransactionsGateway, TransactionsGateway>();
+            services.AddSingleton<IExampleGateway, ExampleGateway>();
         }
 
         private static void RegisterUseCases(IServiceCollection services)
         {
-            services.AddSingleton<IListTransactions, ListTransactionsUsecase>();
+            // your usecases here
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,8 +3,8 @@ using base_api.V1.Domain;
 
 namespace base_api.V1.Infrastructure
 {
-    public interface IUHContext
+    public interface IDatabaseContext
     {
-        DbSet<UhTransaction> UTransactions { get; set; }
+        DbSet<DatabaseEntity> DatabaseEntities { get; set; }
     }
 }
