@@ -7,40 +7,29 @@ namespace UnitTests
 {
     public class DbTest
     {
-        protected UhContext _uhContext;
+        protected ExampleContext _exampleContext;
 
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
             var builder = new DbContextOptionsBuilder();
 
-            // To run database tests locally (eg. via Visual Studio) the TEST_DB_URL environment variable will need to be populated with
-            // @"Host=localhost;Database=entitycore;Username=postgres;Password=mypassword";
-            var testDbUrl = Environment.GetEnvironmentVariable("TEST_DB_URL") ??
-                            @"Host=stub-test-db;Database=entitycore;Username=postgres;Password=mypassword";
-            // Note: The Host name needs to be the name of the stub database docker-compose service, in order to run tests via Docker
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ??
+                            @"Host=test-database;Port=5432;Database=entitycorex;Username=postgres;Password=mypassword";
 
-            // Delete as appropriate
-            // If using SQL:
-            // builder.UseSqlServer(TEST_DB_URL);
+            builder.UseNpgsql(connectionString);
 
-            // If using Postgres:
-            builder.UseNpgsql(testDbUrl);
+            _exampleContext = new ExampleContext(builder.Options);
 
-            // Do not delete this line:
-            _uhContext = new UhContext(builder.Options);
+            _exampleContext.Database.EnsureCreated();
 
-            // If using Postgres:
-            _uhContext.Database.EnsureCreated();
-
-            // Do not delete this line:
-            _uhContext.Database.BeginTransaction();
+            _exampleContext.Database.BeginTransaction();
         }
 
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
-            _uhContext.Database.RollbackTransaction();
+            _exampleContext.Database.RollbackTransaction();
         }
     }
 }
