@@ -7,7 +7,7 @@ namespace UnitTests
 {
     public class DbTest
     {
-        protected ExampleContext _exampleContext;
+        protected DatabaseContext _databaseContext;
 
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
@@ -19,17 +19,17 @@ namespace UnitTests
 
             builder.UseNpgsql(connectionString);
 
-            _exampleContext = new ExampleContext(builder.Options);
+            _databaseContext = new DatabaseContext(builder.Options);
 
-            _exampleContext.Database.EnsureCreated();
+            _databaseContext.Database.EnsureCreated();
 
-            _exampleContext.Database.BeginTransaction();
+            _databaseContext.Database.BeginTransaction();
         }
 
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
-            _exampleContext.Database.RollbackTransaction();
+            _databaseContext.Database.RollbackTransaction();
         }
     }
 }
