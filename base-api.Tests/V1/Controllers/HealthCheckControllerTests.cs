@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using base_api.Controllers.V1;
@@ -22,12 +23,12 @@ namespace UnitTests.V1.Controllers
         [Test]
         public void ReturnsResponseWithStatus()
         {
+            var expected = new Dictionary<string, object> { { "success", true } };
             var response = _classUnderTest.HealthCheck() as OkObjectResult;
 
-            Assert.NotNull(response);
-            Assert.AreEqual(response.StatusCode, 200);
-            Assert.AreEqual(new Dictionary<string, object> { { "success", true } }, response.Value);
-
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(200);
+            response.Value.Should().BeEquivalentTo(expected);
         }
 
         [Test]
