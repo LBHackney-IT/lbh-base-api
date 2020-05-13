@@ -1,6 +1,9 @@
+using AutoFixture;
 using Bogus;
+using FluentAssertions;
 using NUnit.Framework;
 using UnitTests.V1.Helper;
+using base_api.V1.Domain;
 using base_api.V1.Gateways;
 
 namespace UnitTests.V1.Gateways
@@ -9,6 +12,7 @@ namespace UnitTests.V1.Gateways
     public class ExampleGatewayTests : DbTest
     {
         private readonly Faker _faker = new Faker();
+        private Fixture _fixture = new Fixture();
         private ExampleGateway _classUnderTest;
 
         [SetUp]
@@ -28,13 +32,13 @@ namespace UnitTests.V1.Gateways
         {
             var response = _classUnderTest.GetEntityById(123);
 
-            Assert.AreEqual(null, response);
+            response.Should().BeNull();
         }
 
         [Test]
         public void GetEntityById_ReturnsCorrectResponse()
         {
-            var entity = EntityHelper.CreateEntity();
+            var entity = _fixture.Create<Entity>();
             var databaseEntity = DatabaseEntityHelper.CreateDatabaseEntityFrom(entity);
 
             _databaseContext.DatabaseEntities.Add(databaseEntity);
@@ -42,8 +46,8 @@ namespace UnitTests.V1.Gateways
 
             var response = _classUnderTest.GetEntityById(databaseEntity.Id);
 
-            Assert.AreEqual(databaseEntity.Id, response.Id);
-            Assert.AreEqual(databaseEntity.CreatedAt, response.CreatedAt);
+            databaseEntity.Id.Should().Be(response.Id);
+            databaseEntity.CreatedAt.Should().BeSameDateAs(response.CreatedAt);
         }
     }
 }

@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NUnit.Framework;
 using base_api.V1.Domain;
 using base_api.V1.Factory;
@@ -13,8 +14,8 @@ namespace UnitTests.V1.Factories
             var databaseEntity = new DatabaseEntity();
             var entity = new EntityFactory().ToDomain(databaseEntity);
 
-            Assert.AreEqual(databaseEntity.Id, entity.Id);
-            Assert.AreEqual(databaseEntity.CreatedAt, entity.CreatedAt);
+            databaseEntity.Id.Should().Be(entity.Id);
+            databaseEntity.CreatedAt.Should().BeSameDateAs(entity.CreatedAt);
         }
     }
 }

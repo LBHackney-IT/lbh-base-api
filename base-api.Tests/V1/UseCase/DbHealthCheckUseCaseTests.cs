@@ -1,6 +1,6 @@
 using System.Threading;
-using System.Threading.Tasks;
 using Bogus;
+using FluentAssertions;
 using Microsoft.Extensions.HealthChecks;
 using NUnit.Framework;
 using base_api.UseCase.V1;
@@ -40,9 +40,9 @@ namespace UnitTests.V1.UseCase
         {
             var response = _classUnderTest.Execute();
 
-            Assert.NotNull(response);
-            Assert.True(response.Success);
-            Assert.AreEqual(response.Message, "test: " + _description);
+            response.Should().NotBeNull();
+            response.Success.Should().BeTrue();
+            response.Message.Should().BeEquivalentTo("test: " + _description);
         }
     }
 }

@@ -1,3 +1,4 @@
+using AutoFixture;
 using base_api.V1.Domain;
 
 namespace UnitTests.V1.Helper
@@ -6,7 +7,9 @@ namespace UnitTests.V1.Helper
     {
         public static DatabaseEntity CreateDatabaseEntity()
         {
-            return CreateDatabaseEntityFrom(EntityHelper.CreateEntity());
+            var entity = new Fixture().Create<Entity>();
+
+            return CreateDatabaseEntityFrom(entity);
         }
 
         public static DatabaseEntity CreateDatabaseEntityFrom(Entity entity)
