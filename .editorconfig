@@ -120,7 +120,5 @@ csharp_space_between_square_brackets = false
 #Using directives
 csharp_using_directive_placement = outside_namespace
 
-#Declaring which error categories we want the build to fail on
+#Example: declaring which error categories we want the build to fail on.
 # dotnet_diagnostic.CA1707.severity = error
-# dotnet_diagnostic.CA1822.severity = error
-dotnet_analyzer_diagnostic.severity = none
