@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace base_api.Controllers.V1
+namespace BaseApi.Controllers.V1
 {
     public class BaseController : Controller
     {

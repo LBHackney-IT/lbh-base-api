@@ -1,7 +1,7 @@
 using Microsoft.Extensions.HealthChecks;
-using base_api.V1.Boundary;
+using BaseApi.V1.Boundary;
 
-namespace base_api.UseCase.V1
+namespace BaseApi.UseCase.V1
 {
     public class DbHealthCheckUseCase
     {

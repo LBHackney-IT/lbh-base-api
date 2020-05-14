@@ -1,6 +1,6 @@
 using System;
 
-namespace base_api.V1.Boundary
+namespace BaseApi.V1.Boundary
 {
     public class HealthCheckResponse
     {
@@ -10,7 +10,7 @@ namespace base_api.V1.Boundary
             Message = message;
         }
 
-        public readonly bool Success;
-        public readonly string Message;
+        public bool Success { get; }
+        public string Message { get; }
     }
 }
