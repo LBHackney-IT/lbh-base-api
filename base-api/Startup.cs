@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using BaseApi.V1.Gateways;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BaseApi.Versioning;
-using BaseApi.UseCase.V1;
-using BaseApi.V1.Boundary;
-using BaseApi.V1.Gateways;
 using BaseApi.V1.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -126,6 +124,7 @@ namespace BaseApi
 
         private static void RegisterUseCases(IServiceCollection services)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
             // your usecases here
         }
 

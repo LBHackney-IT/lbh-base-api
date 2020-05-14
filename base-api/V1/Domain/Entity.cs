@@ -1,6 +1,6 @@
 using System;
 
-namespace base_api.V1.Domain
+namespace BaseApi.V1.Domain
 {
     public class Entity
     {

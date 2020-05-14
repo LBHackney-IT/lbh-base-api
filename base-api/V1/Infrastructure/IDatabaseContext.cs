@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using BaseApi.V1.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BaseApi.V1.Infrastructure
 {

@@ -1,24 +1,22 @@
 using AutoFixture;
-using Bogus;
 using FluentAssertions;
 using NUnit.Framework;
 using UnitTests.V1.Helper;
-using base_api.V1.Domain;
-using base_api.V1.Gateways;
+using BaseApi.V1.Gateways;
+using BaseApi.V1.Domain;
 
 namespace UnitTests.V1.Gateways
 {
     [TestFixture]
     public class ExampleGatewayTests : DbTest
     {
-        private readonly Faker _faker = new Faker();
         private Fixture _fixture = new Fixture();
         private ExampleGateway _classUnderTest;
 
         [SetUp]
         public void Setup()
         {
-            _classUnderTest = new ExampleGateway(_databaseContext);
+            _classUnderTest = new ExampleGateway(DatabaseContext);
         }
 
         [Test]
@@ -28,7 +26,7 @@ namespace UnitTests.V1.Gateways
         }
 
         [Test]
-        public void GetEntityById_ReturnsEmptyArray()
+        public void GetEntityByIdReturnsEmptyArray()
         {
             var response = _classUnderTest.GetEntityById(123);
 
@@ -36,13 +34,13 @@ namespace UnitTests.V1.Gateways
         }
 
         [Test]
-        public void GetEntityById_ReturnsCorrectResponse()
+        public void GetEntityByIdReturnsCorrectResponse()
         {
             var entity = _fixture.Create<Entity>();
             var databaseEntity = DatabaseEntityHelper.CreateDatabaseEntityFrom(entity);
 
-            _databaseContext.DatabaseEntities.Add(databaseEntity);
-            _databaseContext.SaveChanges();
+            DatabaseContext.DatabaseEntities.Add(databaseEntity);
+            DatabaseContext.SaveChanges();
 
             var response = _classUnderTest.GetEntityById(databaseEntity.Id);
 

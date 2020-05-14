@@ -1,7 +1,7 @@
 using FluentAssertions;
 using NUnit.Framework;
-using base_api.V1.Domain;
-using base_api.V1.Factory;
+using BaseApi.V1.Domain;
+using BaseApi.V1.Factory;
 
 namespace UnitTests.V1.Factories
 {
