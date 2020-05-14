@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
-using base_api.Controllers.V1;
-using base_api.UseCase.V1;
+using BaseApi.Controllers.V1;
+using BaseApi.UseCase.V1;
 
 namespace UnitTests.V1.Controllers
 {

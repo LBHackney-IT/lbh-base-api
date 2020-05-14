@@ -1,6 +1,6 @@
 using FluentAssertions;
 using NUnit.Framework;
-using base_api.UseCase.V1;
+using BaseApi.UseCase.V1;
 
 namespace UnitTests.V1.UseCase
 {

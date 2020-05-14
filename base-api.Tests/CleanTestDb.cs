@@ -1,13 +1,14 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using base_api.V1.Infrastructure;
+using BaseApi.V1.Infrastructure;
 
 namespace UnitTests
 {
+    [TestFixture]
     public class DbTest
     {
-        protected DatabaseContext _databaseContext;
+        protected DatabaseContext DatabaseContext { get; set; }
 
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
@@ -19,17 +20,17 @@ namespace UnitTests
 
             builder.UseNpgsql(connectionString);
 
-            _databaseContext = new DatabaseContext(builder.Options);
+            DatabaseContext = new DatabaseContext(builder.Options);
 
-            _databaseContext.Database.EnsureCreated();
+            DatabaseContext.Database.EnsureCreated();
 
-            _databaseContext.Database.BeginTransaction();
+            DatabaseContext.Database.BeginTransaction();
         }
 
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
-            _databaseContext.Database.RollbackTransaction();
+            DatabaseContext.Database.RollbackTransaction();
         }
     }
 }

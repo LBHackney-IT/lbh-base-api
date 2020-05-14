@@ -3,7 +3,7 @@ using Bogus;
 using FluentAssertions;
 using Microsoft.Extensions.HealthChecks;
 using NUnit.Framework;
-using base_api.UseCase.V1;
+using BaseApi.UseCase.V1;
 using Moq;
 
 namespace UnitTests.V1.UseCase
