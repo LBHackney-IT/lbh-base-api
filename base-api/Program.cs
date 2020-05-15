@@ -2,9 +2,9 @@ using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace base_api
+namespace BaseApi
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

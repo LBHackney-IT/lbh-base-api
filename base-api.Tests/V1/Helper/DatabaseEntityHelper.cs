@@ -1,5 +1,5 @@
 using AutoFixture;
-using base_api.V1.Domain;
+using BaseApi.V1.Domain;
 
 namespace UnitTests.V1.Helper
 {

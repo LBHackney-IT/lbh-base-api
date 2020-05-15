@@ -77,6 +77,17 @@ Then we have an automated six step deployment process, which runs in CircleCI.
 
 Our staging and production environments are hosted by AWS. We would deploy to production per each feature/config merged into  `master`  branch.
 
+## Static Code Analysis
+
+### Using [FxCop Analysers](https://www.nuget.org/packages/Microsoft.CodeAnalysis.FxCopAnalyzers)
+
+FxCop runs code analysis when the Solution is built.
+
+Both the API and Test projects have been set up to **treat all warnings from the code analysis as errors** and therefore, fail the build.
+
+However, we can select which errors to suppress by setting the severity of the responsible rule to none, e.g `dotnet_analyzer_diagnostic.<Category-or-RuleId>.severity = none`, within the `.editorconfig` file.
+Documentation on how to do this can be found [here](https://docs.microsoft.com/en-us/visualstudio/code-quality/use-roslyn-analyzers?view=vs-2019).
+
 ## Testing
 
 ### Run the tests

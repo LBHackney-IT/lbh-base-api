@@ -1,7 +1,7 @@
+using BaseApi.V1.Domain;
 using Microsoft.EntityFrameworkCore;
-using base_api.V1.Domain;
 
-namespace base_api.V1.Infrastructure
+namespace BaseApi.V1.Infrastructure
 {
     public interface IDatabaseContext
     {

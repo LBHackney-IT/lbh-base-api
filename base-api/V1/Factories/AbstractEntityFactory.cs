@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using base_api.V1.Domain;
+using BaseApi.V1.Domain;
 
-namespace base_api.V1.Factory
+namespace BaseApi.V1.Factory
 {
     public abstract class AbstractEntityFactory
     {

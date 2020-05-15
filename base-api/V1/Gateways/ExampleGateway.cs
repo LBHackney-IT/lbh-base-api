@@ -1,9 +1,8 @@
+using BaseApi.V1.Domain;
+using BaseApi.V1.Factory;
+using BaseApi.V1.Infrastructure;
 
-using base_api.V1.Domain;
-using base_api.V1.Factory;
-using base_api.V1.Infrastructure;
-
-namespace base_api.V1.Gateways
+namespace BaseApi.V1.Gateways
 {
     public class ExampleGateway : IExampleGateway
     {

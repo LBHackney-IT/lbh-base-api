@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using BaseApi.V1.Gateways;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using base_api.UseCase.V1;
-using base_api.V1.Boundary;
-using base_api.V1.Gateways;
-using base_api.V1.Infrastructure;
-using base_api.Versioning;
+using BaseApi.Versioning;
+using BaseApi.V1.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace base_api
+namespace BaseApi
 {
     public class Startup
     {
@@ -35,7 +33,7 @@ namespace base_api
         private const string ApiName = "Your API Name";
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
             services
                 .AddMvc()
@@ -126,11 +124,12 @@ namespace base_api
 
         private static void RegisterUseCases(IServiceCollection services)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
             // your usecases here
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
