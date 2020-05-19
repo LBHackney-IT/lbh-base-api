@@ -59,7 +59,7 @@ commands:
           name: Install serverless CLI
           command: npm i -g serverless
       - run:
-          name: Build lamdba
+          name: Build lambda
           command: |
             cd ./BaseApi/
             chmod +x ./build.sh
