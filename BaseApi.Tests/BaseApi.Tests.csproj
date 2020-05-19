@@ -7,7 +7,6 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>base-api.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

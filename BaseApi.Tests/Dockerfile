@@ -6,7 +6,7 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT='true'
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY ./base-api.sln ./
+COPY ./BaseApi.sln ./
 COPY ./BaseApi/BaseApi.csproj ./BaseApi/
 COPY ./BaseApi.Tests/BaseApi.Tests.csproj ./BaseApi.Tests/
 
