@@ -4,7 +4,7 @@ services:
   base-api:
     image: base-api
     build:
-      context: base-api/
+      context: BaseApi/
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
@@ -23,13 +23,19 @@ services:
     image: base-api-test
     build:
       context: .
-      dockerfile: base-api.Tests/Dockerfile
+      dockerfile: BaseApi.Tests/Dockerfile
     environment:
-      - CONNECTION_STRING=Host=test-database;Port=5432;Database=entitycorex;Username=postgres;Password=mypassword
+      - DB_HOST=test-database
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=mypassword
+      - DB_DATABASE=testdb
     links:
       - test-database
   test-database:
     image: postgres:12
+    ports:
+      - 5432:5432
     env_file:
       - database.env
     volumes:

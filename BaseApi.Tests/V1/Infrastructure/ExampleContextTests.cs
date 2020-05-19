@@ -6,7 +6,7 @@ using UnitTests.V1.Helper;
 namespace UnitTests.V1.Infrastructure
 {
     [TestFixture]
-    public class DatabaseContextTest : DbTest
+    public class DatabaseContextTest : DatabaseTests
     {
         [Test]
         public void CanGetADatabaseEntity()

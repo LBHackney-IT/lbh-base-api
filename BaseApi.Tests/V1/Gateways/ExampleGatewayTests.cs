@@ -8,7 +8,7 @@ using BaseApi.V1.Domain;
 namespace UnitTests.V1.Gateways
 {
     [TestFixture]
-    public class ExampleGatewayTests : DbTest
+    public class ExampleGatewayTests : DatabaseTests
     {
         private Fixture _fixture = new Fixture();
         private ExampleGateway _classUnderTest;

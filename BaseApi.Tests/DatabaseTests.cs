@@ -1,12 +1,12 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using BaseApi.V1.Infrastructure;
+using BaseApi.Tests;
 
 namespace UnitTests
 {
     [TestFixture]
-    public class DbTest
+    public class DatabaseTests
     {
         protected DatabaseContext DatabaseContext { get; set; }
 
@@ -14,16 +14,10 @@ namespace UnitTests
         public void RunBeforeAnyTests()
         {
             var builder = new DbContextOptionsBuilder();
-
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ??
-                            @"Host=test-database;Port=5432;Database=entitycorex;Username=postgres;Password=mypassword";
-
-            builder.UseNpgsql(connectionString);
-
+            builder.UseNpgsql(ConnectionString.TestDatabase());
             DatabaseContext = new DatabaseContext(builder.Options);
 
             DatabaseContext.Database.EnsureCreated();
-
             DatabaseContext.Database.BeginTransaction();
         }
 

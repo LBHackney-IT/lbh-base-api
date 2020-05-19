@@ -12,4 +12,4 @@ RUN dotnet build -c Release -o out
 RUN dotnet publish -c Release -o out
 
 EXPOSE ${PORT:-3000}
-CMD ASPNETCORE_URLS=http://+:${PORT:-3000} dotnet ./out/base-api.dll
+CMD ASPNETCORE_URLS=http://+:${PORT:-3000} dotnet ./out/BaseApi.dll
