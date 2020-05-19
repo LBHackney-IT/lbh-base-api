@@ -35,15 +35,10 @@ commands:
           command: |
             cd ./terraform/
             terraform apply -auto-approve
-
-  deploy-env:
-    description: "Sets ecs-deploy to update a service with a target docker image"
+  deploy-lambda:
+    description: "Deploys API via Serverless"
     parameters:
-      cluster-name:
-        type: string
-      service-name:
-        type: string
-      image-tag:
+      stage:
         type: string
       aws-account:
         type: string
@@ -51,72 +46,29 @@ commands:
         type: string
     steps:
       - checkout
-      - aws_assume_role/assume_role:
-          account: <<parameters.aws-account>>
-          profile_name: default
-          role: <<parameters.aws-role-name>>
+      - setup_remote_docker
       - run:
-          name: Install ecs deploy
+          name: Install Node.js
           command: |
-            sudo pip install ecs-deploy
+            curl -sL https://deb.nodesource.com/setup_13.x | bash -
+            apt-get update && apt-get install -y nodejs
       - run:
-          name: Premote target image
-          command: |
-            ecs deploy \
-            --no-deregister \
-            --profile default \
-            --timeout 1800 \
-            << parameters.cluster-name >> \
-            << parameters.service-name >> \
-            -t << parameters.image-tag >>
-          no_output_timeout: 30m
-  build_and_push_image:
-    parameters:
-      account-url:
-        default: AWS_ECR_ACCOUNT_URL
-        type: env_var_name
-      region:
-        default: AWS_REGION
-        type: env_var_name
-      dockerfile:
-        default: Dockerfile
-        type: string
-      path:
-        default: .
-        type: string
-      repo:
-        type: string
-      tag:
-        default: latest
-        type: string
-      aws-account:
-        type: string
-      aws-role-name:
-        type: string
-    steps:
-      - checkout
-      - aws_assume_role/assume_role:
-          account: <<parameters.aws-account>>
-          profile_name: default
-          role: <<parameters.aws-role-name>>
+          name: NPM Install
+          command: npm install
       - run:
-          name: authorize docker to access aws ecr
+          name: Install serverless CLI
+          command: npm i -g serverless
+      - run:
+          name: Build lambda
           command: |
-            # aws ecr get-login returns a login command w/ a temp token
-            LOGIN_COMMAND=$(aws ecr get-login --no-include-email --region \
-            $<<parameters.region>> --profile default) # default default default default default default default
-            # save it to an env var & use that env var to login
-            $LOGIN_COMMAND
-      - aws-ecr/build-image:
-          account-url: <<parameters.account-url>>
-          dockerfile: <<parameters.dockerfile>>
-          path: <<parameters.path>>
-          repo: <<parameters.repo>>
-          tag: <<parameters.tag>>
-      - aws-ecr/push-image:
-          account-url: <<parameters.account-url>>
-          repo: <<parameters.repo>>
-          tag: <<parameters.tag>>
+            cd ./BaseApi/
+            chmod +x ./build.sh
+            ./build.sh
+      - run:
+          name: Deploy lambda
+          command: |
+            cd ./BaseApi/
+            sls deploy --stage <<parameters.stage>>
 
 jobs:
   terraform-init-and-apply-to-development:
@@ -173,7 +125,6 @@ jobs:
       - run:
           name: Run formatter check
           command: ./dotnet-format-local/dotnet-format --dry-run --check
-
   build-and-test:
     executor: docker-python
     steps:
@@ -188,67 +139,24 @@ jobs:
   deploy-to-development:
     executor: docker-python
     steps:
-      - deploy-env:
-          cluster-name: $AWS_CLUSTER_DEV
-          service-name: $AWS_SERVICE_DEV
-          image-tag: "$CIRCLE_SHA1"
+      - deploy-lambda:
           aws-role-name: 'LBH_Circle_CI_Deployment_Role'
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
+          stage: 'development'
   deploy-to-staging:
-    docker:
-      - image: circleci/python:3.7
+    executor: docker-dotnet
     steps:
-      - deploy-env:
-          cluster-name: $AWS_CLUSTER_STAGING
-          service-name: $AWS_SERVICE_STAGING
-          image-tag: "$CIRCLE_SHA1"
+      - deploy-lambda:
           aws-role-name: 'LBH_Circle_CI_Deployment_Role'
           aws-account: $AWS_ACCOUNT_STAGING
+          stage: 'staging'
   deploy-to-production:
-    executor: docker-python
+    executor: docker-dotnet
     steps:
-      - deploy-env:
-          cluster-name: $AWS_CLUSTER_PROD
-          service-name: $AWS_SERVICE_PROD
-          image-tag: "$CIRCLE_SHA1"
+      - deploy-lambda:
           aws-role-name: 'LBH_Circle_CI_Deployment_Role'
           aws-account: $AWS_ACCOUNT_PRODUCTION
-  build_and_push_image_development:
-    executor: aws-ecr/default
-    steps:
-      - build_and_push_image:
-          dockerfile: ./base-api/Dockerfile
-          path: ./base-api
-          account-url: AWS_ECR_HOST_DEVELOPMENT
-          repo: $AWS_ECR_PATH_DEV
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_DEVELOPMENT
-  build_and_push_image_staging:
-    executor: aws-ecr/default
-    steps:
-      - build_and_push_image:
-          dockerfile: ./base-api/Dockerfile
-          path: $PROJECT_PATH
-          account-url: AWS_ECR_HOST_STAGING
-          repo: $AWS_ECR_PATH_STAGING
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_STAGING
-  build_and_push_image_production:
-    executor: aws-ecr/default
-    steps:
-      - build_and_push_image:
-          dockerfile: ./base-api/Dockerfile
-          path: $PROJECT_PATH
-          account-url: AWS_ECR_HOST_PRODUCTION
-          repo: $AWS_ECR_PATH_PRODUCTION
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_PRODUCTION
+          stage: 'production'
 
 workflows:
   check-and-deploy:
@@ -269,89 +177,70 @@ workflows:
           filters:
              branches:
                only: development
-      - build_and_push_image_development:
-          context: api-assume-role-development-context
-          requires:
-            - build-and-test
-            - terraform-init-and-apply-to-development
-          filters:
-            branches:
-              only: development
       - deploy-to-development:
           context: api-assume-role-development-context
           requires:
-            - build_and_push_image_development
+            - build-and-test
+            - assume-role-development
           filters:
             branches:
               only: development
-  # check-and-deploy-staging-and-production:
-  #     jobs:
-  #     - build-and-test:
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - assume-role-staging:
-  #         context: api-assume-role-staging-context
-  #         requires:
-  #             - build-and-test
-  #         filters:
-  #            branches:
-  #              only: master
-  #     - terraform-init-and-apply-to-staging:
-  #         requires:
-  #           - assume-role-staging
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - build_and_push_image_staging:
-  #         context: api-assume-role-staging-context
-  #         requires:
-  #           - build-and-test
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - deploy-to-staging:
-  #         context: api-assume-role-staging-context
-  #         requires:
-  #           - build_and_push_image_staging
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - permit-production-terraform-release:
-  #         type: approval
-  #         requires:
-  #           - deploy-to-staging
-  #     - assume-role-production:
-  #         context: api-assume-role-production-context
-  #         requires:
-  #             - permit-production-terraform-release
-  #         filters:
-  #            branches:
-  #              only: master
-  #     - terraform-init-and-apply-to-production:
-  #         requires:
-  #           - assume-role-production
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - permit-production-release:
-  #         type: approval
-  #         requires:
-  #           - deploy-to-staging
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - build_and_push_image_production:
-  #         context: api-assume-role-production-context
-  #         requires:
-  #           - permit-production-release
-  #         filters:
-  #           branches:
-  #             only: master
-  #     - deploy-to-production:
-  #         context: api-assume-role-production-context
-  #         requires:
-  #           - build_and_push_image_production
-  #         filters:
-  #           branches:
-  #             only: master
+#   check-and-deploy-staging-and-production:
+#       jobs:
+#       - build-and-test:
+#           filters:
+#             branches:
+#               only: master
+#       - assume-role-staging:
+#           context: api-assume-role-staging-context
+#           requires:
+#               - build-and-test
+#           filters:
+#              branches:
+#                only: master
+#       - terraform-init-and-apply-to-staging:
+#           requires:
+#             - assume-role-staging
+#           filters:
+#             branches:
+#               only: master
+#       - deploy-to-staging:
+#           context: api-assume-role-staging-context
+#           requires:
+#             - build-and-test
+#             - assume-role-staging
+#           filters:
+#             branches:
+#               only: master
+#       - permit-production-terraform-release:
+#           type: approval
+#           requires:
+#             - deploy-to-staging
+#       - assume-role-production:
+#           context: api-assume-role-production-context
+#           requires:
+#               - permit-production-terraform-release
+#           filters:
+#              branches:
+#                only: master
+#       - terraform-init-and-apply-to-production:
+#           requires:
+#             - assume-role-production
+#           filters:
+#             branches:
+#               only: master
+#       - permit-production-release:
+#           type: approval
+#           requires:
+#             - deploy-to-staging
+#           filters:
+#             branches:
+#               only: master
+#       - deploy-to-production:
+#           context: api-assume-role-production-context
+#           requires:
+#             - permit-production-release
+#             - assume-role-production
+#           filters:
+#             branches:
+#               only: master
