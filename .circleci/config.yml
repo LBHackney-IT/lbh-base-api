@@ -65,7 +65,7 @@ commands:
             chmod +x ./build.sh
             ./build.sh
       - run:
-          name: Deploy lamdba
+          name: Deploy lambda
           command: |
             cd ./BaseApi/
             sls deploy --stage <<parameters.stage>>
