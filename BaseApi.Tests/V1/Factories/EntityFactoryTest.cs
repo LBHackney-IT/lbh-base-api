@@ -12,7 +12,7 @@ namespace BaseApi.Tests.V1.Factories
         public void CanBeCreatedFromDatabaseEntity()
         {
             var databaseEntity = new DatabaseEntity();
-            var entity = new EntityFactory().ToDomain(databaseEntity);
+            var entity = databaseEntity.ToDomain();
 
             databaseEntity.Id.Should().Be(entity.Id);
             databaseEntity.CreatedAt.Should().BeSameDateAs(entity.CreatedAt);
