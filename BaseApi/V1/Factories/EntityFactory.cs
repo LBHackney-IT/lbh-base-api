@@ -1,6 +1,7 @@
 using BaseApi.V1.Domain;
+using BaseApi.V1.Infrastructure;
 
-namespace BaseApi.V1.Factory
+namespace BaseApi.V1.Factories
 {
     public class EntityFactory : AbstractEntityFactory
     {

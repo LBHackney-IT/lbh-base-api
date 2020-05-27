@@ -1,9 +1,9 @@
+using BaseApi.V1.Factories;
+using BaseApi.V1.Infrastructure;
 using FluentAssertions;
 using NUnit.Framework;
-using BaseApi.V1.Domain;
-using BaseApi.V1.Factory;
 
-namespace UnitTests.V1.Factories
+namespace BaseApi.Tests.V1.Factories
 {
     [TestFixture]
     public class EntityFactoryTest

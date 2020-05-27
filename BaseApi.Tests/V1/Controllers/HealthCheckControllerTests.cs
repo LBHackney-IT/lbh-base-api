@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using BaseApi.V1.Controllers;
+using BaseApi.V1.UseCase;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
-using BaseApi.Controllers.V1;
-using BaseApi.UseCase.V1;
 
-namespace UnitTests.V1.Controllers
+namespace BaseApi.Tests.V1.Controllers
 {
 
     [TestFixture]

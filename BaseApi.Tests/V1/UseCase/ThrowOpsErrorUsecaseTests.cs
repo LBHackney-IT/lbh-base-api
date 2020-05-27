@@ -1,8 +1,8 @@
+using BaseApi.V1.UseCase;
 using FluentAssertions;
 using NUnit.Framework;
-using BaseApi.UseCase.V1;
 
-namespace UnitTests.V1.UseCase
+namespace BaseApi.Tests.V1.UseCase
 {
     [TestFixture]
     public class ThrowOpsErrorUsecaseTests

@@ -1,10 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
 using BaseApi.V1.Infrastructure;
-using BaseApi.Tests;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using NUnit.Framework;
 
-namespace UnitTests
+namespace BaseApi.Tests
 {
     [TestFixture]
     public class DatabaseTests
