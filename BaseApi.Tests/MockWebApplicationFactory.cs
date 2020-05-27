@@ -25,8 +25,10 @@ namespace BaseApi.Tests
                 .UseStartup<Startup>();
             builder.ConfigureServices(services =>
             {
-                services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(_connection),
-                    ServiceLifetime.Singleton);
+                var dbBuilder = new DbContextOptionsBuilder();
+                dbBuilder.UseNpgsql(_connection);
+                var context = new DatabaseContext(dbBuilder.Options);
+                services.AddSingleton(context);
 
                 var serviceProvider = services.BuildServiceProvider();
                 var dbContext = serviceProvider.GetRequiredService<DatabaseContext>();
