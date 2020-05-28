@@ -29,7 +29,7 @@ data "aws_iam_role" "ecs_task_execution_role" {
 
 terraform {
   backend "s3" {
-    bucket  = your bucket name #"terraform-state-development-apis" for development, "terraform-state-staging-apis" or "terraform-state-production-apis"
+    bucket  = "terraform-state-production-apis"
     encrypt = true
     region  = "eu-west-2"
     key     = services/YOUR API NAME/state #e.g. "services/transactions-api/state"
@@ -40,20 +40,20 @@ module "development" {
   # Delete as appropriate:
   source                      = "github.com/LBHackney-IT/aws-hackney-components-per-service-terraform.git//modules/environment/backend/fargate"
   # source = "github.com/LBHackney-IT/aws-hackney-components-per-service-terraform.git//modules/environment/backend/ec2"
-  cluster_name                = ecs cluster name # Replace with your cluster name. For APIs: development-apis or staging-apis or production-apis
+  cluster_name                = "production-apis"
   ecr_name                    = ecr repository name # Replace with your repository name - pattern: "hackney/YOUR APP NAME"
-  environment_name            = "development"
+  environment_name            = "production"
   application_name            = local.application_name 
   security_group_name         = back end security group name # Replace with your security group name, WITHOUT SPECIFYING environment. Usually the SG has the name of your API
-  vpc_name                    = your vpc name # The name of the VPC, without environment - vpc-development-apis or vpc-staging-apis or vpc-production-apis
+  vpc_name                    = "vpc-production-apis"
   host_port                   = port # Replace with the port to use for your api / app
   port                        = port # Replace with the port to use for your api / app
   desired_number_of_ec2_nodes = number of nodes # Variable will only be used if EC2 is required. Do not remove it. 
-  lb_prefix                   = NLB name # Replace with the existing NLB name, without environment. "nlb-development-apis" or "nlb-staging-apis" or "nlb-production-apis"
+  lb_prefix                   = "nlb-production-apis"
   ecs_execution_role          = data.aws_iam_role.ecs_task_execution_role.arn
   lb_iam_role_arn             = data.aws_iam_role.ec2_container_service_role.arn
   task_definition_environment_variables = {
-    ASPNETCORE_ENVIRONMENT = "development"
+    ASPNETCORE_ENVIRONMENT = "production"
   }
   task_definition_environment_variable_count = number # This number needs to reflect the number of environment variables provided
   cost_code = your project's cost code

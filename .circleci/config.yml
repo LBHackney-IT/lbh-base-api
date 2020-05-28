@@ -23,17 +23,19 @@ commands:
         type: string
       aws-role-name:
         type: string
+      environment:
+        type: string
     steps:
        - run:
           command: |
-              cd ./terraform/
+              cd ./terraform/<<parameters.environment>>/
               terraform get -update=true
               terraform init
           name: get and init
        - run:
           name: apply
           command: |
-            cd ./terraform/
+            cd ./terraform/<<parameters.environment>>/
             terraform apply -auto-approve
   deploy-lambda:
     description: "Deploys API via Serverless"
@@ -78,18 +80,21 @@ jobs:
       - terraform-init-then-apply:
           aws-role-name: 'LBH_Circle_CI_Deployment_Role'
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
+          environment: 'development'
   terraform-init-and-apply-to-staging:
     executor: docker-terraform
     steps:
       - terraform-init-then-apply:
           aws-role-name: 'LBH_Circle_CI_Deployment_Role'
           aws-account: $AWS_ACCOUNT_STAGING
+          environment: 'staging'
   terraform-init-and-apply-to-production:
     executor: docker-terraform
     steps:
       - terraform-init-then-apply:
           aws-role-name: 'LBH_Circle_CI_Deployment_Role'
           aws-account: $AWS_ACCOUNT_PRODUCTION
+          environment: 'production'
   assume-role-development:
      executor: docker-python
      steps:
