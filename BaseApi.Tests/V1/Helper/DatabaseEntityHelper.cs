@@ -1,7 +1,8 @@
 using AutoFixture;
 using BaseApi.V1.Domain;
+using BaseApi.V1.Infrastructure;
 
-namespace UnitTests.V1.Helper
+namespace BaseApi.Tests.V1.Helper
 {
     public static class DatabaseEntityHelper
     {

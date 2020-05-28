@@ -1,9 +1,9 @@
 using System;
+using BaseApi.V1.Domain;
 using FluentAssertions;
 using NUnit.Framework;
-using BaseApi.V1.Domain;
 
-namespace UnitTests.V1.Domain
+namespace BaseApi.Tests.V1.Domain
 {
     [TestFixture]
     public class EntityTests

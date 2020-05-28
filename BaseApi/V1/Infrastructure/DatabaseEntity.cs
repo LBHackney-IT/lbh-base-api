@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BaseApi.V1.Domain
+namespace BaseApi.V1.Infrastructure
 {
     [Table("example_entities")]
     public class DatabaseEntity

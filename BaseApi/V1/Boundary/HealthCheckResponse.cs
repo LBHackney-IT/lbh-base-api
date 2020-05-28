@@ -1,5 +1,3 @@
-using System;
-
 namespace BaseApi.V1.Boundary
 {
     public class HealthCheckResponse

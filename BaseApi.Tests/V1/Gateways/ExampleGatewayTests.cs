@@ -1,11 +1,11 @@
 using AutoFixture;
+using BaseApi.Tests.V1.Helper;
+using BaseApi.V1.Domain;
+using BaseApi.V1.Gateways;
 using FluentAssertions;
 using NUnit.Framework;
-using UnitTests.V1.Helper;
-using BaseApi.V1.Gateways;
-using BaseApi.V1.Domain;
 
-namespace UnitTests.V1.Gateways
+namespace BaseApi.Tests.V1.Gateways
 {
     [TestFixture]
     public class ExampleGatewayTests : DatabaseTests

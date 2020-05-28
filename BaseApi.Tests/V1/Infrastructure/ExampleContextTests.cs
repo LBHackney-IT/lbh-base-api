@@ -1,9 +1,9 @@
 using System.Linq;
+using BaseApi.Tests.V1.Helper;
+using BaseApi.V1.Infrastructure;
 using NUnit.Framework;
-using BaseApi.V1.Domain;
-using UnitTests.V1.Helper;
 
-namespace UnitTests.V1.Infrastructure
+namespace BaseApi.Tests.V1.Infrastructure
 {
     [TestFixture]
     public class DatabaseContextTest : DatabaseTests
@@ -11,7 +11,7 @@ namespace UnitTests.V1.Infrastructure
         [Test]
         public void CanGetADatabaseEntity()
         {
-            DatabaseEntity databaseEntity = DatabaseEntityHelper.CreateDatabaseEntity();
+            var databaseEntity = DatabaseEntityHelper.CreateDatabaseEntity();
 
             DatabaseContext.Add(databaseEntity);
             DatabaseContext.SaveChanges();

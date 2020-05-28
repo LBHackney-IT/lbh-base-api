@@ -1,12 +1,12 @@
 using System.Threading;
+using BaseApi.V1.UseCase;
 using Bogus;
 using FluentAssertions;
 using Microsoft.Extensions.HealthChecks;
-using NUnit.Framework;
-using BaseApi.UseCase.V1;
 using Moq;
+using NUnit.Framework;
 
-namespace UnitTests.V1.UseCase
+namespace BaseApi.Tests.V1.UseCase
 {
     [TestFixture]
     public class DbHealthCheckUseCaseTests
