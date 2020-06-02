@@ -9,9 +9,9 @@ namespace BaseApi.Tests
     public class DatabaseTests
     {
         private IDbContextTransaction _transaction;
-        protected DatabaseContext DatabaseContext { get; set; }
+        protected DatabaseContext DatabaseContext { get; private set; }
 
-        [OneTimeSetUp]
+        [SetUp]
         public void RunBeforeAnyTests()
         {
             var builder = new DbContextOptionsBuilder();
@@ -22,7 +22,7 @@ namespace BaseApi.Tests
             _transaction = DatabaseContext.Database.BeginTransaction();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void RunAfterAnyTests()
         {
             _transaction.Rollback();

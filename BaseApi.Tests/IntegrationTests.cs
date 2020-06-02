@@ -1,6 +1,7 @@
 using System.Net.Http;
 using BaseApi.V1.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
 using NUnit.Framework;
 
@@ -13,7 +14,8 @@ namespace BaseApi.Tests
 
         private MockWebApplicationFactory<TStartup> _factory;
         private NpgsqlConnection _connection;
-        private NpgsqlTransaction _transaction;
+        private IDbContextTransaction _transaction;
+        private DbContextOptionsBuilder _builder;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -24,10 +26,9 @@ namespace BaseApi.Tests
             npgsqlCommand.CommandText = "SET deadlock_timeout TO 30";
             npgsqlCommand.ExecuteNonQuery();
 
-            var builder = new DbContextOptionsBuilder();
-            builder.UseNpgsql(_connection);
-            DatabaseContext = new DatabaseContext(builder.Options);
-            DatabaseContext.Database.EnsureCreated();
+            _builder = new DbContextOptionsBuilder();
+            _builder.UseNpgsql(_connection);
+
         }
 
         [SetUp]
@@ -35,8 +36,9 @@ namespace BaseApi.Tests
         {
             _factory = new MockWebApplicationFactory<TStartup>(_connection);
             Client = _factory.CreateClient();
-
-            _transaction = _connection.BeginTransaction();
+            DatabaseContext = new DatabaseContext(_builder.Options);
+            DatabaseContext.Database.EnsureCreated();
+            _transaction = DatabaseContext.Database.BeginTransaction();
         }
 
         [TearDown]

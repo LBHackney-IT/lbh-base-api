@@ -4,19 +4,19 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using BaseApi.V1.Gateways;
+using BaseApi.V1.Infrastructure;
+using BaseApi.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BaseApi.Versioning;
-using BaseApi.V1.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace BaseApi
 {
@@ -112,9 +112,8 @@ namespace BaseApi
         {
             var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
-            var builder = new DbContextOptionsBuilder().UseNpgsql(connectionString);
-
-            services.AddSingleton<IDatabaseContext>(s => new DatabaseContext(builder.Options));
+            services.AddDbContext<DatabaseContext>(
+                opt => opt.UseNpgsql(connectionString));
         }
 
         private static void RegisterGateways(IServiceCollection services)
