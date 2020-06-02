@@ -6,9 +6,9 @@ namespace BaseApi.V1.Gateways
 {
     public class ExampleGateway : IExampleGateway
     {
-        private readonly IDatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext;
 
-        public ExampleGateway(IDatabaseContext databaseContext)
+        public ExampleGateway(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
         }
