@@ -7,32 +7,52 @@ orbs:
 
 executors:
   docker-python:
-      docker:
-        - image: circleci/python:3.7
+    docker:
+      - image: circleci/python:3.7
   docker-terraform:
-     docker:
-       -  image: "hashicorp/terraform:light"
+    docker:
+      - image: "hashicorp/terraform:light"
   docker-dotnet:
-     docker:
-       - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+
+references:
+  workspace_root: &workspace_root "~"
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
 commands:
-  terraform-init-then-apply:
-    description: "Initializes and applies terraform configuration"
+  assume-role-and-persist-workspace:
+    description: "Assumes deployment role and persists credentials across jobs"
     parameters:
       aws-account:
         type: string
-      aws-role-name:
-        type: string
+    steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: <<parameters.aws-account>>
+          profile_name: default
+          role: "LBH_Circle_CI_Deployment_Role"
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
+  terraform-init-then-apply:
+    description: "Initializes and applies terraform configuration"
+    parameters:
       environment:
         type: string
     steps:
-       - run:
+      - *attach_workspace
+      - checkout
+      - run:
           command: |
-              cd ./terraform/<<parameters.environment>>/
-              terraform get -update=true
-              terraform init
+            cd ./terraform/<<parameters.environment>>/
+            terraform get -update=true
+            terraform init
           name: get and init
-       - run:
+      - run:
           name: apply
           command: |
             cd ./terraform/<<parameters.environment>>/
@@ -42,11 +62,8 @@ commands:
     parameters:
       stage:
         type: string
-      aws-account:
-        type: string
-      aws-role-name:
-        type: string
     steps:
+      - *attach_workspace
       - checkout
       - setup_remote_docker
       - run:
@@ -54,9 +71,6 @@ commands:
           command: |
             curl -sL https://deb.nodesource.com/setup_13.x | bash -
             apt-get update && apt-get install -y nodejs
-      - run:
-          name: NPM Install
-          command: npm install
       - run:
           name: Install serverless CLI
           command: npm i -g serverless
@@ -73,57 +87,10 @@ commands:
             sls deploy --stage <<parameters.stage>>
 
 jobs:
-  terraform-init-and-apply-to-development:
-    executor: docker-terraform
-    steps:
-      - checkout
-      - terraform-init-then-apply:
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_DEVELOPMENT
-          environment: 'development'
-  terraform-init-and-apply-to-staging:
-    executor: docker-terraform
-    steps:
-      - terraform-init-then-apply:
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_STAGING
-          environment: 'staging'
-  terraform-init-and-apply-to-production:
-    executor: docker-terraform
-    steps:
-      - terraform-init-then-apply:
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_PRODUCTION
-          environment: 'production'
-  assume-role-development:
-     executor: docker-python
-     steps:
-       - checkout
-       - aws_assume_role/assume_role:
-             account: $AWS_ACCOUNT_DEVELOPMENT
-             profile_name: default
-             role: 'LBH_Circle_CI_Deployment_Role'
-  assume-role-staging:
-     executor: docker-python
-     steps:
-       - checkout
-       - aws_assume_role/assume_role:
-             account: $AWS_ACCOUNT_STAGING
-             profile_name: default
-             role: 'LBH_Circle_CI_Deployment_Role'
-  assume-role-production:
-     executor: docker-python
-     steps:
-       - checkout
-       - aws_assume_role/assume_role:
-             account: $AWS_ACCOUNT_PRODUCTION
-             profile_name: default
-             role: 'LBH_Circle_CI_Deployment_Role'
   check-code-formatting:
     executor: docker-dotnet
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           name: Install dotnet format
           command: dotnet tool install dotnet-format --tool-path ./dotnet-format-local/
@@ -139,53 +106,74 @@ jobs:
           name: build
           command: docker-compose build base-api-test
       - run:
-         name: Run tests
-         command: docker-compose run base-api-test
-  deploy-to-development:
+          name: Run tests
+          command: docker-compose run base-api-test
+  assume-role-development:
     executor: docker-python
     steps:
-      - deploy-lambda:
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
+      - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
-          stage: 'development'
+  assume-role-staging:
+    executor: docker-python
+    steps:
+      - assume-role-and-persist-workspace:
+          aws-account: $AWS_ACCOUNT_STAGING
+  assume-role-production:
+    executor: docker-python
+    steps:
+      - assume-role-and-persist-workspace:
+          aws-account: $AWS_ACCOUNT_PRODUCTION
+  terraform-init-and-apply-to-development:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-apply:
+          environment: "development"
+  terraform-init-and-apply-to-staging:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-apply:
+          environment: "staging"
+  terraform-init-and-apply-to-production:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-apply:
+          environment: "production"
+  deploy-to-development:
+    executor: docker-dotnet
+    steps:
+      - deploy-lambda:
+          stage: "development"
   deploy-to-staging:
     executor: docker-dotnet
     steps:
       - deploy-lambda:
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_STAGING
-          stage: 'staging'
+          stage: "staging"
   deploy-to-production:
     executor: docker-dotnet
     steps:
       - deploy-lambda:
-          aws-role-name: 'LBH_Circle_CI_Deployment_Role'
-          aws-account: $AWS_ACCOUNT_PRODUCTION
-          stage: 'production'
+          stage: "production"
 
 workflows:
-  check-and-deploy:
-      jobs:
+  check-and-deploy-development:
+    jobs:
       - check-code-formatting
       - build-and-test
       - assume-role-development:
           context: api-assume-role-development-context
           requires:
-              - build-and-test
-          filters:
-             branches:
-               only: development
-      - terraform-init-and-apply-to-development:
-          context: api-assume-role-development-context
-          requires:
-              - assume-role-development
-          filters:
-             branches:
-               only: development
-      - deploy-to-development:
-          context: api-assume-role-development-context
-          requires:
             - build-and-test
+          filters:
+            branches:
+              only: development
+      - terraform-init-and-apply-to-development:
+          requires:
+            - assume-role-development
+          filters:
+            branches:
+              only: development
+      - deploy-to-development:
+          requires:
             - assume-role-development
           filters:
             branches:
@@ -210,9 +198,7 @@ workflows:
 #             branches:
 #               only: master
 #       - deploy-to-staging:
-#           context: api-assume-role-staging-context
 #           requires:
-#             - build-and-test
 #             - assume-role-staging
 #           filters:
 #             branches:
@@ -242,7 +228,6 @@ workflows:
 #             branches:
 #               only: master
 #       - deploy-to-production:
-#           context: api-assume-role-production-context
 #           requires:
 #             - permit-production-release
 #             - assume-role-production
