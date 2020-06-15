@@ -84,7 +84,7 @@ commands:
           name: Deploy lambda
           command: |
             cd ./BaseApi/
-            sls deploy --stage <<parameters.stage>>
+            sls deploy --stage <<parameters.stage>> --conceal
 
 jobs:
   check-code-formatting:
