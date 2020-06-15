@@ -8,6 +8,14 @@ provider:
       - subnet-0a7f442c22a6feedc
   stage: ${opt:stage}
   region: eu-west-2
+  apiKeys:
+    - usage-plan-${self:service}-${opt:stage}:
+      - api-key-${self:service}-${opt:stage}
+  usagePlan:
+    - usage-plan-${self:service}-${opt:stage}:
+        throttle:
+          burstLimit: 200
+          rateLimit: 100
 
 package:
 # TODO: Rename zipfile in build.sh and build.cmd to match this
@@ -25,6 +33,7 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
+          private: true
 resources:
   Resources:
     lambdaExecutionRole:
