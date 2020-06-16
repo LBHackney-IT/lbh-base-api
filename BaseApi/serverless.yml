@@ -25,7 +25,7 @@ functions:
     role: lambdaExecutionRole
     environment:
 # TODO: Create ssm variables for this API's postgres mirror then rename base-api below to match api name
-      CONNECTION_STRING: Host=${ssm:/base-api/${self:provider.stage}/postgres-hostname};Port=5002;Database=base-api-mirror;Username=${ssm:/base-api/${self:provider.stage}/postgres-username};Password=${ssm:/base-api/${self:provider.stage}/postgres-password}
+      CONNECTION_STRING: Host=${ssm:/base-api/${self:provider.stage}/postgres-hostname};Port=${ssm:/base-api/${self:provider.stage}/postgres-port};Database=base-api-mirror;Username=${ssm:/base-api/${self:provider.stage}/postgres-username};Password=${ssm:/base-api/${self:provider.stage}/postgres-password}
     events:
       - http:
           path: /{proxy+}
@@ -37,7 +37,7 @@ resources:
       Type: AWS::IAM::Role
       Properties:
         Path: /${self:service}/${self:provider.stage}/
-        RoleName: lambdaExecutionRole
+        RoleName: ${self:service}-lambdaExecutionRole
         AssumeRolePolicyDocument:
           Version: '2012-10-17'
           Statement:
