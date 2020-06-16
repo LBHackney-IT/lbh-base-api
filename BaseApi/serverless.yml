@@ -2,10 +2,7 @@ service: your-api-name
 provider:
   name: aws
   runtime: dotnetcore3.1
-  vpc:
-    subnetIds:
-      - subnet-00356e0650138f74f
-      - subnet-0a7f442c22a6feedc
+  vpc: ${self:custom.vpc.${opt:stage}}
   stage: ${opt:stage}
   region: eu-west-2
   apiKeys:
@@ -85,3 +82,17 @@ resources:
                   Action:
                     - "lambda:InvokeFunction"
                   Resource: "*"
+custom:
+  vpc:
+    development:
+      subnetIds:
+        - subnet-0deabb5d8fb9c3446
+        - subnet-000b89c249f12a8ad
+    staging:
+      subnetIds:
+        - subnet-06d3de1bd9181b0d7
+        - subnet-0ed7d7713d1127656
+    production:
+      subnetId:
+        - subnet-01d3657f97a243261
+        - subnet-0b7b8fea07efabf34
