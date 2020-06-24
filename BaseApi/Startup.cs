@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using BaseApi.V1.Gateways;
 using BaseApi.V1.Infrastructure;
+using BaseApi.V1.UseCase;
+using BaseApi.V1.UseCase.Interfaces;
 using BaseApi.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -118,13 +120,13 @@ namespace BaseApi
 
         private static void RegisterGateways(IServiceCollection services)
         {
-            services.AddSingleton<IExampleGateway, ExampleGateway>();
+            services.AddScoped<IExampleGateway, ExampleGateway>();
         }
 
         private static void RegisterUseCases(IServiceCollection services)
         {
-            if (services == null) throw new ArgumentNullException(nameof(services));
-            // your usecases here
+            services.AddScoped<IGetAllUseCase, GetAllUseCase>();
+            services.AddScoped<IGetByIdUseCase, GetByIdUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
