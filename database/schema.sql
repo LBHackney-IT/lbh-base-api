@@ -1,4 +1,4 @@
 CREATE TABLE example_table (
-    created_at NpgsqlDateTime,
+    created_at timestamp ,
     id SERIAL PRIMARY KEY
 );

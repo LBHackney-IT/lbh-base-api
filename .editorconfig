@@ -126,3 +126,5 @@ dotnet_diagnostic.CA1062.severity = none
 dotnet_diagnostic.CA1303.severity = none
 # Suppressed[CA1001] as not sure how to fix disposable fields within tests
 dotnet_diagnostic.CA1001.severity = none
+#Can reassign collections
+dotnet_diagnostic.CA2227.severity = none
