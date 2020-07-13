@@ -93,6 +93,6 @@ custom:
         - subnet-06d3de1bd9181b0d7
         - subnet-0ed7d7713d1127656
     production:
-      subnetId:
+      subnetIds:
         - subnet-01d3657f97a243261
         - subnet-0b7b8fea07efabf34
