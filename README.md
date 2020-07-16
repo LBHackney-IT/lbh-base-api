@@ -128,8 +128,8 @@ Note: The Host name needs to be the name of the stub database docker-compose ser
 ### Active Maintainers
 
 - **Selwyn Preston**, Lead Developer at London Borough of Hackney (selwyn.preston@hackney.gov.uk)
-- **Mirela Georgieva**, Developer at London Borough of Hackney (mirela.georgieva@hackney.gov.uk)
-- **Matt Keyworth**, Developer at London Borough of Hackney (matthew.keyworth@hackney.gov.uk)
+- **Mirela Georgieva**, Lead Developer at London Borough of Hackney (mirela.georgieva@hackney.gov.uk)
+- **Matt Keyworth**, Lead Developer at London Borough of Hackney (matthew.keyworth@hackney.gov.uk)
 
 ### Other Contacts
 
