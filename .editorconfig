@@ -123,8 +123,16 @@ csharp_using_directive_placement = outside_namespace
 #Suppressed FxCop Errors
 dotnet_diagnostic.CA1032.severity = none
 dotnet_diagnostic.CA1062.severity = none
+
+# Suppress errors asking you to specify the locale
 dotnet_diagnostic.CA1303.severity = none
+dotnet_diagnostic.CA1304.severity = none
+dotnet_diagnostic.CA1305.severity = none
+dotnet_diagnostic.CA1306.severity = none
+dotnet_diagnostic.CA1307.severity = none
+
 # Suppressed[CA1001] as not sure how to fix disposable fields within tests
 dotnet_diagnostic.CA1001.severity = none
+
 #Can reassign collections
 dotnet_diagnostic.CA2227.severity = none
