@@ -19,7 +19,7 @@ Include any links to commits that introduce significant additions of code if the
 #### _Checklist_
 
 - [ ] Code builds correctly
-- [ ] Added tests to cover new production code added as necessary
+- [ ] Added tests to cover all new production code
 - [ ] All tests passing
 - [ ] Added comments the README / documentation, as necessary
 - [ ] Refactored code as neccessary
