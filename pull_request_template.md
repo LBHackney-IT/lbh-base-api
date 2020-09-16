@@ -18,11 +18,11 @@ Include any links to commits that introduce significant additions of code if the
 
 #### _Checklist_
 
-- [ ] Code builds correctly
+- [ ] Added end-to-end (i.e. integration) tests where necessary e.g to test complete functionality of a newly added feature
 - [ ] Added tests to cover all new production code
-- [ ] All tests passing
 - [ ] Added comments the README / documentation, as necessary
-- [ ] Refactored code as neccessary
+- [ ] Checked all code for possible refactoring
+- [ ] Code pipeline builds correctly
 
 ### *Follow up actions after merging PR*
 
