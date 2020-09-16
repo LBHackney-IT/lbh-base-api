@@ -77,6 +77,12 @@ Then we have an automated six step deployment process, which runs in CircleCI.
 
 Our staging and production environments are hosted by AWS. We would deploy to production per each feature/config merged into  `master`  branch.
 
+### Creating A PR
+
+To help with making changes to code easier to understand when being reviewed, we've added a PR template.
+When a new PR is created on a repo that uses this API template, the PR template will automatically fill in the `Open a pull request` description textbox.
+The PR author can edit and change the PR description using the template as a guide.
+
 ## Static Code Analysis
 
 ### Using [FxCop Analysers](https://www.nuget.org/packages/Microsoft.CodeAnalysis.FxCopAnalyzers)
