@@ -1,10 +1,8 @@
 ## Link to JIRA ticket
----------------------------------------------------
 
 Add a link to the JIRA ticket that the changes in this PR describes.
 
 ## Describe this PR
----------------------------------------------------
 
 ### *What is the problem we're trying to solve*
 
