@@ -1,6 +1,6 @@
 ## Link to JIRA ticket
 
-Add a link to the JIRA ticket that the changes in this PR describes.
+Add a link to the JIRA ticket that the changes in this PR describe.
 
 ## Describe this PR
 
@@ -18,7 +18,7 @@ Include any links to commits that introduce significant additions of code if the
 
 - [ ] Added end-to-end (i.e. integration) tests where necessary e.g to test complete functionality of a newly added feature
 - [ ] Added tests to cover all new production code
-- [ ] Added comments the README / documentation, as necessary
+- [ ] Added comments to the README or updated relevant documentation _(add link to documentation)_, where necessary.
 - [ ] Checked all code for possible refactoring
 - [ ] Code pipeline builds correctly
 
