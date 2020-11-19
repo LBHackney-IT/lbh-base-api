@@ -42,6 +42,13 @@ Set-ExecutionPolicy Unrestricted
 
 After the renaming is done, the ***script will ask you if you want to delete it as well***, as it's useless now - It's your choice.
 
+#### On OSX
+
+Use Docker to run this script on Macs:
+```
+docker run -it -v `pwd`:/app mcr.microsoft.com/powershell
+```
+
 ### Development
 
 To serve the application, run it using your IDE of choice, we use Visual Studio CE and JetBrains Rider on Mac.
