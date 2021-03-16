@@ -27,12 +27,15 @@ The renaming of `base-api` into `SomethingElseApi` can be done by running a Rena
 1. Open the powershell and navigate to this directory's root.
 2. Run the script using the following command:
 ```
-.\Renamer.ps1 -apiName My_Api
+.\Renamer.ps1 -apiName SomethingElseApi -apiNameDashed somethingelse-api
 ```
+
+The purpose of two parameters is to replace occurences of both BaseApi and base-api as they appear in filenames, directory names, and content.
+
 
 If your ***script execution policy*** prevents you from running the script, you can temporarily ***bypass*** that with:
 ```
-powershell -noprofile -ExecutionPolicy Bypass -file .\Renamer.ps1 -apiName My_Api
+powershell -noprofile -ExecutionPolicy Bypass -file .\Renamer.ps1 -apiName SomethingElseApi -apiNameDashed somethingelse-api
 ```
 
 Or you can change your execution policy, prior to running the script, permanently with _(this disables security so, be cautious)_:
