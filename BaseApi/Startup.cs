@@ -132,6 +132,8 @@ namespace BaseApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCorrelation();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

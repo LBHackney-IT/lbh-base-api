@@ -1,6 +1,5 @@
 using System.Linq;
 using BaseApi.Tests.V1.Helper;
-using BaseApi.V1.Infrastructure;
 using NUnit.Framework;
 
 namespace BaseApi.Tests.V1.Infrastructure
