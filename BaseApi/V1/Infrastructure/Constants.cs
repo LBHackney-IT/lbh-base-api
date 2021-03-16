@@ -1,6 +1,6 @@
-﻿namespace BaseApi.V1.Infrastructure
+namespace BaseApi.V1.Infrastructure
 {
-    public static class Constants 
+    public static class Constants
     {
         public const string CorrelationId = "x-correlation-id";
     }
