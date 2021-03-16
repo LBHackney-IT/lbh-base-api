@@ -24,8 +24,7 @@ Get-ChildItem -Path $PSScriptRoot -File -Recurse -exclude *.ps1 | % {
     }
 
     if ($fileName -match 'BaseApi') {
-        $newName = $_.Name -replace 'BaseApi', $apiName
-		Write-Host $("Renaming File from '{0}' to '{1}'." -f $fileName, $newName)
+        $newName = $_.Name -replace 'BaseApi', $apiName		
         Rename-Item -Path $_.PSPath -NewName $newName -Force
         Write-Host $("File renamed from '{0}' to '{1}'." -f $fileName, $newName)
     }
@@ -47,8 +46,7 @@ Get-ChildItem -Path $PSScriptRoot -Directory -Recurse |
 Sort-Object -Descending FullName |
 Where-Object { $_.Name -match 'BaseApi' } | % {	
     Write-Host $("Editing directory: '{0}'." -f $_.FullName)
-    $newDirName = $_.Name -replace 'BaseApi', $apiName		
-	Write-Host $("Renaming from '{0}' to '{1}'." -f $_.Name, $newDirName)
+    $newDirName = $_.Name -replace 'BaseApi', $apiName			
     Rename-Item -Path $_.FullName -NewName $newDirName  -Force		
     Write-Host $("Directory renamed from '{0}' to '{1}'." -f $_.Name, $newDirName)
 }
