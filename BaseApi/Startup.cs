@@ -127,7 +127,7 @@ namespace BaseApi
 
         private static void ConfigureLogging(IServiceCollection services, IConfiguration configuration)
         {
-            // We rebuild the logging stack so as to ensure the console logger is not uised in production.
+            // We rebuild the logging stack so as to ensure the console logger is not used in production.
             // See here: https://weblog.west-wind.com/posts/2018/Dec/31/Dont-let-ASPNET-Core-Default-Console-Logging-Slow-your-App-down
             services.AddLogging(config =>
             {

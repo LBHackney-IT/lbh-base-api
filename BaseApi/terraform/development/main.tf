@@ -60,3 +60,37 @@ module "development" {
   task_definition_secrets      = {}
   task_definition_secret_count = number # This number needs to reflect the number of environment variables provided
 }
+
+# THE SECTION BELOW IS FOR USE WITH DYNAMODB
+# IF USING DYNAMODB, PLEASE DELETE EVERYTHING ABOVE AND UNCOMMENT THE SECTION BELOW
+#
+#
+# terraform {
+#     required_providers {
+#         aws = {
+#             source  = "hashicorp/aws"
+#             version = "~> 3.0"
+#         }
+#     }
+# }
+# 
+# provider "aws" {
+#     region = "eu-west-2"
+# }
+# 
+# data "aws_caller_identity" "current" {}
+# 
+# data "aws_region" "current" {}
+# 
+# locals {
+#     parameter_store = "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter"
+# }
+# 
+# terraform {
+#   backend "s3" {
+#     bucket  = "terraform-state-housing-development"
+#     encrypt = true
+#     region  = "eu-west-2"
+#     key     = "services/YOUR API NAME/state"  # e.g. "services/transactions-api/state"
+#   }
+# }
