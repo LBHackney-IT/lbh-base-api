@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using BaseApi.V1.Controllers;
 using BaseApi.V1.Infrastructure;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;

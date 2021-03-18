@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using BaseApi.V1.Controllers;
 using BaseApi.V1.Gateways;
 using BaseApi.V1.Infrastructure;
 using BaseApi.V1.UseCase;
