@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using BaseApi.V1.Gateways;
 using BaseApi.V1.Infrastructure;
 using BaseApi.V1.UseCase;
@@ -27,6 +28,8 @@ namespace BaseApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            AWSSDKHandler.RegisterXRayForAllServices();
         }
 
         public IConfiguration Configuration { get; }
@@ -115,7 +118,7 @@ namespace BaseApi
             var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
             services.AddDbContext<DatabaseContext>(
-                opt => opt.UseNpgsql(connectionString));
+                opt => opt.UseNpgsql(connectionString).AddXRayInterceptor(true));
         }
 
         private static void RegisterGateways(IServiceCollection services)
@@ -140,6 +143,11 @@ namespace BaseApi
             {
                 app.UseHsts();
             }
+
+            // TODO
+            // If you DON'T use the renaming script, PLEASE replace with your own API name manually
+            app.UseXRay("base-api");
+
 
             //Get All ApiVersions,
             var api = app.ApplicationServices.GetService<IApiVersionDescriptionProvider>();
