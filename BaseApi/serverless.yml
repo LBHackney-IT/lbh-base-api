@@ -2,6 +2,10 @@ service: your-api-name
 provider:
   name: aws
   runtime: dotnetcore3.1
+  memorySize: 2048
+  tracing:
+    lambda: true
+    apiGateway: true
   vpc: ${self:custom.vpc.${opt:stage}}
   stage: ${opt:stage}
   # TODO: Enable this line if DynamoDb is in use
@@ -51,6 +55,7 @@ resources:
               Action: sts:AssumeRole
         ManagedPolicyArns:
           - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+          - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
 # TODO: Enable this line and set the correct policy name if DynamoDb is in use
 #          - arn:aws:iam::${self:provider.account}:policy/base-api/lambda-dynamodb-base-api
         Policies:
