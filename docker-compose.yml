@@ -32,6 +32,8 @@ services:
       - DB_DATABASE=testdb
     links:
       - test-database
+# TODO: If using DynamoDb remove the line above and uncomment the line below.
+#      - test-dynamodb-database
   test-database:
     image: test-database
     build:
@@ -41,3 +43,8 @@ services:
       - 5432:5432
     env_file:
       - database.env
+# TODO: If using DynamoDb remove the 'test-database' seciton above and uncomment the lines below.
+#  test-dynamodb-database:
+#    image: amazon/dynamodb-local
+#    ports:
+#      - 8000:8000
