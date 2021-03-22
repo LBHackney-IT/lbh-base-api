@@ -1,9 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseApi", "BaseApi\BaseApi.csproj", "{6F482163-3F51-487F-8F7D-37A1D4DAEA8B}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseApi", "BaseApi\BaseApi.csproj", "{6F482163-3F51-487F-8F7D-37A1D4DAEA8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseApi.Tests", "BaseApi.Tests\BaseApi.Tests.csproj", "{DE8E4E61-EB76-416B-8417-E8F2F6A0C0D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseApi.Tests", "BaseApi.Tests\BaseApi.Tests.csproj", "{DE8E4E61-EB76-416B-8417-E8F2F6A0C0D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{20433368-3BCA-4986-8E19-E98EEFE0B439}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "development", "development", "{8D8E7751-252E-4D37-AE8D-20DA2EFC9546}"
+	ProjectSection(SolutionItems) = preProject
+		terraform\development\main.tf = terraform\development\main.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "staging", "staging", "{01FBC8E0-9AF8-4BF9-9BA6-18446AFB3DD3}"
+	ProjectSection(SolutionItems) = preProject
+		terraform\staging\main.tf = terraform\staging\main.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "production", "production", "{4F1C4A5C-59AF-4DDE-AC02-A4B671F8C8EF}"
+	ProjectSection(SolutionItems) = preProject
+		terraform\production\main.tf = terraform\production\main.tf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +38,16 @@ Global
 		{DE8E4E61-EB76-416B-8417-E8F2F6A0C0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE8E4E61-EB76-416B-8417-E8F2F6A0C0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE8E4E61-EB76-416B-8417-E8F2F6A0C0D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D8E7751-252E-4D37-AE8D-20DA2EFC9546} = {20433368-3BCA-4986-8E19-E98EEFE0B439}
+		{01FBC8E0-9AF8-4BF9-9BA6-18446AFB3DD3} = {20433368-3BCA-4986-8E19-E98EEFE0B439}
+		{4F1C4A5C-59AF-4DDE-AC02-A4B671F8C8EF} = {20433368-3BCA-4986-8E19-E98EEFE0B439}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7695C85C-2C41-4EF3-9A7A-92AF54A85B54}
 	EndGlobalSection
 EndGlobal
