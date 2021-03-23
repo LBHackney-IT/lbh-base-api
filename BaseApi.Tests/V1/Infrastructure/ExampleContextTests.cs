@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace BaseApi.Tests.V1.Infrastructure
 {
+    //TODO: Remove this file if Postgres is not being used
     [TestFixture]
     public class DatabaseContextTest : DatabaseTests
     {

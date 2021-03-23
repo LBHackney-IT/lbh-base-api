@@ -13,7 +13,18 @@ namespace BaseApi.V1.Factories
             return new Entity
             {
                 Id = databaseEntity.Id,
-                CreatedAt = databaseEntity.CreatedAt,
+                CreatedAt = databaseEntity.CreatedAt
+            };
+        }
+
+        public static DatabaseEntity ToDatabase(this Entity entity)
+        {
+            //TODO: Map the rest of the fields in the database object.
+
+            return new DatabaseEntity
+            {
+                Id = entity.Id,
+                CreatedAt = entity.CreatedAt
             };
         }
     }

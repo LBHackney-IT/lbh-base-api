@@ -53,6 +53,20 @@ docker run -it -v `pwd`:/app mcr.microsoft.com/powershell
 
 To serve the application, run it using your IDE of choice, we use Visual Studio CE and JetBrains Rider on Mac.
 
+**Note**
+When running locally the appropriate database conneciton details are still needed.
+##### Postgres
+For Postgres an approprate `CONNECTION_STRING` environment variable is needed,
+and if you want to use a local Postgres instance then that will of course need to be installed and running.
+##### DynamoDb
+To use a local instance of DynamoDb, this will need to be installed. This is most easily done using [Docker](https://www.docker.com/products/docker-desktop).
+Run the following command, specifying the local path where you want the container's shared volume to be stored.
+```
+docker run --name dynamodb-local -p 8000:8000 -v <PUT YOUR LOCAL PATH HERE>:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+```
+
+If you would like to see what is in your local DynamoDb instance using a simple gui, then [this admin tool](https://github.com/aaronshaf/dynamodb-admin) can do that.
+
 The application can also be served locally using docker:
 1.  Add you security credentials to AWS CLI.
 ```sh
@@ -109,7 +123,7 @@ Documentation on how to do this can be found [here](https://docs.microsoft.com/e
 $ make test
 ```
 
-To run database tests locally (e.g. via Visual Studio) the `CONNECTION_STRING` environment variable will need to be populated with:
+To run database tests locally (e.g. via Visual Studio) and you are using Postgres the `CONNECTION_STRING` environment variable will need to be populated with:
 
 `Host=localhost;Database=testdb;Username=postgres;Password=mypassword"`
 
