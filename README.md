@@ -49,6 +49,14 @@ Use Docker to run this script on Macs:
 docker run -it -v `pwd`:/app mcr.microsoft.com/powershell
 ```
 
+#### On *nix
+
+Run the renamer.sh bash script from the project root:
+```
+./rename.sh MyApiName
+```
+Ideally you should provide a script argument in PascalCase as in the example. The script will rename all instances of base api without changing the original casing.
+
 ### Development
 
 To serve the application, run it using your IDE of choice, we use Visual Studio CE and JetBrains Rider on Mac.
