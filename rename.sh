@@ -2,7 +2,7 @@
 
 echo -e "Input: '$1'\n"
 
-SNAKE=$(echo $1 | sed "s/\([A-Z]\)/_\L\1/g;s/^_//;s/-/_/g")
+SNAKE=$(echo $1 | sed "s/\([A-Z]\)/_\L\1/g;s/^_//;s/-/_/g;s/_\+/_/g")
 KEBAB=$(echo $SNAKE | sed -r "s/_/-/g")
 PASCAL=$(echo $SNAKE | sed -r "s/(^|_)([a-z])/\U\2/g")
 
