@@ -22,9 +22,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics.CodeAnalysis;
+using BaseApi.V1.Logging;
 
 namespace BaseApi
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -114,6 +117,7 @@ namespace BaseApi
             ConfigureLogging(services, Configuration);
 
             ConfigureDbContext(services);
+            services.AddLogCallAspect();
             //TODO: For DynamoDb, remove the line above and uncomment the line below.
             // services.ConfigureDynamoDB();
 
@@ -142,7 +146,21 @@ namespace BaseApi
                 config.AddDebug();
                 config.AddEventSourceLogger();
 
-                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development)
+                // Create and populate LambdaLoggerOptions object
+                var loggerOptions = new LambdaLoggerOptions
+                {
+                    IncludeCategory = false,
+                    IncludeLogLevel = true,
+                    IncludeNewline = true,
+                    IncludeEventId = true,
+                    IncludeException = true,
+                    IncludeScopes = true
+                };
+                config.AddLambdaLogger(loggerOptions);
+
+                var aspNetcoreEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                if ((aspNetcoreEnvironment != Environments.Production)
+                    && (aspNetcoreEnvironment != Environments.Staging))
                 {
                     config.AddConsole();
                 }
@@ -164,9 +182,17 @@ namespace BaseApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            app.UseCors(builder => builder
+                  .AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .WithExposedHeaders("x-correlation-id"));
+
             app.UseCorrelation();
+            app.UseLoggingScope();
+            app.UseCustomExceptionHandler(logger);
 
             if (env.IsDevelopment())
             {
@@ -203,6 +229,7 @@ namespace BaseApi
                 // SwaggerGen won't find controllers that are routed via this technique.
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+            app.UseLogCall();
         }
     }
 }

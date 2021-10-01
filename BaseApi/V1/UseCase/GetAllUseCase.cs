@@ -1,6 +1,7 @@
 using BaseApi.V1.Boundary.Response;
 using BaseApi.V1.Factories;
 using BaseApi.V1.Gateways;
+using BaseApi.V1.Logging;
 using BaseApi.V1.UseCase.Interfaces;
 
 namespace BaseApi.V1.UseCase
@@ -13,7 +14,7 @@ namespace BaseApi.V1.UseCase
         {
             _gateway = gateway;
         }
-
+        [LogCall]
         public ResponseObjectList Execute()
         {
             return new ResponseObjectList { ResponseObjects = _gateway.GetAll().ToResponse() };

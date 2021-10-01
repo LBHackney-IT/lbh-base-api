@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.1.1" />
+    <PackageReference Include="AspectInjector" Version="2.5.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.4.36" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
     <PackageReference Include="AWSXRayRecorder.Core" Version="2.10.0" />

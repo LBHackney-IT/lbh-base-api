@@ -5,8 +5,10 @@ using BaseApi.V1.Domain;
 using BaseApi.V1.Gateways;
 using BaseApi.V1.Infrastructure;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace BaseApi.Tests.V1.Gateways
 {
@@ -14,17 +16,21 @@ namespace BaseApi.Tests.V1.Gateways
     //TODO: Rename Tests to match gateway name
     //For instruction on how to run tests please see the wiki: https://github.com/LBHackney-IT/lbh-base-api/wiki/Running-the-test-suite.
     [TestFixture]
-    public class DynamoDbGatewayTests
+    public class DynamoDbGatewayTests : DynamoDbTests
     {
         private readonly Fixture _fixture = new Fixture();
-        private Mock<IDynamoDBContext> _dynamoDb;
         private DynamoDbGateway _classUnderTest;
+
+        private Mock<ILogger<DynamoDbGateway>> _logger;
+        private LogCallAspectFixture _logCallAspectFixture;
 
         [SetUp]
         public void Setup()
         {
-            _dynamoDb = new Mock<IDynamoDBContext>();
-            _classUnderTest = new DynamoDbGateway(_dynamoDb.Object);
+            _classUnderTest = new DynamoDbGateway(DynamoDbContext, _logger.Object);
+            _logCallAspectFixture = new LogCallAspectFixture();
+            _logCallAspectFixture.RunBeforeTests();
+            _logger = new Mock<ILogger<DynamoDbGateway>>();
         }
 
         [Test]
@@ -36,20 +42,20 @@ namespace BaseApi.Tests.V1.Gateways
         }
 
         [Test]
-        public void GetEntityByIdReturnsTheEntityIfItExists()
+        public async Task VerifiesGatewayMethodsAddtoDB()
         {
-            var entity = _fixture.Create<Entity>();
-            var dbEntity = DatabaseEntityHelper.CreateDatabaseEntityFrom(entity);
+            var entity = _fixture.Build<DatabaseEntity>().Create();
+            InsertDatatoDynamoDB(entity);
 
-            _dynamoDb.Setup(x => x.LoadAsync<DatabaseEntity>(entity.Id, default))
-                     .ReturnsAsync(dbEntity);
+            var result = await _classUnderTest.GetEntityById(entity.Id).ConfigureAwait(false);
+            result.Should().BeEquivalentTo(entity);
+            _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for targetId parameter {entity.Id}", Times.Once());
+        }
 
-            var response = _classUnderTest.GetEntityById(entity.Id);
-
-            _dynamoDb.Verify(x => x.LoadAsync<DatabaseEntity>(entity.Id, default), Times.Once);
-
-            entity.Id.Should().Be(response.Id);
-            entity.CreatedAt.Should().BeSameDateAs(response.CreatedAt);
+        private void InsertDatatoDynamoDB(DatabaseEntity entity)
+        {
+            DynamoDbContext.SaveAsync<DatabaseEntity>(entity).GetAwaiter().GetResult();
+            CleanupActions.Add(async () => await DynamoDbContext.DeleteAsync(entity).ConfigureAwait(false));
         }
     }
 }

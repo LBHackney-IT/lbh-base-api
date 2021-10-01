@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace BaseApi.Tests.V1.UseCase
 {
-    public class GetByIdUseCaseTests
+    public class GetByIdUseCaseTests : LogCallAspectFixture
     {
         private Mock<IExampleGateway> _mockGateway;
         private GetByIdUseCase _classUnderTest;

@@ -2,17 +2,23 @@ using Amazon.DynamoDBv2.DataModel;
 using BaseApi.V1.Domain;
 using BaseApi.V1.Factories;
 using BaseApi.V1.Infrastructure;
+using BaseApi.V1.Logging;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BaseApi.V1.Gateways
 {
-    public class DynamoDbGateway : IExampleGateway
+    public class DynamoDbGateway : IExampleDynamoGateway
     {
         private readonly IDynamoDBContext _dynamoDbContext;
+        private readonly ILogger<DynamoDbGateway> _logger;
 
-        public DynamoDbGateway(IDynamoDBContext dynamoDbContext)
+
+        public DynamoDbGateway(IDynamoDBContext dynamoDbContext, ILogger<DynamoDbGateway> logger)
         {
             _dynamoDbContext = dynamoDbContext;
+            _logger = logger;
         }
 
         public List<Entity> GetAll()
@@ -20,9 +26,12 @@ namespace BaseApi.V1.Gateways
             return new List<Entity>();
         }
 
-        public Entity GetEntityById(int id)
+        [LogCall]
+        public async Task<Entity> GetEntityById(int id)
         {
-            var result = _dynamoDbContext.LoadAsync<DatabaseEntity>(id).GetAwaiter().GetResult();
+            _logger.LogDebug($"Calling IDynamoDBContext.LoadAsync for targetId parameter {id}");
+
+            var result = await  _dynamoDbContext.LoadAsync<DatabaseEntity>(id).ConfigureAwait(false);
             return result?.ToDomain();
         }
     }
