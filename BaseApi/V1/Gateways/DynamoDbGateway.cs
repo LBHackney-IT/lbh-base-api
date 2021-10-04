@@ -2,7 +2,7 @@ using Amazon.DynamoDBv2.DataModel;
 using BaseApi.V1.Domain;
 using BaseApi.V1.Factories;
 using BaseApi.V1.Infrastructure;
-using BaseApi.V1.Logging;
+using Hackney.Core.Logging;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;

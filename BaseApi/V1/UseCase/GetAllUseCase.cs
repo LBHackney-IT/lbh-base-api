@@ -1,8 +1,8 @@
 using BaseApi.V1.Boundary.Response;
 using BaseApi.V1.Factories;
 using BaseApi.V1.Gateways;
-using BaseApi.V1.Logging;
 using BaseApi.V1.UseCase.Interfaces;
+using Hackney.Core.Logging;
 
 namespace BaseApi.V1.UseCase
 {

@@ -23,7 +23,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Diagnostics.CodeAnalysis;
-using BaseApi.V1.Logging;
+using Hackney.Core.Logging;
+using Hackney.Core.Middleware.Logging;
 
 namespace BaseApi
 {

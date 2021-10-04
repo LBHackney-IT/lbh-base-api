@@ -1,6 +1,6 @@
 using BaseApi.V1.Boundary.Response;
-using BaseApi.V1.Logging;
 using BaseApi.V1.UseCase.Interfaces;
+using Hackney.Core.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

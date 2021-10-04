@@ -4,8 +4,10 @@ services:
   base-api:
     image: base-api
     build:
-      context: BaseApi/
-      dockerfile: ./Dockerfile
+     context: .
+     dockerfile: BaseApi/Dockerfile
+     args:
+     - LBHPACKAGESTOKEN=${LBHPACKAGESTOKEN}
     ports:
       - 3000:3000
     environment:
@@ -30,6 +32,8 @@ services:
     build:
       context: .
       dockerfile: BaseApi.Tests/Dockerfile
+      args:
+      - LBHPACKAGESTOKEN=${LBHPACKAGESTOKEN}
     environment:
       - DB_HOST=test-database
       - DB_PORT=5432
