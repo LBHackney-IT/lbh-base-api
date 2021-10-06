@@ -1,4 +1,5 @@
 using Amazon.DynamoDBv2.DataModel;
+using Hackney.Core.DynamoDb.Converters;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,7 +25,7 @@ namespace BaseApi.V1.Infrastructure
         public int Id { get; set; }
 
         [Column("created_at")]
-        [DynamoDBProperty]
+        [DynamoDBProperty(Converter = typeof(DynamoDbDateTimeConverter))]
         public DateTime CreatedAt { get; set; }
     }
 }

@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Hackney.Core.HealthCheck;
 using Hackney.Core.Middleware.CorrelationId;
 using Hackney.Core.DynamoDb.HealthCheck;
+using Hackney.Core.DynamoDb;
 
 namespace BaseApi
 {
@@ -121,7 +122,7 @@ namespace BaseApi
                     c.IncludeXmlComments(xmlPath);
             });
 
-            ConfigureLogging(services, Configuration);
+            services.ConfigureLambdaLogging(Configuration);
 
             services.AddLogCallAspect();
 
@@ -141,46 +142,14 @@ namespace BaseApi
                 opt => opt.UseNpgsql(connectionString).AddXRayInterceptor(true));
         }
 
-        private static void ConfigureLogging(IServiceCollection services, IConfiguration configuration)
-        {
-            // We rebuild the logging stack so as to ensure the console logger is not used in production.
-            // See here: https://weblog.west-wind.com/posts/2018/Dec/31/Dont-let-ASPNET-Core-Default-Console-Logging-Slow-your-App-down
-            services.AddLogging(config =>
-            {
-                // clear out default configuration
-                config.ClearProviders();
-
-                config.AddConfiguration(configuration.GetSection("Logging"));
-                config.AddDebug();
-                config.AddEventSourceLogger();
-
-                // Create and populate LambdaLoggerOptions object
-                var loggerOptions = new LambdaLoggerOptions
-                {
-                    IncludeCategory = false,
-                    IncludeLogLevel = true,
-                    IncludeNewline = true,
-                    IncludeEventId = true,
-                    IncludeException = true,
-                    IncludeScopes = true
-                };
-                config.AddLambdaLogger(loggerOptions);
-
-                var aspNetcoreEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                if ((aspNetcoreEnvironment != Environments.Production)
-                    && (aspNetcoreEnvironment != Environments.Staging))
-                {
-                    config.AddConsole();
-                }
-            });
-        }
+       
 
         private static void RegisterGateways(IServiceCollection services)
         {
             services.AddScoped<IExampleGateway, ExampleGateway>();
 
             //TODO: For DynamoDb, remove the line above and uncomment the line below.
-            //services.AddScoped<IExampleGateway, DynamoDbGateway>();
+            //services.AddScoped<IExampleDynamoGateway, DynamoDbGateway>();
         }
 
         private static void RegisterUseCases(IServiceCollection services)

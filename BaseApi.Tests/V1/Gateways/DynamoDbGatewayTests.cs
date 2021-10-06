@@ -8,6 +8,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
 
 namespace BaseApi.Tests.V1.Gateways
@@ -34,6 +35,8 @@ namespace BaseApi.Tests.V1.Gateways
         }
 
         [Test]
+        [Ignore("Enable if using DynamoDb")]
+
         public async Task GetEntityByIdReturnsNullIfEntityDoesntExist()
         {
            var response = await _classUnderTest.GetEntityById(123).ConfigureAwait(false);
@@ -44,9 +47,11 @@ namespace BaseApi.Tests.V1.Gateways
         }
 
         [Test]
+        [Ignore("Enable if using DynamoDb")]
         public async Task VerifiesGatewayMethodsAddtoDB()
         {
-            var entity = _fixture.Build<DatabaseEntity>().Create();
+            var entity = _fixture.Build<DatabaseEntity>()
+                                   .With(x => x.CreatedAt, DateTime.UtcNow).Create();
             InsertDatatoDynamoDB(entity);
 
             var result = await _classUnderTest.GetEntityById(entity.Id).ConfigureAwait(false);
