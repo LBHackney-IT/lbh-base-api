@@ -52,16 +52,15 @@ services:
 #      - dynamodb-database
 
   test-database:
-    image: test-database
-    build:
-      context: .
-      dockerfile: database/Dockerfile
+    image: postgres:12
     ports:
       - 5432:5432
     env_file:
       - database.env
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
 
-# TODO: If using DynamoDb remove the 'test-database' seciton above and uncomment the lines below.
+# TODO: If using DynamoDb remove the 'test-database' section above and uncomment the lines below.
 #  dynamodb-database:
 #    image: amazon/dynamodb-local
 #    ports:
