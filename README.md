@@ -88,6 +88,13 @@ $ aws ecr get-login --no-include-email
 ```sh
 $ make build && make serve
 ```
+### NuGet Packages
+At Hackney, we have created the NuGet Package to prevent the duplication of common code when implementing our APIs. Hence our NuGet packages will store the common code that can then be used in the relevant projects. For full details on the different features implemented within our packages please read [this ReadMe](https://github.com/LBHackney-IT/lbh-core/blob/release/README.md)
+
+##### Using the package
+For full details on how to use the package(s) within this repository please read 
+[this wiki page](https://github.com/LBHackney-IT/lbh-core/wiki/Using-the-package(s)-from-the-Hackney.Core-repository).
+
 
 ### Release process
 

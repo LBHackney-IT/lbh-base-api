@@ -1,4 +1,5 @@
 using BaseApi.V1.Controllers;
+using Hackney.Core.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -47,7 +48,7 @@ namespace BaseApi
                 logger.LogError(contextFeature.Error, "Request failed.");
             }
 
-            var correlationId = context.Request.Headers.GetHeaderValue(Constants.CorrelationId);
+            var correlationId = context.Request.Headers.GetHeaderValue(HeaderConstants.CorrelationId);
             var exceptionResult = new ExceptionResult(message, context.TraceIdentifier,
                 correlationId, context.Response.StatusCode);
             await context.Response.WriteAsync(exceptionResult.ToString()).ConfigureAwait(false);

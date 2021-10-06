@@ -29,7 +29,7 @@ namespace BaseApi.V1.Gateways
         [LogCall]
         public async Task<Entity> GetEntityById(int id)
         {
-            _logger.LogDebug($"Calling IDynamoDBContext.LoadAsync for targetId parameter {id}");
+            _logger.LogDebug($"Calling IDynamoDBContext.LoadAsync for id parameter {id}");
 
             var result = await  _dynamoDbContext.LoadAsync<DatabaseEntity>(id).ConfigureAwait(false);
             return result?.ToDomain();

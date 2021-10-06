@@ -16,7 +16,7 @@ namespace BaseApi.Tests.V1.Gateways
     //TODO: Rename Tests to match gateway name
     //For instruction on how to run tests please see the wiki: https://github.com/LBHackney-IT/lbh-base-api/wiki/Running-the-test-suite.
     [TestFixture]
-    public class DynamoDbGatewayTests : DynamoDbTests
+    public class DynamoDbGatewayTests : DynamoDbIntegrationTests<Startup>
     {
         private readonly Fixture _fixture = new Fixture();
         private DynamoDbGateway _classUnderTest;
@@ -27,18 +27,20 @@ namespace BaseApi.Tests.V1.Gateways
         [SetUp]
         public void Setup()
         {
-            _classUnderTest = new DynamoDbGateway(DynamoDbContext, _logger.Object);
             _logCallAspectFixture = new LogCallAspectFixture();
             _logCallAspectFixture.RunBeforeTests();
             _logger = new Mock<ILogger<DynamoDbGateway>>();
+            _classUnderTest = new DynamoDbGateway(DynamoDbContext, _logger.Object);
         }
 
         [Test]
-        public void GetEntityByIdReturnsNullIfEntityDoesntExist()
+        public async Task GetEntityByIdReturnsNullIfEntityDoesntExist()
         {
-            var response = _classUnderTest.GetEntityById(123);
+           var response = await _classUnderTest.GetEntityById(123).ConfigureAwait(false);
 
             response.Should().BeNull();
+            _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter 123", Times.Once());
+
         }
 
         [Test]
@@ -49,7 +51,7 @@ namespace BaseApi.Tests.V1.Gateways
 
             var result = await _classUnderTest.GetEntityById(entity.Id).ConfigureAwait(false);
             result.Should().BeEquivalentTo(entity);
-            _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for targetId parameter {entity.Id}", Times.Once());
+            _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter {entity.Id}", Times.Once());
         }
 
         private void InsertDatatoDynamoDB(DatabaseEntity entity)

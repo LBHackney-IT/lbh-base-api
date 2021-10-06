@@ -25,6 +25,10 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Diagnostics.CodeAnalysis;
 using Hackney.Core.Logging;
 using Hackney.Core.Middleware.Logging;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Hackney.Core.HealthCheck;
+using Hackney.Core.Middleware.CorrelationId;
+using Hackney.Core.DynamoDb.HealthCheck;
 
 namespace BaseApi
 {
@@ -57,6 +61,8 @@ namespace BaseApi
             });
 
             services.AddSingleton<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
+
+            services.AddDynamoDbHealthCheck<DatabaseEntity>();
 
             services.AddSwaggerGen(c =>
             {
@@ -117,10 +123,11 @@ namespace BaseApi
 
             ConfigureLogging(services, Configuration);
 
-            ConfigureDbContext(services);
             services.AddLogCallAspect();
+
+            ConfigureDbContext(services);
             //TODO: For DynamoDb, remove the line above and uncomment the line below.
-            // services.ConfigureDynamoDB();
+            //services.ConfigureDynamoDB();
 
             RegisterGateways(services);
             RegisterUseCases(services);
@@ -191,7 +198,7 @@ namespace BaseApi
                   .AllowAnyMethod()
                   .WithExposedHeaders("x-correlation-id"));
 
-            app.UseCorrelation();
+            app.UseCorrelationId();
             app.UseLoggingScope();
             app.UseCustomExceptionHandler(logger);
 
@@ -204,8 +211,6 @@ namespace BaseApi
                 app.UseHsts();
             }
 
-            // TODO
-            // If you DON'T use the renaming script, PLEASE replace with your own API name manually
             app.UseXRay("base-api");
 
 
@@ -229,6 +234,11 @@ namespace BaseApi
             {
                 // SwaggerGen won't find controllers that are routed via this technique.
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHealthChecks("/api/v1/healthcheck/ping", new HealthCheckOptions()
+                {
+                    ResponseWriter = HealthCheckResponseWriter.WriteResponse
+                });
             });
             app.UseLogCall();
         }
