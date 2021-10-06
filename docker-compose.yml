@@ -39,7 +39,7 @@ services:
       - DB_PORT=5432
       - DB_USERNAME=postgres
       - DB_PASSWORD=mypassword
-      - DB_DATABASE=testdb
+      - DB_DATABASE=test-database
 # TODO: If using DynamoDb remove the line above and uncomment the section below.
 #      - DynamoDb_LocalMode=true
 #      - DynamoDb_LocalServiceUrl=http://dynamodb-database:8000
