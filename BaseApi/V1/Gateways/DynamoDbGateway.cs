@@ -31,7 +31,7 @@ namespace BaseApi.V1.Gateways
         {
             _logger.LogDebug($"Calling IDynamoDBContext.LoadAsync for id parameter {id}");
 
-            var result = await  _dynamoDbContext.LoadAsync<DatabaseEntity>(id).ConfigureAwait(false);
+            var result = await _dynamoDbContext.LoadAsync<DatabaseEntity>(id).ConfigureAwait(false);
             return result?.ToDomain();
         }
     }

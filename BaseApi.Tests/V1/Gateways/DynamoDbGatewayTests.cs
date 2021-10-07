@@ -39,7 +39,7 @@ namespace BaseApi.Tests.V1.Gateways
 
         public async Task GetEntityByIdReturnsNullIfEntityDoesntExist()
         {
-           var response = await _classUnderTest.GetEntityById(123).ConfigureAwait(false);
+            var response = await _classUnderTest.GetEntityById(123).ConfigureAwait(false);
 
             response.Should().BeNull();
             _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter 123", Times.Once());

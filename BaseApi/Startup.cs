@@ -142,7 +142,7 @@ namespace BaseApi
                 opt => opt.UseNpgsql(connectionString).AddXRayInterceptor(true));
         }
 
-       
+
 
         private static void RegisterGateways(IServiceCollection services)
         {
