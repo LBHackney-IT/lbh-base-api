@@ -34,7 +34,7 @@ dotnet_naming_symbols.constant_fields.required_modifiers = const
 dotnet_naming_rule.public_objects_must_be_capitalised.symbols = public_symbols
 dotnet_naming_rule.public_objects_must_be_capitalised.severity = error
 dotnet_naming_rule.public_objects_must_be_capitalised.style = pascal_case_style
-dotnet_naming_symbols.public_symbols.applicable_kinds = method, property, class, interface, enum
+dotnet_naming_symbols.public_symbols.applicable_kinds = method, property, class, enum
 dotnet_naming_symbols.public_symbols.applicable_accessibilities = public
 
 #Parameters should be camel case
