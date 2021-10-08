@@ -163,6 +163,7 @@ workflows:
   check-and-deploy-development:
     jobs:
       - check-code-formatting
+          context: api-nuget-token-context
       - build-and-test:
           context: api-nuget-token-context
       - assume-role-development:
