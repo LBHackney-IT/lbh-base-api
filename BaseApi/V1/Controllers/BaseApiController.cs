@@ -1,7 +1,9 @@
 using BaseApi.V1.Boundary.Response;
 using BaseApi.V1.UseCase.Interfaces;
+using Hackney.Core.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BaseApi.V1.Controllers
 {
@@ -29,6 +31,8 @@ namespace BaseApi.V1.Controllers
         /// <response code="400">Invalid Query Parameter.</response>
         [ProducesResponseType(typeof(ResponseObjectList), StatusCodes.Status200OK)]
         [HttpGet]
+        [LogCall(LogLevel.Information)]
+
         public IActionResult ListContacts()
         {
             return Ok(_getAllUseCase.Execute());
@@ -41,6 +45,7 @@ namespace BaseApi.V1.Controllers
         /// <response code="404">No ? found for the specified ID</response>
         [ProducesResponseType(typeof(ResponseObject), StatusCodes.Status200OK)]
         [HttpGet]
+        [LogCall(LogLevel.Information)]
         //TODO: rename to match the identifier that will be used
         [Route("{yourId}")]
         public IActionResult ViewRecord(int yourId)

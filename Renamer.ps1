@@ -1,7 +1,10 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [String]$apiName
+    [String]$apiName,
+
+    [Parameter(Mandatory = $true)]
+    [String]$alternateName
 )
 
 if ($apiName -match '-') {
@@ -18,6 +21,13 @@ Get-ChildItem -Path $PSScriptRoot -File -Recurse -exclude *.ps1 | % {
 
     if ($contents -match "BaseApi") {
         $contents -replace 'BaseApi', $apiName | Set-Content $_.PSPath
+        Write-Host $("'{0}': contents changed." -f $fileName)
+
+		$contents = (Get-Content $_.PSPath)
+    }
+	
+    if ($contents -match "base-api") {
+        $contents -replace 'base-api', $alternateName | Set-Content $_.PSPath
         Write-Host $("'{0}': contents changed." -f $fileName)
     }
 

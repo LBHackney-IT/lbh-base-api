@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace BaseApi.Tests.V1.UseCase
 {
-    public class GetAllUseCaseTests
+    public class GetAllUseCaseTests : LogCallAspectFixture
     {
         private Mock<IExampleGateway> _mockGateway;
         private GetAllUseCase _classUnderTest;

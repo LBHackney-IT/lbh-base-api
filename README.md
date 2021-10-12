@@ -27,12 +27,12 @@ The renaming of `base-api` into `SomethingElseApi` can be done by running a Rena
 1. Open the powershell and navigate to this directory's root.
 2. Run the script using the following command:
 ```
-.\Renamer.ps1 -apiName My_Api
+.\Renamer.ps1 -apiName My_Api -alternateName my-api
 ```
 
 If your ***script execution policy*** prevents you from running the script, you can temporarily ***bypass*** that with:
 ```
-powershell -noprofile -ExecutionPolicy Bypass -file .\Renamer.ps1 -apiName My_Api
+powershell -noprofile -ExecutionPolicy Bypass -file .\Renamer.ps1 -apiName My_Api -alternateName my-api
 ```
 
 Or you can change your execution policy, prior to running the script, permanently with _(this disables security so, be cautious)_:
@@ -88,6 +88,13 @@ $ aws ecr get-login --no-include-email
 ```sh
 $ make build && make serve
 ```
+### NuGet Packages
+At Hackney, we have created the NuGet Package to prevent the duplication of common code when implementing our APIs. Hence our NuGet packages will store the common code that can then be used in the relevant projects. For full details on the different features implemented within our packages please read [this ReadMe](https://github.com/LBHackney-IT/lbh-core/blob/release/README.md)
+
+##### Using the package
+For full details on how to use the package(s) within this repository please read 
+[this wiki page](https://github.com/LBHackney-IT/lbh-core/wiki/Using-the-package(s)-from-the-Hackney.Core-repository).
+
 
 ### Release process
 

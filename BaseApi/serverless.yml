@@ -1,4 +1,4 @@
-service: your-api-name
+service: base-api
 provider:
   name: aws
   runtime: dotnetcore3.1
@@ -22,7 +22,7 @@ provider:
 
 package:
 # TODO: Rename zipfile in build.sh and build.cmd to match this
-  artifact: ./bin/release/netcoreapp3.1/your-api-name.zip
+  artifact: ./bin/release/netcoreapp3.1/base-api.zip
 
 functions:
   baseApi:
@@ -37,7 +37,18 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
-          private: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - If-Match
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - x-correlation-id
+            allowCredentials: false
       - http:
           path: /swagger/{proxy+}
           method: GET
@@ -60,8 +71,6 @@ resources:
         ManagedPolicyArns:
           - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
           - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
-# TODO: Enable this line and set the correct policy name if DynamoDb is in use
-#          - arn:aws:iam::${self:provider.account}:policy/base-api/lambda-dynamodb-base-api
         Policies:
           - PolicyName: manageLogs
             PolicyDocument:
