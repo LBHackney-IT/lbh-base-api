@@ -6,6 +6,7 @@ using BaseApi.V1.Factories;
 using BaseApi.V1.Gateways;
 using BaseApi.V1.UseCase;
 using FluentAssertions;
+using Hackney.Core.Testing.Shared;
 using Moq;
 using NUnit.Framework;
 

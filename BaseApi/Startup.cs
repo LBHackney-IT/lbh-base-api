@@ -30,6 +30,7 @@ using Hackney.Core.HealthCheck;
 using Hackney.Core.Middleware.CorrelationId;
 using Hackney.Core.DynamoDb.HealthCheck;
 using Hackney.Core.DynamoDb;
+using Hackney.Core.Middleware.Exception;
 
 namespace BaseApi
 {

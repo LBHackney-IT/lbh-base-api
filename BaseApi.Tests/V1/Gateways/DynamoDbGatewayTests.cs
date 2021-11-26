@@ -5,6 +5,7 @@ using BaseApi.V1.Domain;
 using BaseApi.V1.Gateways;
 using BaseApi.V1.Infrastructure;
 using FluentAssertions;
+using Hackney.Core.Testing.Shared;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
@@ -29,7 +30,6 @@ namespace BaseApi.Tests.V1.Gateways
         public void Setup()
         {
             _logCallAspectFixture = new LogCallAspectFixture();
-            _logCallAspectFixture.RunBeforeTests();
             _logger = new Mock<ILogger<DynamoDbGateway>>();
             _classUnderTest = new DynamoDbGateway(DynamoDbContext, _logger.Object);
         }

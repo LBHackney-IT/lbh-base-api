@@ -1,5 +1,6 @@
 using BaseApi.V1.Gateways;
 using BaseApi.V1.UseCase;
+using Hackney.Core.Testing.Shared;
 using Moq;
 using NUnit.Framework;
 

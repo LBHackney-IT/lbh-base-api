@@ -1,5 +1,5 @@
-using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using Hackney.Core.Testing.DynamoDb;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -54,12 +54,5 @@ namespace BaseApi.Tests
                 act();
             Client.Dispose();
         }
-    }
-
-    public class TableDef
-    {
-        public string Name { get; set; }
-        public string KeyName { get; set; }
-        public ScalarAttributeType KeyType { get; set; }
     }
 }
