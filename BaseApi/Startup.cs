@@ -30,6 +30,7 @@ using Hackney.Core.HealthCheck;
 using Hackney.Core.Middleware.CorrelationId;
 using Hackney.Core.DynamoDb.HealthCheck;
 using Hackney.Core.DynamoDb;
+using Hackney.Core.JWT;
 using Hackney.Core.Middleware.Exception;
 
 namespace BaseApi
@@ -65,6 +66,8 @@ namespace BaseApi
             services.AddSingleton<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
 
             services.AddDynamoDbHealthCheck<DatabaseEntity>();
+
+            services.AddTokenFactory();
 
             services.AddSwaggerGen(c =>
             {
