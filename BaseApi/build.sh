@@ -18,4 +18,4 @@ then
 fi
 
 dotnet restore
-dotnet lambda package --configuration release --framework netcoreapp3.1 --output-package ./bin/release/netcoreapp3.1/base-api.zip
+dotnet lambda package --configuration release --framework netcoreapp6.0 --output-package ./bin/release/netcoreapp6.0/base-api.zip
