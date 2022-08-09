@@ -20,6 +20,9 @@ provider:
           burstLimit: 200
           rateLimit: 100
 
+plugins:
+  - '@serverless/safeguards-plugin'
+  
 package:
 # TODO: Rename zipfile in build.sh and build.cmd to match this
   artifact: ./bin/release/netcoreapp3.1/base-api.zip
@@ -37,6 +40,12 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
+          authorizer:
+            arn: ${ssm:/api-authenticator/${self:provider.stage}/arn}
+            type: request
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            managedExternally: true
           cors:
             origin: '*'
             headers:
@@ -106,6 +115,10 @@ resources:
                     - "lambda:InvokeFunction"
                   Resource: "*"
 custom:
+  safeguards:
+    - title: Require authorizer
+      safeguard: require-authorizer
+      path: ./policies
   vpc:
     development:
       subnetIds:
