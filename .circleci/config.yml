@@ -86,6 +86,7 @@ commands:
           name: Deploy lambda
           command: |
             cd ./BaseApi/
+            npm i @serverless/safeguards-plugin --save-dev
             sls deploy --stage <<parameters.stage>> --account <<parameters.aws-account>> --conceal
 
 jobs:
