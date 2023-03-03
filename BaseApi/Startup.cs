@@ -141,6 +141,8 @@ namespace BaseApi
         {
             var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             services.AddDbContext<DatabaseContext>(
                 opt => opt.UseNpgsql(connectionString).AddXRayInterceptor(true));
         }
