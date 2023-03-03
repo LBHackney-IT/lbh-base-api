@@ -2,6 +2,7 @@ using BaseApi.V1.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using NUnit.Framework;
+using System;
 
 namespace BaseApi.Tests
 {
@@ -14,6 +15,7 @@ namespace BaseApi.Tests
         [SetUp]
         public void RunBeforeAnyTests()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             var builder = new DbContextOptionsBuilder();
             builder.UseNpgsql(ConnectionString.TestDatabase());
             DatabaseContext = new DatabaseContext(builder.Options);

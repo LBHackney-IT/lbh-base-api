@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using BaseApi.V1.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace BaseApi.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             _connection = new NpgsqlConnection(ConnectionString.TestDatabase());
             _connection.Open();
             var npgsqlCommand = _connection.CreateCommand();
