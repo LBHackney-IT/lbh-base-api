@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using BaseApi.V1.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,8 @@ namespace BaseApi.Tests
                 .UseStartup<Startup>();
             builder.ConfigureServices(services =>
             {
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
                 var dbBuilder = new DbContextOptionsBuilder();
                 dbBuilder.UseNpgsql(_connection);
                 var context = new DatabaseContext(dbBuilder.Options);
