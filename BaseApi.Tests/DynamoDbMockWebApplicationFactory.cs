@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 
 namespace BaseApi.Tests
@@ -30,6 +31,7 @@ namespace BaseApi.Tests
                 .UseStartup<Startup>();
             builder.ConfigureServices(services =>
             {
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                 services.ConfigureDynamoDB();
                 services.ConfigureDynamoDbFixture();
 
