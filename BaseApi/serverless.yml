@@ -1,7 +1,7 @@
 service: base-api
 provider:
   name: aws
-  runtime: dotnet6
+  runtime: dotnet8
   memorySize: 2048
   tracing:
     lambda: true
@@ -22,7 +22,7 @@ provider:
 
 package:
 # TODO: Rename zipfile in build.sh and build.cmd to match this
-  artifact: ./bin/release/net6.0/base-api.zip
+  artifact: ./bin/release/base-api.zip
 
 functions:
   baseApi:
