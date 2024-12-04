@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@3.0.0
-  aws-cli: circleci/aws-cli@0.1.9
+  aws-ecr: circleci/aws-ecr@9.3.7
+  aws-cli: circleci/aws-cli@5.1.1
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
 
 executors:
@@ -71,7 +71,7 @@ commands:
       - run:
           name: Install Node.js
           command: |
-            curl -sL https://deb.nodesource.com/setup_13.x | bash -
+            curl -sL https://deb.nodesource.com/setup_20.x | bash -
             apt-get update && apt-get install -y nodejs
       - run:
           name: Install serverless CLI
