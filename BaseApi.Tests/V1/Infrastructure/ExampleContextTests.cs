@@ -18,7 +18,7 @@ namespace BaseApi.Tests.V1.Infrastructure
 
             var result = DatabaseContext.DatabaseEntities.ToList().FirstOrDefault();
 
-            Assert.AreEqual(result, databaseEntity);
+            Assert.That(result, Is.EqualTo(databaseEntity));
         }
     }
 }

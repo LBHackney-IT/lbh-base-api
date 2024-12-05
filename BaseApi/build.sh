@@ -18,4 +18,4 @@ then
 fi
 
 dotnet restore
-dotnet lambda package --configuration release --framework net6.0 --output-package ./bin/release/net6.0/base-api.zip
+dotnet lambda package --configuration release --framework net8.0 --output-package ./bin/release/base-api.zip
