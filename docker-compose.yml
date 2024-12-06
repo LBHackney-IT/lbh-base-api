@@ -1,5 +1,3 @@
-version: "3.2"
-
 services:
   base-api:
     image: base-api
