@@ -190,20 +190,20 @@ workflows:
 #           context: api-nuget-token-context
 #           filters:
 #             branches:
-#               only: master
+#               only: main
 #       - assume-role-staging:
 #           context: api-assume-role-staging-context
 #           requires:
 #               - build-and-test
 #           filters:
 #              branches:
-#                only: master
+#                only: main
 #       - terraform-init-and-apply-to-staging:
 #           requires:
 #             - assume-role-staging
 #           filters:
 #             branches:
-#               only: master
+#               only: main
 #       - deploy-to-staging:
 #          context:
 #             - api-nuget-token-context
@@ -212,7 +212,7 @@ workflows:
 #             - terraform-init-and-apply-to-staging
 #           filters:
 #             branches:
-#               only: master
+#               only: main
 #       - permit-production-terraform-release:
 #           type: approval
 #           requires:
@@ -223,20 +223,20 @@ workflows:
 #               - permit-production-terraform-release
 #           filters:
 #              branches:
-#                only: master
+#                only: main
 #       - terraform-init-and-apply-to-production:
 #           requires:
 #             - assume-role-production
 #           filters:
 #             branches:
-#               only: master
+#               only: main
 #       - permit-production-release:
 #           type: approval
 #           requires:
 #             - deploy-to-staging
 #           filters:
 #             branches:
-#               only: master
+#               only: main
 #       - deploy-to-production:
 #           context:
 #             - api-nuget-token-context
@@ -246,4 +246,4 @@ workflows:
 #             - terraform-init-and-apply-to-production
 #           filters:
 #             branches:
-#               only: master
+#               only: main

@@ -92,13 +92,13 @@ $ make build && make serve
 At Hackney, we have created the NuGet Package to prevent the duplication of common code when implementing our APIs. Hence our NuGet packages will store the common code that can then be used in the relevant projects. For full details on the different features implemented within our packages please read [this ReadMe](https://github.com/LBHackney-IT/lbh-core/blob/release/README.md)
 
 ##### Using the package
-For full details on how to use the package(s) within this repository please read 
+For full details on how to use the package(s) within this repository please read
 [this wiki page](https://github.com/LBHackney-IT/lbh-core/wiki/Using-the-package(s)-from-the-Hackney.Core-repository).
 
 
 ### Release process
 
-We use a pull request workflow, where changes are made on a branch and approved by one or more other maintainers before the developer can merge into `master` branch.
+We use a pull request workflow, where changes are made on a branch and approved by one or more other maintainers before the developer can merge into `main` branch.
 
 ![Circle CI Workflow Example](docs/circle_ci_workflow.png)
 
@@ -111,7 +111,7 @@ Then we have an automated six step deployment process, which runs in CircleCI.
 5. We manually confirm a production deployment in the CircleCI workflow once we're happy with our changes in staging.
 6. The application is deployed to production.
 
-Our staging and production environments are hosted by AWS. We would deploy to production per each feature/config merged into  `master`  branch.
+Our staging and production environments are hosted by AWS. We would deploy to production per each feature/config merged into  `main`  branch.
 
 ### Creating A PR
 
